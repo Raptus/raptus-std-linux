@@ -1,0 +1,251 @@
+###
+### Nginx Wordpress site with SSL
+###
+
+### FCGI-Cacheing: Block
+#fastcgi_cache_path              /home/sites/SITE_NAME/cache 
+#                                levels=1:2 
+#                                keys_zone=fc_SITE_NAME:64M 
+#                                inactive=90m
+#                                max_size=1024M;
+
+### Redirect alias domains
+server {
+    server_name                 *.SITE_NAME;
+
+    ### Use this for multiple alias domains
+#    include                     /home/sites/SITE_NAME/conf/nginx-domain-aliases.conf;
+
+    ssl_certificate             /home/sites/SITE_NAME/ssl/package.pem;
+    ssl_certificate_key         /home/sites/SITE_NAME/ssl/private.key;
+    listen                      *:80;
+    listen                      *:443 ssl http2;
+    error_log                   /home/sites/SITE_NAME/pub/log/nginx-error.log warn;
+    return                      301 https://SITE_NAME$request_uri;
+}
+
+### Redirect all non-encrypted to encrypted
+server {
+    server_name                 SITE_NAME;
+    listen                      *:80;
+    error_log                   /home/sites/SITE_NAME/pub/log/error.log warn;
+    return                      301 https://SITE_NAME$request_uri;
+}
+
+### Server block (aka. virtualhost)
+server {
+    server_name                 SITE_NAME;
+    listen                      *:443 ssl http2;
+
+    ### Uncomment to enable FCGI cache logging
+#    access_log                  /home/sites/SITE_NAME/pub/log/nginx-access.log cache_log;
+    error_log                   /home/sites/SITE_NAME/pub/log/nginx-error.log warn;
+    root                        /home/sites/SITE_NAME/pub/httpdocs;
+    index                       index.html index.php;
+
+    ssl_certificate             /home/sites/SITE_NAME/ssl/package.pem;
+    ssl_certificate_key         /home/sites/SITE_NAME/ssl/private.key;
+
+    ### Uncomment to allow backend only from our IPs
+#    if ($not-our-ips) {
+#        rewrite                 ^/wp-login.php http://domain.tld? redirect;
+#    }
+
+    ### Block certain user agents
+#    if ($http_user_agent ~ "SEOkicks-Robot|SISTRIX|seoscanners.net|MJ12bot|UptimeRobot") {
+#        return 444;
+#        break;
+#    }
+
+    ### Primary location, matches probably last
+    location / {
+#        auth_basic              "Restricted Area";
+#        auth_basic_user_file    /home/sites/SITE_NAME/auth/htpasswd;
+
+        ### SPECIAL: Allow cross domain ressources
+#        add_header              Access-Control-Allow-Origin *;
+
+        ### SPECIAL: Disallow search engines by force
+#        add_header              X-Robots-Tag "noindex, nofollow, nosnippet, noarchive";
+
+        try_files               $uri $uri/ /index.html /index.php?$args;
+    }
+    
+    ### External file for SEO rewrites
+    include                     /home/sites/SITE_NAME/conf/nginx-rewrites.conf;
+
+    location = /favicon.ico {
+        log_not_found           off;
+    }
+
+    location = /robots.txt {
+        log_not_found           off;
+    }
+
+    ### Wordpress Yoast Plugin, XML Sitemaps
+#    location ~ ([^/]*)sitemap(.*)\.x(m|s)l$ {
+#        ## this redirects sitemap.xml to /sitemap_index.xml
+#        rewrite ^/sitemap\.xml$ /sitemap_index.xml permanent;
+#        ## this makes the XML sitemaps work
+#        rewrite ^/([a-z]+)?-?sitemap\.xsl$ /index.php?xsl=$1 last;
+#        rewrite ^/sitemap_index\.xml$ /index.php?sitemap=1 last;
+#        rewrite ^/([^/]+?)-sitemap([0-9]+)?\.xml$ /index.php?sitemap=$1&sitemap_n=$2 last;
+#        ## The following lines are optional for the premium extensions
+#        ## News SEO
+#        rewrite ^/news-sitemap\.xml$ /index.php?sitemap=wpseo_news last;
+#        ## Local SEO
+#        rewrite ^/locations\.kml$ /index.php?sitemap=wpseo_local_kml last;
+#        rewrite ^/geo-sitemap\.xml$ /index.php?sitemap=wpseo_local last;
+#        ## Video SEO
+#        rewrite ^/video-sitemap\.xsl$ /index.php?xsl=video last;
+#    }
+
+    ### Add trailing slash to */wp-admin 
+    rewrite                     /wp-admin$ $scheme://$host$uri/ permanent;
+
+    ### Prevent public access for Wordpress internals
+    location ~* wp-admin/includes { deny all; }
+    location ~* wp-includes/theme-compat/ { deny all; }
+    location ~* wp-includes/js/tinymce/langs/.*\.php { deny all; }
+
+    ### Prevent potentially-executable files in the uploads directory
+    location ~* ^/wp-content/uploads/.*.(html|htm|shtml|php)$ {
+        types                   { }
+        default_type            text/plain;
+    }
+
+    ### Disable direct access of any *.php in /wp_content/uploads folder
+    location ~ ^/wp-content/uploads/.+\.php$ {
+        return 404;
+    }
+
+    ### Disallow access to important files            
+    location ~* (/\.|wp-config\.php|(liesmich|readme).*) {
+        return 404;
+    }
+
+    ### Keep images and CSS in browser cache for as long as possible, to cut down on server load
+    location ~* \.(jpg|jpeg|gif|png|css|js|ico|xml|svg|woff|eot|ttf)$ {
+        log_not_found           off;
+        expires                 1w;
+    }
+
+    ### Prevent access to any files starting with a dot, like .htaccess or temp files
+    location ~ /\. { 
+        log_not_found           off;
+        deny                    all; 
+    }
+
+    ### Prevent access to any files starting with a $ (usually temp files)
+    location ~ ~$ { 
+        log_not_found           off; 
+        deny                    all; 
+    }
+
+    ### W3TC Page Cache
+#    location ~ /content/cache/page_enhanced.*html$ {
+#        add_header              Vary "Accept-Encoding, Cookie";
+#    }
+#    location ~ /content/cache/page_enhanced.*gzip$ {
+#        gzip                    off;
+#        types                   {}
+#        default_type            text/html;
+#        add_header              Vary "Accept-Encoding, Cookie";
+#        add_header              Content-Encoding gzip;
+#    }
+
+    ### FCGI-Cacheing DEBUG: Honour Ctrl+R, ignore Ctrl+Shift+R
+#    set                         $ctrl_f_five 0;
+#    if ($http_cache_control = "no-cache") {
+#        set $ctrl_f_five        1;
+#    }
+
+    ### FCGI-Cacheing: Default policy is to cache all
+#    set                         $skip_cache 0;
+
+    ### FCGI-Cacheing: Tagging
+#    if ($query_string != "") {
+#        set $skip_cache         1;
+#    }
+
+    ### FCGI-Cacheing: Tagging
+#    if ($request_uri ~* "(/wc-api/|/wp-admin/|/xmlrpc.php|/wp-(app|cron|login|register|mail).php|wp-.*.php|/feed/|index.php|wp-comments-popup.php|wp-links-opml.php|wp-locations.php|sitemap(_index)?.xml|[a-z0-9_-]+-sitemap([0-9]+)?.xml)") {
+#        set $skip_cache         1;
+#    }
+
+    ### FCGI-Cacheing: Cache filtering and ordering
+    ###                OVERRIDES NOT CACHEING REQUESTS WITH QUERY STRINGS
+#    if ($query_string ~* "^((filter_[^=]+=[^&^$]+|query_type_[^=]+=(or|and)|order_by=[^&^$]*|raf_ajax=1)(&|$))+$") {
+#        set $skip_cache         0;
+#    }
+
+    ### FCGI-Cacheing: Tagging
+#    if ($http_cookie ~* "comment_author|wordpress_[a-f0-9]+|wp-postpass|wordpress_logged_in") {
+#        set $skip_cache         1;
+#    }
+
+    ### FCGI-Cacheing: POST Requests are not cached by default, but this ensures that
+    ###                the cookie headers are not cleared for them
+#    if ($request_method = POST) {
+#        set $skip_cache         1;
+#    }
+
+    location ~ \.php$ {
+        include                 fastcgi_params;
+#        fastcgi_pass            localhost:PHPFPM_PORT;
+        fastcgi_pass            unix:/home/sites/SITE_NAME/run/php-fpm.sock;
+        fastcgi_temp_path       /home/sites/SITE_NAME/pub/tmp/fcgi 1 2;
+        fastcgi_param           SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param           HTTPS on;
+
+        ### Uncomment to let webapp handle the error page
+        fastcgi_intercept_errors off;
+
+        ### FCGI-Cacheing: if cacheing, dont cache cookies NEEDS: http://wiki.nginx.org/HttpHeadersMoreModule
+        ###                the clear_cookie_headers variable is defined in /etc/nginx/conf.d/global-maps.conf
+        ###                and makes sure cookies are not cleared if the App sets the X-No-Cache header:
+        ###
+        ###                default           => $clear_cookie_headers: "Set-Cookie*"
+        ###                X-No-Cache: 1     => $clear_cookie_headers: ""
+#        if ($skip_cache = 0) {
+#            more_clear_headers $clear_cookie_headers;
+#        }
+
+        ### FCGI-Cacheing: Enable the cacheing mechanism
+#        fastcgi_cache_valid     200         30h;
+#        fastcgi_cache_valid     301         1d;
+#        fastcgi_cache           fc_SITE_NAME;
+#        fastcgi_cache_bypass    $skip_cache $http_pragma $ctrl_f_five;
+        ### FCGI-Cacheing: Delegate cacheing decision to App using X-No-Cache header
+#        fastcgi_no_cache        $skip_cache $sent_http_x_no_cache;
+
+        ### FCGI-Cacheing: Uncomment this for cache debugging via browser
+#        add_header              X-Cache $upstream_cache_status;
+    }
+
+    ### Show "Not Found" 404 errors in place of "Forbidden" 403 errors, because
+    ### forbidden errors allow attackers potential insight into your server's
+    ### layout and contents
+    error_page                  403 = 404;
+
+    ### Uncomment to enable custom error pages
+#    error_page                  403 /error-page/403.html;
+#    error_page                  404 /error-page/404.html;
+#    error_page                  405 /error-page/405.html;
+#    location ^~ /error-page/ {
+#        internal;
+#        root                    /home/sites/SITE_NAME/pub;
+#    }
+
+    ### Error pages must have properly set http headers!
+    error_page                  500 501 504 http://temp.raptus.com/overload/;
+    error_page                  502 503 http://temp.raptus.com/maintenance/;
+
+    ### Uncomment to enable maintenance mode
+#    if ($not-our-ips) {
+#        return                  503;
+#    }
+
+}
+
+# eof

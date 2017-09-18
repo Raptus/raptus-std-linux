@@ -1,0 +1,155 @@
+###
+### Nginx standard site with SSL
+###
+
+### FCGI-Cacheing: Block
+#fastcgi_cache_path              /home/sites/SITE_NAME/cache 
+#                                levels=1:2 
+#                                keys_zone=fc_SITE_NAME:64M 
+#                                inactive=90m
+#                                max_size=1024M;
+
+### Redirect alias domains
+server {
+    server_name                 *.SITE_NAME;
+
+    ### Use this for multiple alias domains
+#    include                     /home/sites/SITE_NAME/conf/nginx-domain-aliases.conf;
+
+    ssl_certificate             /home/sites/SITE_NAME/ssl/package.pem;
+    ssl_certificate_key         /home/sites/SITE_NAME/ssl/private.key;
+    listen                      *:80;
+    listen                      *:443 ssl http2;
+    error_log                   /home/sites/SITE_NAME/pub/log/nginx-error.log warn;
+    return                      301 https://SITE_NAME$request_uri;
+}
+
+### Redirect all non-encrypted to encrypted
+server {
+    server_name                 SITE_NAME;
+    listen                      *:80;
+    error_log                   /home/sites/SITE_NAME/pub/log/nginx-error.log warn;
+    return                      301 https://SITE_NAME$request_uri;
+}
+
+### Server block (aka. virtualhost)
+server {
+    server_name                 SITE_NAME;
+    listen                      *:443 ssl http2;
+
+    ### Uncomment to enable FCGI cache logging
+#    access_log                  /home/sites/SITE_NAME/pub/log/nginx-access.log cache_log;
+    error_log                   /home/sites/SITE_NAME/pub/log/nginx-error.log warn;
+    root                        /home/sites/SITE_NAME/pub/httpdocs;
+    index                       index.html index.php;
+
+    ssl_certificate             /home/sites/SITE_NAME/ssl/package.pem;
+    ssl_certificate_key         /home/sites/SITE_NAME/ssl/private.key;
+
+    ### Uncomment to allow backend only from our IPs
+#    if ($not-our-ips) {
+#        rewrite                 ^/login.php http://domain.tld? redirect;
+#    }
+
+    ### Primary location, matches probably last
+    location / {
+#        auth_basic              "Restricted Area";
+#        auth_basic_user_file    /home/sites/SITE_NAME/auth/htpasswd;
+
+        ### SPECIAL: Allow cross domain ressources
+#        add_header              Access-Control-Allow-Origin *;
+
+        ### SPECIAL: Disallow search engines by force
+#        add_header              X-Robots-Tag "noindex, nofollow, nosnippet, noarchive";
+
+        try_files               $uri $uri/ /index.html /index.php?$args =404;
+    }
+
+    ### External file for SEO rewrites
+    include                     /home/sites/SITE_NAME/conf/nginx-rewrites.conf;
+    
+    location = /favicon.ico {
+        log_not_found           off;
+    }
+
+    location = /robots.txt {
+        log_not_found           off;
+    }
+
+    ### Keep images and CSS in browser cache for as long as possible, to cut down on server load
+    location ~* \.(jpg|jpeg|gif|png|css|js|ico|xml|svg|woff)$ {
+        log_not_found           off;
+        expires                 1w;
+    }
+
+    ### Prevent access to any files starting with a dot, like .htaccess or temp files
+    location ~ /\. { 
+        log_not_found           off;
+        deny                    all; 
+    }
+
+    ### Prevent access to any files starting with a $ (usually temp files)
+    location ~ ~$ { 
+        log_not_found           off; 
+        deny                    all; 
+    }
+
+    ### FCGI-Cacheing: Default policy is to cache all
+#    set                         $skip_cache 0;
+
+    ### FCGI-Cacheing: Tagging
+#    if ($request_url ~* "/(administrator/|login.php)") {
+#        set $skip_cache         1;
+#    }
+
+    ### FCGI-Cacheing: Tagging
+#    if ($http_cookie = "PHPSESSID") {
+#        set $skip_cache         1;
+#    }
+
+    location ~ \.php$ {
+        include                 fastcgi_params;
+#        fastcgi_pass            localhost:PHPFPM_PORT;
+        fastcgi_pass            unix:/home/sites/SITE_NAME/run/php-fpm.sock;
+        fastcgi_temp_path       /home/sites/SITE_NAME/pub/tmp/fcgi 1 2;
+        fastcgi_param           SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param           HTTPS on;
+
+        ### Uncomment to let webapp handle the error page
+#        fastcgi_intercept_errors off;
+
+        ### FCGI-Cacheing: Enable the cacheing mechanism
+#        fastcgi_cache           fc_SITE_NAME;
+#        fastcgi_cache_bypass    $skip_cache;
+#        fastcgi_no_cache        $skip_cache;
+
+        ### FCGI-Cacheing: Uncomment this for cache debugging via browser
+#        add_header              X-Cache $upstream_cache_status;
+    }
+
+    ### Show "Not Found" 404 errors in place of "Forbidden" 403 errors, because
+    ### forbidden errors allow attackers potential insight into your server's
+    ### layout and contents
+    error_page                  403 = 404;
+
+    ### Uncomment to enable custom error pages
+#    error_page                  403 /error-page/403.html;
+#    error_page                  404 /error-page/404.html;
+#    error_page                  405 /error-page/405.html;
+#    location ^~ /error-page/ {
+#        internal;
+#        root                    /home/sites/SITE_NAME/pub;
+#    }
+
+    ### Error pages must have properly set http headers!
+    error_page                  500 501 504 http://temp.raptus.com/overload/;
+    error_page                  502 503 http://temp.raptus.com/maintenance/;
+
+    ### Uncomment to enable maintenance mode
+#    if ($not-our-ips) {
+#        return                  503;
+#    }
+
+}
+
+# eof

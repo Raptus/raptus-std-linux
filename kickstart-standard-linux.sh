@@ -25,10 +25,9 @@ fi
 test -d "/root/scripts" || mkdir -p /root/scripts
 git clone --depth 1 https://bitbucket.org/raptus-it-services/raptus-std-linux.git /root/scripts/rsl > /dev/null 2>&1
 
-if test -f "/root/scripts/rsl/std-linux/bootstrap.sh" 
+if test -f "/root/scripts/rsl/std-linux/bootstrap.sh"
 then
-	#/root/scripts/rsl/std-linux/bootstrap.sh
-	echo "Inst"
+	/root/scripts/rsl/std-linux/bootstrap.sh
 else
     echo "Cannot find bootstrap file. Aborting."
     exit 1

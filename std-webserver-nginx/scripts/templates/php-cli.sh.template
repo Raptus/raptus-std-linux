@@ -1,0 +1,10 @@
+#!/bin/bash
+
+SITE="SITE_NAME"
+PHPMAJ="`cat /home/sites/$SITE/conf/php-cli/php-major`"
+PHPBIN="/opt/php$PHPMAJ/bin/php"
+PHP_INI_SCAN_DIR="/home/sites/$SITE/conf/php-cli/php${PHPMAJ}-conf.d"
+
+$PHPBIN -c /home/sites/$SITE/conf/php-cli/php${PHPMAJ}.ini $@
+
+# eof

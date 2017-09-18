@@ -1,0 +1,28 @@
+echo "### Setting up nginx (may take a while)"
+
+NGINX_OSRELEASE="7"
+NGINX_BASEARCH="x86_64"
+
+cat > /etc/yum.repos.d/nginx.repo << EOF
+[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/centos/$NGINX_OSRELEASE/$NGINX_BASEARCH/
+gpgcheck=0
+enabled=1
+EOF
+
+# Need to build from source, since no loadable module support yet 
+yum -y install nginx >> $LOGFILE
+
+mv /etc/nginx /etc/nginx.ORIG
+cp -R $SCRIPTPATH/std-linux/configs-centos/etc-nginx /etc/nginx
+sed -r -i "s/(HOSTMASTER).*$/\1$ADMIN_EMAIL/g" /etc/nginx/fastcgi_params
+
+# generate a stronger DHE parameter 
+# Using -dsaparam to speedup. See this for more information:
+# https://security.stackexchange.com/questions/95178/diffie-hellman-parameters-still-calculating-after-24-hours
+openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 4096 >> $LOGFILE 2>&1
+
+systemctl daemon-reload
+systemctl enable nginx.service >> $LOGFILE 2>&1
+

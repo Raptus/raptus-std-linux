@@ -1,0 +1,12 @@
+[Unit]
+Description=PHP FPM for SITE_NAME
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/home/sites/SITE_NAME/run/php-fpm.pid
+ExecStart=/home/sites/SITE_NAME/scripts/php-fpm.sh
+ExecReload=/bin/kill -USR2 $MAINPID
+
+[Install]
+WantedBy=multi-user.target

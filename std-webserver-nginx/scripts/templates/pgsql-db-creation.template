@@ -1,0 +1,5 @@
+
+create user "DB_USER" with password 'DB_PASS';
+create database "DB_NAME" owner "DB_USER";
+grant all privileges on database "DB_NAME" to "DB_USER";
+
