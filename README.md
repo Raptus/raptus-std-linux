@@ -8,4 +8,4 @@
 
 ### How do I get set up? ###
 
-* bash <(curl -s https://bitbucket.org/raptus-it-services/raptus-std-linux/kickstart-standard-linux.sh)
+* bash <(curl -s https://bitbucket.org/raptus-it-services/raptus-std-linux/raw/master/kickstart-standard-linux.sh)
