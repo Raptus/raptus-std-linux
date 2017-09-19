@@ -10,7 +10,7 @@ function enablePHP()
         echo "PHP-FPM pool for $site is already enabled" >>/dev/stderr
         exit 1
     else
-        systemctl enable /etc/systemd/system/php-fpm_$site.service >> /dev/null 2>&1
+        systemctl enable /etc/systemd/system/php-fpm_$site.service >> $LOGFILE 2>&1
         systemctl start php-fpm_$site.service
         systemctl status php-fpm_$site.service
         $WEB_PATH/scripts/update-static.sh
@@ -27,7 +27,7 @@ function disablePHP()
         exit 1
     else
         systemctl stop php-fpm_$site.service
-        systemctl disable php-fpm_$site.service >> /dev/null 2>&1
+        systemctl disable php-fpm_$site.service >> $LOGFILE 2>&1
         $WEB_PATH/scripts/update-static.sh
         echo "PHP-FPM pool for $site is now stopped and disabled"
     fi

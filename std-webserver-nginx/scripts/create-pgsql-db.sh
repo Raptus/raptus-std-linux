@@ -11,7 +11,7 @@ function createDB()
     if ! test "`systemctl is-active postgresql.service`" = "active"
     then
         echo "Enabling PostgreSQL service"
-        systemctl enable postgresql.service >> /dev/null 2>&1
+        systemctl enable postgresql.service >> $LOGFILE 2>&1
         systemctl start postgresql.service
     fi
 

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source /root/scripts/rsl/common.inc
+
 if test -z "$1" || test -z "$2"
 then
     echo "Usage: $0 <domain.tld> <acme_account_email>"
@@ -21,7 +23,7 @@ then
     exit 3
 fi
 
-certbot --nginx certonly --agree-tos -n -m "$ACMEACCOUNT" -d "$SITE"
+certbot --nginx certonly --agree-tos -n -m "$ACMEACCOUNT" -d "$SITE" >> $LOGFILE 2>&1
 
 if ! test -f /etc/letsencrypt/live/$SITE/fullchain.pem &&
    ! test -f /etc/letsencrypt/live/$SITE/privkey.pem
@@ -33,7 +35,7 @@ fi
 ln -sf /etc/letsencrypt/live/$SITE/fullchain.pem /home/sites/$SITE/ssl/package.pem
 ln -sf /etc/letsencrypt/live/$SITE/privkey.pem /home/sites/$SITE/ssl/private.key
 
-nginx -t >/dev/null 2>&1
+nginx -t >> $LOGFILE 2>&1
 if ! test "$?" = "0"
 then
     echo "Nginx configuration is not ok. Aborting." >>/dev/stderr

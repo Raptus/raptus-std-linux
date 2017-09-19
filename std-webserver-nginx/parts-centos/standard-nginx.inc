@@ -14,6 +14,7 @@ EOF
 # Need to build from source, since no loadable module support yet 
 yum -y install nginx >> $LOGFILE
 
+mkdir -p /etc/nginx/sites-enabled
 mv /etc/nginx /etc/nginx.ORIG
 cp -R $WEB_PATH/configs-centos/etc-nginx /etc/nginx
 sed -r -i "s/(HOSTMASTER).*$/\1$ADMIN_EMAIL/g" /etc/nginx/fastcgi_params

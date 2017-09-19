@@ -33,7 +33,6 @@ function updateConfig()
 
         if ! test -d /home/sites/$site
         then
-            echo "Creating structure in /home/sites/$site"
             mkdir -p /home/sites/$site/{auth,cache,conf,pub,run,scripts,ssl}
             mkdir -p /home/sites/$site/conf/{php-cli,php-fpm}
             mkdir -p /home/sites/$site/pub/{error-page,install,httpdocs,log,scripts,sessions,tmp}
@@ -68,7 +67,6 @@ function updateConfig()
 
         if ! test -f $CONFDIR/nginx.conf
         then
-            echo "Creating nginx.conf from template"
             sed "s/SITE_NAME/$site/g" $NGINX_TEMPL > $CONFDIR/nginx.conf.IN.1
             sed "s/PHPFPM_PORT/$PORT/g" $CONFDIR/nginx.conf.IN.1 > $CONFDIR/nginx.conf
             rm -f $CONFDIR/nginx.conf.IN.*
@@ -76,7 +74,6 @@ function updateConfig()
 
         if ! test -f $CONFDIR/nginx-rewrites.conf
         then
-            echo "Copying Nginx external config file(s)"
             cp $TEMPLPATH/nginx-rewrites.conf $CONFDIR/
         fi
 
@@ -90,21 +87,18 @@ function updateConfig()
 
         if ! test -f $CONFDIR/php-cli/php5.ini
         then
-            echo "Creating php.ini for PHP5 CLI from template"
             sed "s/SITE_NAME/$site/g" $TEMPLPATH/php5-cli.ini.template > $CONFDIR/php-cli/php5.ini
             ln -s /etc/php5/conf.d /home/sites/$site/conf/php-cli/php5-conf.d
         fi
 
         if ! test -f $CONFDIR/php-cli/php7.ini
         then
-            echo "Creating php.ini for PHP7 CLI from template"
             sed "s/SITE_NAME/$site/g" $TEMPLPATH/php7-cli.ini.template > $CONFDIR/php-cli/php7.ini
             ln -s /etc/php7/conf.d /home/sites/$site/conf/php-cli/php7-conf.d
         fi
 
         if ! test -f /home/sites/$site/scripts/php-cli.sh
         then
-            echo "Creating PHP CLI wrapper script"
             sed "s/SITE_NAME/$site/g" $TEMPLPATH/php-cli.sh.template > /home/sites/$site/scripts/php-cli.sh
         fi
 
@@ -118,34 +112,29 @@ function updateConfig()
 
         if ! test -f $CONFDIR/php-fpm/php5.ini
         then
-            echo "Creating php.ini for PHP5 FPM pool from template"
             sed "s/SITE_NAME/$site/g" $TEMPLPATH/php5-fpm.ini.template > $CONFDIR/php-fpm/php5.ini
             ln -s /etc/php5/conf.d /home/sites/$site/conf/php-fpm/php5-conf.d
         fi
 
         if ! test -f $CONFDIR/php-fpm/php7.ini
         then
-            echo "Creating php.ini for PHP7 FPM pool from template"
             sed "s/SITE_NAME/$site/g" $TEMPLPATH/php7-fpm.ini.template > $CONFDIR/php-fpm/php7.ini
             ln -s /etc/php7/conf.d /home/sites/$site/conf/php-fpm/php7-conf.d
         fi
 
         if ! test -f /home/sites/$site/scripts/php-fpm.sh
         then
-            echo "Creating PHP-FPM pool wrapper script"
             sed "s/SITE_NAME/$site/g" $TEMPLPATH/php-fpm.sh.template > /home/sites/$site/scripts/php-fpm.sh
         fi
 
         if ! test -f /etc/systemd/system/php-fpm_$site.service
         then
-            echo "Creating PHP-FPM pool systemd unit"
             sed "s/SITE_NAME/$site/g" $TEMPLPATH/php-fpm-systemd-unit.template > /etc/systemd/system/php-fpm_$site.service
             systemctl daemon-reload
         fi
 
         if ! test -f $CONFDIR/php-fpm/php-fpm.conf
         then
-            echo "Creating PHP-FPM pool configuration"
             sed "s/SITE_NAME/$site/g" $TEMPLPATH/php-fpm-pool.template > $CONFDIR/php-fpm/php-fpm.conf.IN.1
             sed "s/UID_NAME/$uid/g" $CONFDIR/php-fpm/php-fpm.conf.IN.1 > $CONFDIR/php-fpm/php-fpm.conf.IN.2
             sed "s/PHPFPM_PORT/$PORT/g" $CONFDIR/php-fpm/php-fpm.conf.IN.2 > $CONFDIR/php-fpm/php-fpm.conf
@@ -154,14 +143,14 @@ function updateConfig()
 
         echo "Fixing access rights"
         chown $uid:nginx /home/sites/$site
-        $WEB_PATH/scripts/reset-access-rights.sh $site
+        $WEB_PATH/scripts/reset-access-rights.sh $site >> $LOGFILE
 
         if test "$template" = "$ADMINTMPL"
         then
-            systemctl restart nginx.service >> /dev/null
-            $WEB_PATH/scripts/manage-site.sh $site site-enable >> /dev/null
-            $WEB_PATH/scripts/manage-site.sh $site php-enable >> /dev/null
-            $WEB_PATH/scripts/ssl-letsencrypt-certificate.sh $site $ACME_ACCOUNT >> /dev/null
+            systemctl restart nginx.service >> >> $LOGFILE 2>&<
+            $WEB_PATH/scripts/manage-site.sh $site site-enable >> $LOGFILE
+            $WEB_PATH/scripts/manage-site.sh $site php-enable >> $LOGFILE
+            $WEB_PATH/scripts/ssl-letsencrypt-certificate.sh $site $ACME_ACCOUNT >> $LOGFILE
         else
             echo
             echo "ATTENTION"

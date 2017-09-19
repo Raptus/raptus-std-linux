@@ -32,7 +32,7 @@ function createFTP()
     if ! test "`systemctl is-active pure-ftpd.service`" = "active"
     then
         echo "Enabling FTP service"
-        systemctl enable pure-ftpd.service >> /dev/null 2>&1
+        systemctl enable pure-ftpd.service >> $LOGFILE 2>&1
         systemctl start pure-ftpd.service
     fi
 
@@ -42,7 +42,7 @@ function createFTP()
     tfile="`mktemp`"
     echo "$ftppass" > $tfile
     echo "$ftppass" >> $tfile
-    pure-pw useradd $ftpuser -u $uid -g nginx -d /home/sites/$site/pub < $tfile >/dev/null
+    pure-pw useradd $ftpuser -u $uid -g nginx -d /home/sites/$site/pub < $tfile >> $LOGFILE
     pure-pw mkdb
     rm $tfile    
     echo "done"
