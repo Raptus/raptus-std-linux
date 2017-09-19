@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /root/scripts/std-linux/common.inc
+source /root/scripts/rsl/std-linux/common.inc
 checkHostname
 checkInstall
 
