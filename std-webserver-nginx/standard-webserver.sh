@@ -25,14 +25,14 @@ echo "    Logfile: $LOGFILE"
 askConfirmation
 
 # ATTENTION: Dependencies!!!
-source $SCRIPTPATH/../std-linux/parts-centos/standard-webserver.inc
-source $SCRIPTPATH/../std-linux/parts-centos/standard-memcached.inc
-source $SCRIPTPATH/../std-linux/parts-centos/standard-pureftp.inc
-source $SCRIPTPATH/../std-linux/parts-centos/standard-mariadb.inc
-source $SCRIPTPATH/../std-linux/parts-centos/standard-postgresql.inc
-source $SCRIPTPATH/../std-linux/parts-centos/standard-nginx.inc
-source $SCRIPTPATH/../std-linux/parts-centos/standard-php.inc
-source $SCRIPTPATH/../std-linux/parts-centos/standard-phpmyadmin.inc
+source $SCRIPTPATH/parts-centos/standard-webserver.inc
+source $SCRIPTPATH/parts-centos/standard-memcached.inc
+source $SCRIPTPATH/parts-centos/standard-pureftp.inc
+source $SCRIPTPATH/parts-centos/standard-mariadb.inc
+source $SCRIPTPATH/parts-centos/standard-postgresql.inc
+source $SCRIPTPATH/parts-centos/standard-nginx.inc
+source $SCRIPTPATH/parts-centos/standard-php.inc
+source $SCRIPTPATH/parts-centos/standard-phpmyadmin.inc
 
 echo "### Setting up basic structure"
 mkdir -p /home/archived

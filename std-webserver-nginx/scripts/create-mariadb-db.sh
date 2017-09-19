@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source /root/scripts/rsl/common.inc
-BASEPATH="/root/scripts/rsl/std-webserver-nginx"
+SCRIPTPATH="/root/scripts/rsl/std-webserver-nginx"
 
 function createDB()
 {
@@ -26,7 +26,7 @@ function createDB()
     echo -n "Creating MariaDB database $dbname ... "
     tfile1="`mktemp`"
     tfile2="`mktemp`"
-    sed "s/DB_NAME/$dbname/g" $BASEPATH/templates/mariadb-db-creation.template > $tfile1
+    sed "s/DB_NAME/$dbname/g" $SCRIPTPATH/templates/mariadb-db-creation.template > $tfile1
     sed "s/DB_USER/$dbuser/g" $tfile1 > $tfile2
     sed "s/DB_PASS/$dbpass/g" $tfile2 > $tfile1
     mysql -h localhost -u dbadmin < $tfile1

@@ -27,6 +27,14 @@ fi
 OUR_IPS=
 OUR_IPS_SPACED=
 ADMIN_EMAIL=
+ACME_ACCOUNT=
+ENABLE_FIREWALL=
+CFGFILE="/root/.rslcfg"
+if test -f "$CFGFILE"
+then
+    source "$CFGFILE"
+    OUR_IPS_SPACED="`echo $OUR_IPS | tr ',' ' '`"
+fi
 
 APGOPTS="-n1 -m15 -x15 -a0 -q -M NCL"
 TEMPDIR="/var/rsl/tmp"
@@ -36,7 +44,6 @@ STATEDIR="/var/rsl/state"
 LOCKFILE="$LOCKDIR/$SCRIPTID.done"
 LOCKFILE_BSTRAP="$LOCKDIR/bootstrap.done"
 LOGFILE="$LOGDIR/$SCRIPTID-`date +%Y%m%d-%H%M`.log"
-CFGFILE="/root/.rslcfg"
 MACHINE_TYPE="physical"
 MACHINE_INFO="n/a"
 

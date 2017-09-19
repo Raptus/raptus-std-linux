@@ -32,7 +32,6 @@ source $SCRIPTPATH/parts-centos/standard-snmp.inc
 source $SCRIPTPATH/parts-centos/standard-prtg.inc
 source $SCRIPTPATH/parts-centos/standard-fstrim.inc
 source $SCRIPTPATH/parts-centos/standard-sysdefaults.inc
-source $SCRIPTPATH/parts-centos/standard-fail2ban.inc
 source $SCRIPTPATH/parts-centos/standard-shorewall.inc
 source $SCRIPTPATH/parts-centos/standard-tuning.inc
 
