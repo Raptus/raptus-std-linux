@@ -2,9 +2,9 @@
 # Defaults & Helpers
 #
 
-$RSL_PATH=/root/scripts/rsl
-$STD_PATH=/root/scripts/rsl/std-linux
-$WEB_PATH=/root/scripts/rsl/std-webserver-nginx
+RSL_PATH=/root/scripts/rsl
+STD_PATH=/root/scripts/rsl/std-linux
+WEB_PATH=/root/scripts/rsl/std-webserver-nginx
 
 # Detect distribution
 DISTRO=""
