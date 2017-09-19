@@ -3,7 +3,7 @@
 OLDDIR="`pwd`"
 cd /root/scripts/rsl
 git pull >> /dev/null 
-source /root/scripts/rsl/std-linux/common.inc
+source /root/scripts/rsl/common.inc
 checkHostname
 checkInstall
 checkLockFile

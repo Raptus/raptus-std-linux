@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /root/scripts/rsl/std-linux/common.inc
+source /root/scripts/rsl/common.inc
 BASEPATH="/root/scripts/rsl/std-webserver-nginx"
 
 function createDB()
