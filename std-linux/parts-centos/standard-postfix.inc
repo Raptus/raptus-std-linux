@@ -4,7 +4,7 @@ echo "### Setting up postfix"
 yum -y install cyrus-sasl-plain  >> $LOGFILE
 
 mv /etc/postfix/main.cf /etc/postfix/main.cf.ORIG
-cp $SCRIPTPATH/configs-centos/etc-postfix/main.cf /etc/postfix/main.cf
+cp $STD_PATH/configs-centos/etc-postfix/main.cf /etc/postfix/main.cf
 
 mv /etc/aliases /etc/aliases.ORIG
 cat > /etc/aliases << EOF

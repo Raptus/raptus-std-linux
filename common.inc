@@ -2,6 +2,10 @@
 # Defaults & Helpers
 #
 
+$RSL_PATH=/root/scripts/rsl
+$STD_PATH=/root/scripts/rsl/std-linux
+$WEB_PATH=/root/scripts/rsl/std-webserver-nginx
+
 # Detect distribution
 DISTRO=""
 if ! test -z "`grep 'ID.*centos' /etc/os-release`"
@@ -12,17 +16,6 @@ then
 fi
 
 DISTRO_NAME="`sed -r -n 's/PRETTY_NAME=\"(.*)\"/\1/p' /etc/os-release`"
-
-if test -z "`echo $0 | grep 'bash'`"
-then
-    SCRIPT=$(readlink -f $0)
-    SCRIPTID=`basename $0 | head -c -4`
-    SCRIPTPATH=`dirname $SCRIPT`
-else
-    SCRIPT="none"
-    SCRIPTID="none"
-    SCRIPTPATH="/root/scripts/rsl/std-linux"
-fi
 
 OUR_IPS=
 OUR_IPS_SPACED=
@@ -41,6 +34,7 @@ TEMPDIR="/var/rsl/tmp"
 LOCKDIR="/var/rsl/lock"
 LOGDIR="/var/rsl/log"
 STATEDIR="/var/rsl/state"
+SCRIPTID=`basename $0 | head -c -4`
 LOCKFILE="$LOCKDIR/$SCRIPTID.done"
 LOCKFILE_BSTRAP="$LOCKDIR/bootstrap.done"
 LOGFILE="$LOGDIR/$SCRIPTID-`date +%Y%m%d-%H%M`.log"

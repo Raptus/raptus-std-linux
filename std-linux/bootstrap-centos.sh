@@ -17,23 +17,23 @@ yum -y install acpid apg bzip2 bind-utils bonnie++ ftp ghostscript git nano nmap
                sshfs yum-utils sysstat >> $LOGFILE 2>&1
 
 echo "### Setting up environment"
-cp $SCRIPTPATH/configs-centos/.bashrc /root/
-cp $SCRIPTPATH/configs-centos/.screenrc /root/
-cp $SCRIPTPATH/configs-centos/.vimrc /root/
+cp $STD_PATH/configs-centos/.bashrc /root/
+cp $STD_PATH/configs-centos/.screenrc /root/
+cp $STD_PATH/configs-centos/.vimrc /root/
 touch /root/.bashrc_local
 mkdir /root/{dist,build,temp}
 
-source $SCRIPTPATH/parts-centos/standard-security.inc
-source $SCRIPTPATH/parts-centos/standard-ssh.inc
-source $SCRIPTPATH/parts-centos/standard-cron.inc
-source $SCRIPTPATH/parts-centos/standard-ntp.inc
-source $SCRIPTPATH/parts-centos/standard-postfix.inc
-source $SCRIPTPATH/parts-centos/standard-snmp.inc
-source $SCRIPTPATH/parts-centos/standard-prtg.inc
-source $SCRIPTPATH/parts-centos/standard-fstrim.inc
-source $SCRIPTPATH/parts-centos/standard-sysdefaults.inc
-source $SCRIPTPATH/parts-centos/standard-shorewall.inc
-source $SCRIPTPATH/parts-centos/standard-tuning.inc
+source $STD_PATH/parts-centos/standard-security.inc
+source $STD_PATH/parts-centos/standard-ssh.inc
+source $STD_PATH/parts-centos/standard-cron.inc
+source $STD_PATH/parts-centos/standard-ntp.inc
+source $STD_PATH/parts-centos/standard-postfix.inc
+source $STD_PATH/parts-centos/standard-snmp.inc
+source $STD_PATH/parts-centos/standard-prtg.inc
+source $STD_PATH/parts-centos/standard-fstrim.inc
+source $STD_PATH/parts-centos/standard-sysdefaults.inc
+source $STD_PATH/parts-centos/standard-shorewall.inc
+source $STD_PATH/parts-centos/standard-tuning.inc
 
 echo "### Setting up services"
 chmod +x /etc/rc.local
@@ -50,9 +50,9 @@ chmod -x /usr/lib/systemd/system/wpa_supplicant.service
 
 detectSystem
 echo "### Detected machine type: $MACHINE_TYPE / $MACHINE_INFO"
-if test -f "$SCRIPTPATH/parts-centos/machine-$MACHINE_TYPE.inc"
+if test -f "$STD_PATH/parts-centos/machine-$MACHINE_TYPE.inc"
 then
-    source $SCRIPTPATH/parts-centos/machine-$MACHINE_TYPE.inc
+    source $STD_PATH/parts-centos/machine-$MACHINE_TYPE.inc
 fi
 
 #eof

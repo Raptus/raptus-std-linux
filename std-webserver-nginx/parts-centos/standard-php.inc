@@ -34,8 +34,8 @@ done
 
 yum -y install aspell-de aspell-es aspell-fr aspell-it >> $LOGFILE 2>&1
 
-cp -R $SCRIPTPATH/configs-centos/etc-php5/conf.d /etc/php5/conf.d
-cp -R $SCRIPTPATH/configs-centos/etc-php7/conf.d /etc/php7/conf.d
+cp -R $WEB_PATH/configs-centos/etc-php5/conf.d /etc/php5/conf.d
+cp -R $WEB_PATH/configs-centos/etc-php7/conf.d /etc/php7/conf.d
 
 mkdir /var/lib/memcache
 mkdir /var/php5-fpm
@@ -44,4 +44,4 @@ useradd -d /var/php5-fpm -M -U -s /sbin/nologin php5-fpm
 ln -s /opt/remi/php56/root /opt/php5
 ln -s /opt/remi/php71/root /opt/php7
 
-cp $SCRIPTPATH/configs-centos/etc-logrotate.d/php-fpm_sites /etc/logrotate.d/php-fpm_sites
+cp $WEB_PATH/configs-centos/etc-logrotate.d/php-fpm_sites /etc/logrotate.d/php-fpm_sites

@@ -6,6 +6,6 @@
 source /root/scripts/rsl/common.inc
 checkLockFile
 
-/root/scripts/rsl/std-linux/util/rebuild-initramfs.sh >> $LOGFILE 2>&1 &
+$STD_PATH/util/rebuild-initramfs.sh >> $LOGFILE 2>&1 &
 
 # eof

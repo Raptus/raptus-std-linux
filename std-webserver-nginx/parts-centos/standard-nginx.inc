@@ -15,7 +15,7 @@ EOF
 yum -y install nginx >> $LOGFILE
 
 mv /etc/nginx /etc/nginx.ORIG
-cp -R $SCRIPTPATH/configs-centos/etc-nginx /etc/nginx
+cp -R $WEB_PATH/configs-centos/etc-nginx /etc/nginx
 sed -r -i "s/(HOSTMASTER).*$/\1$ADMIN_EMAIL/g" /etc/nginx/fastcgi_params
 
 # generate a stronger DHE parameter 

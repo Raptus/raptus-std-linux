@@ -1,4 +1,4 @@
-echo "### Setting up PRTG tools"
+echo "### Setting up prtg sensors"
 yum -y install python-psutil >> $LOGFILE
 
 mkdir -p /var/prtg/scripts

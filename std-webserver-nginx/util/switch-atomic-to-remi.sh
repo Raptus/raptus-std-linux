@@ -16,7 +16,7 @@ echo "    Logfile: $LOGFILE"
 askConfirmation
 
 OLDDIR="`pwd`"
-cd $SCRIPTPATH
+cd $WEB_PATH
 
 echo "### Stopping all php-fpm processes (manual restart or reboot required)"
 systemctl stop php-fpm_*

@@ -2,7 +2,7 @@ echo "### Setting up pure-ftpd"
 yum -y install pure-ftpd >> $LOGFILE 
 
 mv /etc/pure-ftpd/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf.ORIG
-cp $SCRIPTPATH/configs-centos/etc-pure-ftpd/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf
+cp $WEB_PATH/configs-centos/etc-pure-ftpd/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf
 
 touch /etc/pure-ftpd/pureftpd.passwd
 chmod u=+rw,go= /etc/pure-ftpd/pureftpd.passwd

@@ -20,7 +20,7 @@ checkInstall
 checkLockFile
 touch $LOGFILE
 OLDDIR="`pwd`"
-cd $SCRIPTPATH
+cd $STD_PATH
 
 echo "###"
 echo "###"
@@ -34,7 +34,7 @@ echo "### Bootstrapping this system with Linux standards"
 echo "    Logfile: $LOGFILE"
 askConfirmation
 
-source $SCRIPTPATH/bootstrap-$DISTRO.sh
+source $STD_PATH/bootstrap-$DISTRO.sh
 
 markAsDone
 cd $OLDDIR

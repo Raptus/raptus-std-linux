@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source /root/scripts/rsl/common.inc
-TEMPLPATH="$SCRIPTPATH/templates"
+TEMPLPATH="$WEB_PATH/templates"
 ADMINTMPL="default-admin-site"
 
 DEFPHPMAJ="7"
@@ -154,27 +154,27 @@ function updateConfig()
 
         echo "Fixing access rights"
         chown $uid:nginx /home/sites/$site
-        $SCRIPTPATH/scripts/reset-access-rights.sh $site
+        $WEB_PATH/scripts/reset-access-rights.sh $site
 
         if test "$template" = "$ADMINTMPL"
         then
             source /root/
             systemctl restart nginx.service >> /dev/null
-            $SCRIPTPATH/scripts/manage-site.sh $site site-enable >> /dev/null
-            $SCRIPTPATH/scripts/manage-site.sh $site php-enable >> /dev/null
-            $SCRIPTPATH/scripts/ssl-letsencrypt-certificate.sh $site $ACME_ACCOUNT >> /dev/null
+            $WEB_PATH/scripts/manage-site.sh $site site-enable >> /dev/null
+            $WEB_PATH/scripts/manage-site.sh $site php-enable >> /dev/null
+            $WEB_PATH/scripts/ssl-letsencrypt-certificate.sh $site $ACME_ACCOUNT >> /dev/null
         else
             echo
             echo "ATTENTION"
             echo "In order to activate the site, use the following command:"
-            echo "$SCRIPTPATH/scripts/manage-site.sh $site site-enable"
+            echo "$WEB_PATH/scripts/manage-site.sh $site site-enable"
             echo
             echo "If you need PHP in this site, you need to enable it manually:"
-            echo "$SCRIPTPATH/scripts/manage-site.sh $site php-enable"
+            echo "$WEB_PATH/scripts/manage-site.sh $site php-enable"
             echo
         fi
 
-        $SCRIPTPATH/scripts/update-static.sh
+        $WEB_PATH/scripts/update-static.sh
 }
 
 echo
