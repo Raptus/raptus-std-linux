@@ -1,4 +1,4 @@
-echo "### Setting up nginx (may take a while)"
+echo "### Setting up nginx"
 
 NGINX_OSRELEASE="7"
 NGINX_BASEARCH="x86_64"

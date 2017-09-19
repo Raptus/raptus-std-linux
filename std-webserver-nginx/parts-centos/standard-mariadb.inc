@@ -25,7 +25,7 @@ yum -y install mytop innotop mysqltuner >> $LOGFILE
 
 mv /etc/my.cnf.d /etc/my.cnf.d.ORIG
 mkdir -p /etc/my.cnf.d
-cp $WEB_PATH/configs-centos/etc-mariadb/my.cnf /etc/my.cnf.d/
+cp $WEB_PATH/configs-centos/etc-mariadb/* /etc/my.cnf.d/
 
 systemctl enable mariadb.service >> $LOGFILE 2>&1
 systemctl start mariadb.service >> $LOGFILE 2>&1

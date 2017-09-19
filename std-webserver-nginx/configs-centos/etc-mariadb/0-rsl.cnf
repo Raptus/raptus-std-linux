@@ -208,7 +208,6 @@ innodb_log_files_in_group       = 2
 innodb_log_file_size            = 48M
 # No reason to make the buffers too large, however. 
 innodb_log_buffer_size          = 8M
-innodb_additional_mem_pool_size = 8M
 # Setting innodb_flush_log_at_trx_commit to 0 causes InnoDB to only
 # flush to disk once per second, improving performance considerably.
 # In a community environment, you are more likely to lost a topic
@@ -221,7 +220,6 @@ innodb_flush_log_at_trx_commit  = 1
 # barracuda file format.
 innodb_file_per_table           = true
 innodb_large-prefix             = true
-innodb_file_format              = barracuda
 # Enabling strict mode helps prevent messing up creating or altering
 # a table to support the new row formats in barracuda.
 innodb_strict_mode              = 1
@@ -282,11 +280,5 @@ max_allowed_packet  = 16M
 
 [mysql]
 #no-auto-rehash # faster start of mysql but no tab completition
-
-#
-# * IMPORTANT: Additional settings that can override those from this file!
-#   The files must end with '.cnf', otherwise they'll be ignored.
-#
-!includedir /etc/mysql/conf.d/
 
 # eof

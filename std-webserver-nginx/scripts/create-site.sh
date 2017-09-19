@@ -158,7 +158,6 @@ function updateConfig()
 
         if test "$template" = "$ADMINTMPL"
         then
-            source /root/
             systemctl restart nginx.service >> /dev/null
             $WEB_PATH/scripts/manage-site.sh $site site-enable >> /dev/null
             $WEB_PATH/scripts/manage-site.sh $site php-enable >> /dev/null
