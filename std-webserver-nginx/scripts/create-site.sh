@@ -147,7 +147,7 @@ function updateConfig()
 
         if test "$template" = "$ADMINTMPL"
         then
-            systemctl restart nginx.service >> >> $LOGFILE 2>&1
+            systemctl restart nginx.service >> $LOGFILE 2>&1
             $WEB_PATH/scripts/manage-site.sh $site site-enable >> $LOGFILE
             $WEB_PATH/scripts/manage-site.sh $site php-enable >> $LOGFILE
             $WEB_PATH/scripts/ssl-letsencrypt-certificate.sh $site $ACME_ACCOUNT >> $LOGFILE
