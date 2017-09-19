@@ -23,7 +23,7 @@ else
 fi
 
 test -d "/root/scripts" || mkdir -p /root/scripts
-git clone --depth 1 https://bitbucket.org/raptus-it-services/raptus-std-linux.git /root/scripts/rsl > /dev/null 2>&1
+git clone --depth 1 https://bitbucket.org/raptus-it-services/raptus-std-linux.git /root/scripts/rsl
 
 if test -f "/root/scripts/rsl/std-linux/bootstrap.sh"
 then
