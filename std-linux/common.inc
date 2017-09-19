@@ -25,6 +25,7 @@ else
 fi
 
 OUR_IPS=
+OUR_IPS_SPACED=
 ADMIN_EMAIL=
 
 APGOPTS="-n1 -m15 -x15 -a0 -q -M NCL"
@@ -154,6 +155,29 @@ function detectSystem
     else
         MACHINE_TYPE="physical"
         MACHINE_INFO="`dmidecode -s system-product-name`"
+    fi
+}
+
+#
+# Call this function with: <URL> <DestinationPath>
+#
+function getFileFromURL
+{
+    URL=$1
+    DSTPATH=$2
+    DSTFILE="`echo "${mytest##*/}"`"
+    if test -z "$URL" ||
+       test -z "$DSTPATH" ||
+       test -z "$DSTFILE"
+    then
+        echo "Cannot get file from URL ($URL)" >> /dev/stderr
+        return
+    fi
+
+    curl --silent -o "$DSTPATH/$DSTFILE" "$URL"
+    if ! test -f "$DSTPATH/$DSTFILE"
+    then
+        echo "Failed to download file to $DSTPATH/$DSTFILE" >> /dev/stderr
     fi
 }
 

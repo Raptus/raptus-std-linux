@@ -35,6 +35,7 @@ then
     fi
 
     echo "### Using configuration from $CFGFILE"
+    OUR_IPS_SPACED="`echo $OUR_IPS | tr ',' ' '`"
 fi
 
 checkLockFile

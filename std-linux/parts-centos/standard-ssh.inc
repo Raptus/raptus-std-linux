@@ -1,4 +1,4 @@
 echo "### Setting up ssh"
 
-$SCRIPTPATH/std-linux/util/ssh-generate-key.sh root >> $LOGFILE
-$SCRIPTPATH/std-linux/util/ssh-generate-key.sh radmin >> $LOGFILE
+$SCRIPTPATH/util/ssh-generate-key.sh root >> $LOGFILE
+$SCRIPTPATH/util/ssh-generate-key.sh radmin >> $LOGFILE
