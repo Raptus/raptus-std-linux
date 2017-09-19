@@ -31,6 +31,7 @@ fi
 if ! test -f "$CFGFILE"
 then
 	source "$CFGFILE"
+	# TODOOOOOOOOOOOOOO;: PARSE OURIPS
 fi
 
 checkLockFile

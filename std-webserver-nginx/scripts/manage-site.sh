@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BASEPATH="/root/scripts/web"
+BASEPATH="/root/scripts/rsl/std-webserver-nginx"
 
 function enablePHP()
 {
@@ -13,7 +13,7 @@ function enablePHP()
         systemctl enable /etc/systemd/system/php-fpm_$site.service >> /dev/null 2>&1
         systemctl start php-fpm_$site.service
         systemctl status php-fpm_$site.service
-        $BASEPATH/update-static.sh
+        $BASEPATH/scripts/update-static.sh
         echo "PHP-FPM pool for $site is now started and enabled"
     fi
 }
@@ -28,7 +28,7 @@ function disablePHP()
     else
         systemctl stop php-fpm_$site.service
         systemctl disable php-fpm_$site.service >> /dev/null 2>&1
-        $BASEPATH/update-static.sh
+        $BASEPATH/scripts/update-static.sh
         echo "PHP-FPM pool for $site is now stopped and disabled"
     fi
 }
@@ -43,7 +43,7 @@ function enableSite()
     else
         ln -s /home/sites/$site/conf/nginx.conf /etc/nginx/sites-enabled/$site.conf
         systemctl reload nginx.service
-        $BASEPATH/update-static.sh
+        $BASEPATH/scripts/update-static.sh
         echo "Nginx configuration for $site enabled"
     fi
 }
@@ -58,7 +58,7 @@ function disableSite()
     else
         rm -f /etc/nginx/sites-enabled/$site.conf
         systemctl reload nginx.service
-        $BASEPATH/update-static.sh
+        $BASEPATH/scripts/update-static.sh
         disablePHP $site
         echo "Nginx configuration for $site enabled"
     fi
@@ -106,7 +106,7 @@ function deleteSite()
     rm -f /etc/systemd/system/php-fpm_$site.service
     echo "done"
 
-    $BASEPATH/update-static.sh
+    $BASEPATH/scripts/update-static.sh
 
     echo
     echo "ATTENTION: Databases are NOT being deleted. Please do this manually!"

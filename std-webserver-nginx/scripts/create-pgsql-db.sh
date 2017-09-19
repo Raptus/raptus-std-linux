@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source /root/scripts/std-linux/common.inc
+source /root/scripts/rsl/std-linux/common.inc
+BASEPATH="/root/scripts/rsl/std-webserver-nginx"
 
 function createDB()
 {
@@ -25,7 +26,7 @@ function createDB()
     echo -n "Creating PostgreSQL database $dbname ... "
     tfile1="`mktemp`"
     tfile2="`mktemp`"
-    sed "s/DB_NAME/$dbname/g" /root/scripts/web/templates/pgsql-db-creation.template > $tfile1
+    sed "s/DB_NAME/$dbname/g" $BASEPATH/templates/pgsql-db-creation.template > $tfile1
     sed "s/DB_USER/$dbuser/g" $tfile1 > $tfile2
     sed "s/DB_PASS/$dbpass/g" $tfile2 > $tfile1
     psql -h localhost -U dbadmin -q -f $tfile1 template1

@@ -6,7 +6,7 @@ then
     exit 1
 fi
 
-source /root/scripts/std-linux/common.inc
+source /root/scripts/rsl/std-linux/common.inc
 checkLockFile
 touch $LOGFILE
 

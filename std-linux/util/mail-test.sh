@@ -13,7 +13,6 @@ SUBJECT="This is a test mail. Please ignore it"
   echo "This mail has been sent to you in order to test your mail system functionality."
   echo
   echo "Hostmaster"
-  echo "Raptus AG/SA"
   echo
   echo
 ) 2>&1 | /usr/lib/sendmail -t

@@ -8,7 +8,7 @@
         <h1><?= $_SERVER["SERVER_NAME"] ?></h1>
         <hr>
         <p>
-        <h3>You have landed on the wrong server!</h3>
+        <h3>There's nothing to see here!</h3>
         <p>
         Please go to <a href="http://www.google.com/">http://www.google.com</a>
         </p>

@@ -28,10 +28,10 @@ OUR_IPS=
 ADMIN_EMAIL=
 
 APGOPTS="-n1 -m15 -x15 -a0 -q -M NCL"
-TEMPDIR="/var/raptus/tmp"
-LOCKDIR="/var/raptus/lock"
-LOGDIR="/var/raptus/log"
-STATEDIR="/var/raptus/state"
+TEMPDIR="/var/rsl/tmp"
+LOCKDIR="/var/rsl/lock"
+LOGDIR="/var/rsl/log"
+STATEDIR="/var/rsl/state"
 LOCKFILE="$LOCKDIR/$SCRIPTID.done"
 LOCKFILE_BSTRAP="$LOCKDIR/bootstrap.done"
 LOGFILE="$LOGDIR/$SCRIPTID-`date +%Y%m%d-%H%M`.log"

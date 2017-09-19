@@ -1,5 +1,3 @@
-# Raptus default Postfix configuration
-
 smtpd_banner = $myhostname ESMTP $mail_name
 biff = no
 
