@@ -16,12 +16,14 @@ echo
 
 if test "$DISTRO" = "centos"
 then
+    echo "### Installing GIT"
     yum -y install git > /dev/null 2>&1
 else
     echo "Linux distribution not supported."
     exit 1
 fi
 
+echo "### Checking out from GIT"
 test -d "/root/scripts" || mkdir -p /root/scripts
 git clone --depth 1 https://bitbucket.org/raptus-it-services/raptus-std-linux.git /root/scripts/rsl
 

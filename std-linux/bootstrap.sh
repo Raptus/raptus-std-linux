@@ -25,7 +25,7 @@ then
     exit 1
 fi
 
-if test -f "$CFGFILE" &&
+if test -f "$CFGFILE"
 then
     source "$CFGFILE"
     if test -z "$OUR_IPS" && test -z "$ADMIN_EMAIL"
