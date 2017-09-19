@@ -165,7 +165,7 @@ function getFileFromURL
 {
     URL=$1
     DSTPATH=$2
-    DSTFILE="`echo "${mytest##*/}"`"
+    DSTFILE="`echo "${URL##*/}"`"
     if test -z "$URL" ||
        test -z "$DSTPATH" ||
        test -z "$DSTFILE"
