@@ -29,12 +29,18 @@ then
     OUR_IPS_SPACED="`echo $OUR_IPS | tr ',' ' '`"
 fi
 
+if ! test -z "$0"
+then
+    SCRIPTID=`basename $0 | head -c -4`
+else
+    SCRIPTID="`uuid`"
+fi
+
 APGOPTS="-n1 -m15 -x15 -a0 -q -M NCL"
 TEMPDIR="/var/rsl/tmp"
 LOCKDIR="/var/rsl/lock"
 LOGDIR="/var/rsl/log"
 STATEDIR="/var/rsl/state"
-SCRIPTID=`test -z $0 && basename $0 | head -c -4`
 LOCKFILE="$LOCKDIR/$SCRIPTID.done"
 LOCKFILE_BSTRAP="$LOCKDIR/bootstrap.done"
 LOGFILE="$LOGDIR/$SCRIPTID-`date +%Y%m%d-%H%M`.log"
