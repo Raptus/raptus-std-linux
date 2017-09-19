@@ -70,7 +70,7 @@ skip-host-cache
 #large-pages
 # The client default is 16M, while the server default is 1M. Setting
 # the server to 16M can make some large operations easier.
-max_allowed_packet       = 32M
+max_allowed_packet       = 16M
 
 # There's no serious reason to have a long interactive timeout. If you
 # are low on connections, you shouldn't set this higher than
@@ -79,12 +79,13 @@ max_allowed_packet       = 32M
 # I am of the opinion that the default value is far too high. IF you
 # use persistent connections, even a timeout of 300 may be too high.
 # wait_timeout             = 3000
+
 # The following two are best set to the same size, because the size
 # of temporary tables is limited by the lower o the two.
 # I have not found any benefit in increasing the value past my 
 # tmp_table_size default.
-tmp_table_size           = 32M
-max_heap_table_size      = 32M
+tmp_table_size           = 20M
+max_heap_table_size      = 20M
 
 # The next two lines replace the basic table_cache value as of MySQL
 # 5.1. table_definition_cache should be big enough for every table
@@ -93,8 +94,8 @@ max_heap_table_size      = 32M
 # connection at once - it will likely exceed your definition cache.
 # It doesn't hurt to set these to large values. They don't take a lot
 # of RAM and it's better than hitting the limit.
-table_definition_cache   = 8192
-table_open_cache         = 32768
+table_definition_cache   = 1024
+table_open_cache         = 8192
 
 # The default optimizer_search_depth is 62. This causes MySQL to take
 # an obscene amount of time planning a query, though when it finally
@@ -179,7 +180,6 @@ myisam-recover-options   = BACKUP
 # space, for a significant performance improvement in MyISAM tables.
 concurrent_insert        = 2
 
-
 # InnoDB
 # The following three line are only necessary in MySQL 5.1, for loading
 # the plugin which supports the new InnoDB file format.
@@ -241,8 +241,8 @@ innodb_flush_method             = O_DIRECT
 #
 # As the default configuration file says, as of 5.1 you can
 # enable the general log at runtime.
-general_log_file         = /var/lib/mysql/general.log
-general_log              = 0
+general_log_file         = /var/log/mysql/mariadb.log
+general_log              = 1
 
 #
 # Error logging is defined in the mysqld_safe entry.

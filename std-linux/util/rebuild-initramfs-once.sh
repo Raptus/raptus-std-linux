@@ -7,5 +7,6 @@ source /root/scripts/rsl/common.inc
 checkLockFile
 
 $STD_PATH/util/rebuild-initramfs.sh >> $LOGFILE 2>&1 &
+exit 0 
 
 # eof
