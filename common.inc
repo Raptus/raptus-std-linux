@@ -29,11 +29,13 @@ then
     OUR_IPS_SPACED="`echo $OUR_IPS | tr ',' ' '`"
 fi
 
-if ! test -z "$0"
+BASENAME="`basename $0`"
+if ! test "$BASENAME" = "bash"
 then
-    SCRIPTID=`basename $0 | head -c -4`
+    SCRIPTID="`echo $BASENAME | head -c -4`"
 else
     SCRIPTID="`uuid`"
+fiIPTID="`uuid`"
 fi
 
 APGOPTS="-n1 -m15 -x15 -a0 -q -M NCL"

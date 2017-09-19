@@ -145,22 +145,14 @@ function updateConfig()
         chown $uid:nginx /home/sites/$site
         $WEB_PATH/scripts/reset-access-rights.sh $site >> $LOGFILE
 
-        if test "$template" = "$ADMINTMPL"
-        then
-            systemctl restart nginx.service >> $LOGFILE 2>&1
-            $WEB_PATH/scripts/manage-site.sh $site site-enable >> $LOGFILE
-            $WEB_PATH/scripts/manage-site.sh $site php-enable >> $LOGFILE
-            $WEB_PATH/scripts/ssl-letsencrypt-certificate.sh $site $ACME_ACCOUNT >> $LOGFILE
-        else
-            echo
-            echo "ATTENTION"
-            echo "In order to activate the site, use the following command:"
-            echo "$WEB_PATH/scripts/manage-site.sh $site site-enable"
-            echo
-            echo "If you need PHP in this site, you need to enable it manually:"
-            echo "$WEB_PATH/scripts/manage-site.sh $site php-enable"
-            echo
-        fi
+        echo
+        echo "ATTENTION"
+        echo "In order to activate the site, use the following command:"
+        echo "$WEB_PATH/scripts/manage-site.sh $site site-enable"
+        echo
+        echo "If you need PHP in this site, you need to enable it manually:"
+        echo "$WEB_PATH/scripts/manage-site.sh $site php-enable"
+        echo
 
         $WEB_PATH/scripts/update-static.sh
 }
