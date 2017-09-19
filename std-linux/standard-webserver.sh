@@ -40,10 +40,9 @@ mkdir -p /home/sites
 mkdir -p /home/restricted/{scripts,logs,temp}
 chown -R nginx:nginx /home/restricted/logs
 chown -R nginx:nginx /home/restricted/temp
-ln -s /root/scripts/rsl/std-webserver-nginx/scripts /root/scripts/web
 
 echo "### Setting up default site $HNFULL"
-/root/scripts/web/create-site.sh $HNFULL default-admin-site
+/root/scripts/rsl/std-webserver-nginx/scripts/create-site.sh $HNFULL default-admin-site
 ln -s /home/sites/$HNFULL /home/ADMIN-SITE
 admin_site_uid="`stat -c %U /home/sites/$site`"
 
@@ -60,9 +59,9 @@ passwordInfo "Default site" "admin" "$DVP" "https://$HNFULL/admin"
 echo "### Finishing installation"
 echo "alias logtail=\"cd /var/log ; tail -f cron dmesg maillog messages secure nginx/error.log mysqld.log pureftpd.log /home/sites/*/pub/log/*.log\"" >> /root/.bashrc_local
 
-/root/scripts/web/manage-site.sh $HNFULL site-enable >> $LOGFILE
-/root/scripts/web/manage-site.sh $HNFULL php-enable >> $LOGFILE
-/root/scripts/web/update-static.sh >> $LOGFILE
+/root/scripts/rsl/std-webserver-nginx/scripts/manage-site.sh $HNFULL site-enable >> $LOGFILE
+/root/scripts/rsl/std-webserver-nginx/scripts/web/manage-site.sh $HNFULL php-enable >> $LOGFILE
+/root/scripts/rsl/std-webserver-nginx/scripts/web/update-static.sh >> $LOGFILE
 
 echo ""
 echo "    ATTENTION"

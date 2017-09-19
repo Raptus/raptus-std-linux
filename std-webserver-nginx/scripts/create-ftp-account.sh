@@ -10,21 +10,21 @@ function createFTP()
 
     if ! test -d /home/sites/$site
     then
-        echo "Site $site does not exist."
+        echo "Site $site does not exist." >>/dev/stderr
         echo "Aborting."
         return
     fi
 
     if ! test -z "`pure-pw list | grep $ftpuser`"
     then
-        echo "FTP account $ftpuser already exists."
+        echo "FTP account $ftpuser already exists." >>/dev/stderr
         echo "Aborting."
         return
     fi
 
     if ! test -z "`pure-pw list | grep $site`"
     then
-        echo "FTP account for site $site already exists."
+        echo "FTP account for site $site already exists." >>/dev/stderr
         echo "Aborting."
         return
     fi

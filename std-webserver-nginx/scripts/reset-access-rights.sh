@@ -17,7 +17,7 @@ function resetSiteRights()
 
     if ! test -d "/home/sites/$site"
     then
-        echo "Site $site not found!"
+        echo "Site $site not found!" >>/dev/stderr
         exit 1
     fi
 

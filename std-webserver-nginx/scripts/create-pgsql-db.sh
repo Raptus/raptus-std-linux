@@ -18,7 +18,7 @@ function createDB()
 
     if ! test -z "`psql -h localhost -U dbadmin -c 'SELECT DATNAME FROM PG_DATABASE;' template1 | grep $dbname$`"
     then
-        echo "PostgreSQL Database $dbname already exists."
+        echo "PostgreSQL Database $dbname already exists." >>/dev/stderr
         echo "Aborting."
         return
     fi

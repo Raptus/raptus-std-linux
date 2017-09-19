@@ -7,7 +7,7 @@ function enablePHP()
     site=$1
     if test "`systemctl is-active php-fpm_$site.service`" = "active"
     then
-        echo "PHP-FPM pool for $site is already enabled"
+        echo "PHP-FPM pool for $site is already enabled" >>/dev/stderr
         exit 1
     else
         systemctl enable /etc/systemd/system/php-fpm_$site.service >> /dev/null 2>&1
@@ -23,7 +23,7 @@ function disablePHP()
     site=$1
     if test "`systemctl is-active php-fpm_$site.service`" = "inactive"
     then
-        echo "PHP-FPM pool for $site is already disabled"
+        echo "PHP-FPM pool for $site is already disabled" >>/dev/stderr
         exit 1
     else
         systemctl stop php-fpm_$site.service
@@ -38,7 +38,7 @@ function enableSite()
     site=$1
     if test -L /etc/nginx/sites-enabled/$site.conf
     then
-        echo "Site $site is already enabled."
+        echo "Site $site is already enabled." >>/dev/stderr
         exit 1
     else
         ln -s /home/sites/$site/conf/nginx.conf /etc/nginx/sites-enabled/$site.conf
@@ -53,7 +53,7 @@ function disableSite()
     site=$1
     if ! test -L /etc/nginx/sites-enabled/$site.conf
     then
-        echo "Site $site is already disabled."
+        echo "Site $site is already disabled." >>/dev/stderr
         exit 1
     else
         rm -f /etc/nginx/sites-enabled/$site.conf
@@ -149,7 +149,7 @@ if test $# -ge 2 && (! test -z "$1" || ! test -z "$2")
 then
     if ! test -d /home/sites/$1
     then
-        echo "Sites $1 does not exist."
+        echo "Sites $1 does not exist." >>/dev/stderr
         echo "Aborting."
         exit 1
     fi
@@ -172,7 +172,7 @@ then
         php-set-major7)  setPHPMajor 7 $1
         ;;
         *)
-            echo "Unknown action specified."
+            echo "Unknown action specified." >>/dev/stderr
             echo
             exit 1
         ;;

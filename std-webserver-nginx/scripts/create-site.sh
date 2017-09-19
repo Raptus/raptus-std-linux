@@ -62,7 +62,7 @@ function updateConfig()
                 echo $PORT > $PORTFILE
                 echo $TXT
             else
-                echo "Failed to obtain a port for this site!"
+                echo "Failed to obtain a port for this site!" >>/dev/stderr
                 exit 1
             fi
         fi
@@ -183,14 +183,14 @@ then
         NGINX_TEMPL="$TEMPLPATH/nginx-site-$2.template"
         if ! test -f "$NGINX_TEMPL"
         then
-            echo "Cannot find template $2"
+            echo "Cannot find template $2" >>/dev/stderr
             exit 1
         fi
 
         if test "$2" = "$ADMINTMPL" && test -L "/home/ADMIN-SITE"
         then
-            echo "There can only be one default admin site per host!"
-            echo "Do you know what you are doing?"
+            echo "There can only be one default admin site per host!" >>/dev/stderr
+            echo "Do you know what you are doing?" >>/dev/stderr
             exit 1
         fi
 

@@ -11,14 +11,14 @@ function createDB()
 
     if ((${#dbuser} > 16 ))
     then
-        echo "Username  is too long, max. 16 characters allowed."
+        echo "Username  is too long, max. 16 characters allowed." >>/dev/stderr
         echo "Aborting."
         return
     fi
 
     if ! test -z "`mysql --user=dbadmin --batch --execute 'SHOW DATABASES;' | grep $dbname`"
     then
-        echo "MariaDB Database $dbname already exists."
+        echo "MariaDB Database $dbname already exists." >>/dev/stderr
         echo "Aborting."
         return
     fi

@@ -15,23 +15,22 @@ echo
 
 if ! test -f "$CFGFILE"
 then
-	echo "### Cannot find the configuration file: $CFGFILE"
-	echo "    If you want to create one, do so now, before continuing."
-	echo ""
-	echo "    Example configuration:"
-	echo ""
-	echo "        OUR_IPS=1.2.3.4,1.2.3.5,host1.domain.tld"
-	echo "        ADMIN_EMAIL=yourname@domain.tld"
-	echo ""
-	askConfirmation
+    echo "### Cannot find the configuration file: $CFGFILE"
+    echo "    If you want to create one, do so now, before continuing."
+    echo ""
+    echo "    Example configuration:"
+    echo ""
+    echo "        OUR_IPS=1.2.3.4,1.2.3.5            # only IP's allowed"
+    echo "        ADMIN_EMAIL=yourname@domain.tld    # only 1 email allowed"
+    echo ""
+    askConfirmation
 else
-	echo "### Using custom configuration file $CFGFILE"
+    echo "### Using custom configuration file $CFGFILE"
 fi
 
 if ! test -f "$CFGFILE"
 then
-	source "$CFGFILE"
-	# TODOOOOOOOOOOOOOO;: PARSE OURIPS
+    source "$CFGFILE"
 fi
 
 checkLockFile

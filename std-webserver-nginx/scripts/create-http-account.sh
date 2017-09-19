@@ -11,7 +11,7 @@ function createBasicAuth()
 
     if ! test -d /home/sites/$site
     then
-        echo "Sites $site does not exist."
+        echo "Sites $site does not exist." >>/dev/stderr
         echo "Aborting."
         return
     fi
@@ -23,7 +23,7 @@ function createBasicAuth()
     else
         if ! test -z "`cat $authfile | grep $httpuser`"
         then
-            echo "User $httpuser already exists."
+            echo "User $httpuser already exists." >>/dev/stderr
             echo "Aborting."
             return
         fi
