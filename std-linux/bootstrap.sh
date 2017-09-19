@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if ! test -f "/root/.rslconfig"
+if ! test -f "/root/.rslcfg"
 then
     echo "### Cannot find the configuration file: $CFGFILE"
     echo ""
