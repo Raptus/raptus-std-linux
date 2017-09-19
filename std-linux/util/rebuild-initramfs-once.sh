@@ -3,10 +3,12 @@
 # Need to rebuild initram FS due to changes of sysctl
 #
 
-source /root/scripts/rsl/common.inc
-checkLockFile
+LOCKFILE="/var/rsl/lock/rebuild-initramfs.lock"
 
-$STD_PATH/util/rebuild-initramfs.sh >> $LOGFILE 2>&1 &
-exit 0 
+if ! test -f "$LOCKFILE"
+then
+    touch "$LOCKFILE"
+    /root/scripts/rsl/std-linux/util/rebuild-initramfs.sh > /dev/null 2>&1 &
+fi
 
 # eof

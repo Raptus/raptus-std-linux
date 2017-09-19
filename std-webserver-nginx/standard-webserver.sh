@@ -42,8 +42,9 @@ chown -R nginx:nginx /home/restricted/logs
 chown -R nginx:nginx /home/restricted/temp
 
 echo "### Setting up default/admin site $HNFULL"
-ln -s /home/sites/$HNFULL /home/ADMIN-SITE
 $WEB_PATH/scripts/create-site.sh $HNFULL default-admin-site
+ln -s /home/sites/$HNFULL /home/ADMIN-SITE
+
 $WEB_PATH/scripts/manage-site.sh $HNFULL site-enable >> $LOGFILE
 $WEB_PATH/scripts/manage-site.sh $HNFULL php-enable >> $LOGFILE
 $WEB_PATH/scripts/update-static.sh >> $LOGFILE
