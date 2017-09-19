@@ -9,14 +9,14 @@ fi
 UNAME="`getent passwd $1`"
 if test -z "$UNAME"
 then
-    echo "ERROR: Unknown user $1 specified"
+    echo "ERROR: Unknown user $1 specified" >>/dev/stderr
     exit 1
 fi
 
 UHOME="`getent passwd $1 | cut -f6 -d:`"
 if ! test -d "$UHOME"
 then
-    echo "ERROR: No home for user $1 found"
+    echo "ERROR: No home for user $1 found" >>/dev/stderr
     exit 1
 fi
 

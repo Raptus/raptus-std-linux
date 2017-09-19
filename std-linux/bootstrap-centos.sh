@@ -17,14 +17,6 @@ yum -y install acpid apg bzip2 bind-utils bonnie++ ftp ghostscript git nano nmap
                sshfs yum-utils sysstat >> $LOGFILE 2>&1
 
 echo "### Setting up environment"
-if test -d /home/radmin
-then
-	cp $SCRIPTPATH/configs-centos/.bashrc /home/radmin/
-	cp $SCRIPTPATH/configs-centos/.screenrc /home/radmin/
-	cp $SCRIPTPATH/configs-centos/.vimrc /home/radmin/
-    chown radmin:radmin /home/radmin
-fi
-
 cp $SCRIPTPATH/configs-centos/.bashrc /root/
 cp $SCRIPTPATH/configs-centos/.screenrc /root/
 cp $SCRIPTPATH/configs-centos/.vimrc /root/
@@ -44,11 +36,9 @@ source $SCRIPTPATH/parts-centos/standard-fail2ban.inc
 source $SCRIPTPATH/parts-centos/standard-shorewall.inc
 source $SCRIPTPATH/parts-centos/standard-tuning.inc
 
-echo "### Enabling services"
-systemctl enable acpid.service >> $LOGFILE 2>&1
+echo "### Setting up services"
 chmod +x /etc/rc.local
-
-echo "### Disabling services"
+systemctl enable acpid.service >> $LOGFILE 2>&1
 systemctl disable kdump.service >> $LOGFILE 2>&1
 systemctl disable nfs-client.target >> $LOGFILE 2>&1
 systemctl disable nfs-config.service >> $LOGFILE 2>&1
