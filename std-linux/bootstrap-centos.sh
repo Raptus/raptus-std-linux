@@ -10,7 +10,7 @@ yum -y upgrade >> $LOGFILE 2>&1
 yum -y update ca-certificates >> $LOGFILE 2>&1
 yum -y remove NetworkManager >> $LOGFILE 2>&1
 yum -y groupinstall 'Development Tools' >> $LOGFILE 2>&1
-yum -y install acpid apg bzip2 bind-utils bonnie++ ftp ghostscript git nano nmap nload net-tools \
+yum -y install acpid apg bzip2 bind-utils bonnie++ ftp ghostscript htop nano nmap nload net-tools \
                nfs-utils psmisc python-devel rsync screen subversion subversion-tools symlinks \
                tcpdump tcpdump telnet traceroute tree unhide unrtf unzip uuid vim-vimoutliner \
                w3m wget whois readline-devel openssl-devel bash-completion pciutils virt-what \
