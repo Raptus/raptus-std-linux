@@ -15,7 +15,7 @@ function createDB()
         return
     fi
 
-    if ! test -z "`mysql --user=dbadmin --batch --execute 'SHOW DATABASES;' | grep $dbname`"
+    if mysql "$dbname" --user=dbadmin -e exit > /dev/null 2>&1
     then
         echo "MariaDB Database $dbname already exists." >>/dev/stderr
         echo "Aborting."
