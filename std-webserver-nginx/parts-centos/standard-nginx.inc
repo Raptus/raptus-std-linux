@@ -19,9 +19,9 @@ cp -R $WEB_PATH/configs-centos/etc-nginx /etc/nginx
 mkdir -p /etc/nginx/sites-enabled
 sed -r -i "s/(.*)HOSTMASTER(.*)$/\1$ADMIN_EMAIL\2/g" /etc/nginx/fastcgi_params
 
-echo "### IP List"                        >> /etc/nginx/conf.d/global-maps.conf
-echo "map $remote_addr $not-our-ips {"    >> /etc/nginx/conf.d/global-maps.conf
-echo "    default 1;"                     >> /etc/nginx/conf.d/global-maps.conf
+echo "### Our IP List"                    >> /etc/nginx/conf.d/global-maps.conf
+echo "map \$remote_addr $not-our-ips {"   >> /etc/nginx/conf.d/global-maps.conf
+echo "default 1;"                         >> /etc/nginx/conf.d/global-maps.conf
 for oip in $OUR_IPS_SPACED
 do
     echo "$oip 0;" >> /etc/nginx/conf.d/global-maps.conf

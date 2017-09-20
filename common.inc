@@ -113,8 +113,9 @@ function checkBootstrapped
 
 function markAsDone
 {
+    echo "### Done"
     echo
-    echo "Please reboot now, before doing anything with this installation"
+    echo "Please reboot now, before doing anything with this system"
     echo
 
     echo "`date`" > "$LOCKFILE_BSTRAP"

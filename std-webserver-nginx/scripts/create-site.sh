@@ -141,18 +141,20 @@ function updateConfig()
             rm -f $CONFDIR/php-fpm/php-fpm.conf.IN.*
         fi
 
-        echo "Fixing access rights"
         chown $uid:nginx /home/sites/$site
         $WEB_PATH/scripts/reset-access-rights.sh $site >> $LOGFILE
 
-        echo
-        echo "ATTENTION"
-        echo "In order to activate the site, use the following command:"
-        echo "$WEB_PATH/scripts/manage-site.sh $site site-enable"
-        echo
-        echo "If you need PHP in this site, you need to enable it manually:"
-        echo "$WEB_PATH/scripts/manage-site.sh $site php-enable"
-        echo
+        if ! test "$template" = "$ADMINTMPL"
+        then
+            echo
+            echo "ATTENTION"
+            echo "In order to activate the site, use the following command:"
+            echo "$WEB_PATH/scripts/manage-site.sh $site site-enable"
+            echo
+            echo "If you need PHP in this site, you need to enable it manually:"
+            echo "$WEB_PATH/scripts/manage-site.sh $site php-enable"
+            echo
+        fi
 
         $WEB_PATH/scripts/update-static.sh
 }

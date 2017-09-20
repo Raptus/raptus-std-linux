@@ -42,7 +42,7 @@ chown -R nginx:nginx /home/restricted/logs
 chown -R nginx:nginx /home/restricted/temp
 
 echo "### Setting up default/admin site $HNFULL"
-$WEB_PATH/scripts/create-site.sh $HNFULL default-admin-site
+$WEB_PATH/scripts/create-site.sh $HNFULL default-admin-site >> $LOGFILE
 ln -s /home/sites/$HNFULL /home/ADMIN-SITE
 $WEB_PATH/scripts/manage-site.sh $HNFULL site-enable >> $LOGFILE
 $WEB_PATH/scripts/manage-site.sh $HNFULL php-enable >> $LOGFILE
@@ -55,13 +55,7 @@ htpasswd /home/sites/$HNFULL/auth/htpasswd admin $DVP
 passwordInfo "Default site" "admin" "$DVP" "https://$HNFULL/admin"
 
 echo "### Finishing installation"
-echo "alias logtail=\"cd /var/log ; tail -f cron dmesg maillog messages secure nginx/error.log mysqld.log pureftpd.log /home/sites/*/pub/log/*.log\"" >> /root/.bashrc_local
-
-echo ""
-echo "    ATTENTION"
-echo "    Did you read and consider the installation notes?"
-echo "    You should really, really TEST and FINETUNE this installation."
-echo
+echo "alias logtail=\"cd /var/log ; tail -f cron dmesg maillog messages secure nginx/error.log mysql/mariadb.log pureftpd.log /home/sites/*/pub/log/*.log\"" >> /root/.bashrc_local
 
 markAsDone
 cd $OLDDIR
