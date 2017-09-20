@@ -49,8 +49,8 @@ DVP="`apg $APGOPTS`"
 htpasswd /home/sites/$HNFULL/auth/htpasswd admin $DVP
 passwordInfo "Default site" "admin" "$DVP" "https://$HNFULL/admin"
 
-### phpMyAdmin
-/opt/composer/bin/composer create-project phpmyadmin/phpmyadmin /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/ >> $LOGFILE 2>&1
+echo "### Setting up phpMyAdmin"
+/opt/composer/bin/composer --quiet --no-interaction create-project phpmyadmin/phpmyadmin /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/ >> $LOGFILE 2>&1
 cp $WEB_PATH/configs-centos/phpmyadmin/config.inc.php /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/
 BFS="`apg -a0 -m15 -x15 -d -M NCL`"
 sed -i -r "s/INSERT_HERE_GENERATED_BLOWFISH_SECRET/$BFS/g" /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/config.inc.php

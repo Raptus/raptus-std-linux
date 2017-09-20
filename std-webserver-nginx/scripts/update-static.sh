@@ -19,7 +19,6 @@ then
     for i in *
     do
         echo "<tr>" >> $SDI
-
         echo "<td>$i</td>" >> $SDI
 
         if test -L /etc/nginx/sites-enabled/$i.conf
@@ -37,11 +36,12 @@ then
         fi
 
         echo "<td>`cat /home/sites/$i/conf/ports.txt`</td>" >> $SDI
-
         echo "</tr>" >> $SDI
     done
     echo "</table>" >> $SDI
     cd $CURDIR
+
+    echo "### Updated sitelist"
 fi
 
 # eof
