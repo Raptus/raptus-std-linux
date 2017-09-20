@@ -20,7 +20,6 @@ DISTRO_NAME="`sed -r -n 's/PRETTY_NAME=\"(.*)\"/\1/p' /etc/os-release`"
 OUR_IPS=
 OUR_IPS_SPACED=
 ADMIN_EMAIL=
-ACME_ACCOUNT=
 ENABLE_FIREWALL=
 CFGFILE="/root/.rslcfg"
 if test -f "$CFGFILE"

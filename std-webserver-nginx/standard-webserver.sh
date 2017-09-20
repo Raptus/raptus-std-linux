@@ -47,7 +47,6 @@ ln -s /home/sites/$HNFULL /home/ADMIN-SITE
 $WEB_PATH/scripts/manage-site.sh $HNFULL site-enable >> $LOGFILE
 $WEB_PATH/scripts/manage-site.sh $HNFULL php-enable >> $LOGFILE
 $WEB_PATH/scripts/update-static.sh >> $LOGFILE
-$WEB_PATH/scripts/ssl-letsencrypt-certificate.sh $HNFULL $ACME_ACCOUNT >> $LOGFILE
 
 admin_site_uid="`stat -c %U /home/sites/$site`"
 cp -Rp $WEB_PATH/admin-site/* /home/ADMIN-SITE/pub/httpdocs/
