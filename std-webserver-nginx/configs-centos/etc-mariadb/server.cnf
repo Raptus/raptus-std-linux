@@ -1,26 +1,6 @@
 #
 # The MySQL database server configuration file.
 #
-# You can copy this to one of:
-# - "/etc/mysql/my.cnf" to set global options,
-# - "~/.my.cnf" to set user-specific options.
-# 
-# One can use all long options that the program supports.
-# Run program with --help to get a list of available options and with
-# --print-defaults to see which it would actually understand and use.
-#
-# For explanations see
-# http://dev.mysql.com/doc/mysql/en/server-system-variables.html
-
-# This will be passed to all mysql clients
-# It has been reported that passwords should be enclosed with ticks/quotes
-# escpecially if they contain "#" chars...
-[client]
-port        = 3306
-socket      = /var/lib/mysql/mysql.sock
-
-# Here is entries for some specific programs
-# The following values assume you have at least 32M ram
 
 # This was formally known as [safe_mysqld]. Both versions are currently parsed.
 [mysqld_safe]
@@ -241,7 +221,7 @@ innodb_flush_method             = O_DIRECT
 # As the default configuration file says, as of 5.1 you can
 # enable the general log at runtime.
 general_log_file         = /var/log/mysql/mariadb.log
-general_log              = 1
+general_log              = 0
 
 #
 # Error logging is defined in the mysqld_safe entry.
@@ -271,13 +251,5 @@ long_query_time             = 5
 #max_binlog_size           = 1G
 #binlog_do_db              = include_database_name
 #binlog_ignore_db          = include_database_name
-
-[mysqldump]
-quick
-quote-names
-max_allowed_packet  = 16M
-
-[mysql]
-#no-auto-rehash # faster start of mysql but no tab completition
 
 # eof

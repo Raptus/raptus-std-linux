@@ -1,6 +1,7 @@
 $cfg['blowfish_secret'] = 'INSERT_HERE_GENERATED_BLOWFISH_SECRET';
 $cfg['UploadDir'] = '';
 $cfg['SaveDir'] = '';
+$cfg['ZeroConf'] = false;
 
 $i = 0;
 $cfg['Servers'][$i]['auth_type'] = 'cookie';

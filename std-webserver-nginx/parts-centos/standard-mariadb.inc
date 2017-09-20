@@ -17,8 +17,7 @@ EOF
 # IN ORDER TO ENABLE THE REPO USE THIS (AT YOUR OWN RISK):   yum-config-manager --enable <name of repository>
 #
 
-mv /etc/my.cnf.d /etc/my.cnf.d.ORIG
-mkdir -p /etc/my.cnf.d
+rm /etc/my.cnf.d/*
 cp $WEB_PATH/configs-centos/etc-mariadb/* /etc/my.cnf.d/
 mkdir -p /var/log/mysql
 yum -y --enablerepo=$REPONAME install MariaDB-shared >> $LOGFILE 2>&1
@@ -26,7 +25,7 @@ yum -y --enablerepo=$REPONAME install MariaDB-devel >> $LOGFILE 2>&1
 yum -y --enablerepo=$REPONAME install MariaDB-client >> $LOGFILE 2>&1
 yum -y --enablerepo=$REPONAME install MariaDB-server >> $LOGFILE 2>&1
 yum -y install mytop innotop mysqltuner >> $LOGFILE
-sleep 1
+rm /etc/my.cnf.d/*.rpmnew
 chown mysql:mysql /var/log/mysql
 
 systemctl enable mariadb.service >> $LOGFILE 2>&1
