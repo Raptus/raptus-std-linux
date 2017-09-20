@@ -40,8 +40,6 @@ then
     done
     echo "</table>" >> $SDI
     cd $CURDIR
-
-    echo "### Updated sitelist"
 fi
 
 # eof
