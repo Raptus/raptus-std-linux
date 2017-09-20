@@ -33,8 +33,8 @@ mkdir -p /home/restricted/{scripts,logs,temp}
 source $WEB_PATH/parts-centos/standard-webserver.inc
 source $WEB_PATH/parts-centos/standard-memcached.inc
 source $WEB_PATH/parts-centos/standard-pureftp.inc
-source $WEB_PATH/parts-centos/standard-mariadb.inc
 source $WEB_PATH/parts-centos/standard-postgresql.inc
+source $WEB_PATH/parts-centos/standard-mariadb.inc
 source $WEB_PATH/parts-centos/standard-nginx.inc
 source $WEB_PATH/parts-centos/standard-php.inc
 
@@ -48,6 +48,12 @@ cp -Rp $WEB_PATH/admin-site/* /home/ADMIN-SITE/pub/httpdocs/
 DVP="`apg $APGOPTS`"
 htpasswd /home/sites/$HNFULL/auth/htpasswd admin $DVP
 passwordInfo "Default site" "admin" "$DVP" "https://$HNFULL/admin"
+
+### phpMyAdmin
+/opt/composer/bin/composer create-project phpmyadmin/phpmyadmin /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/ >> $LOGFILE 2>&1
+cp $WEB_PATH/configs-centos/phpmyadmin/config.inc.php /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/
+BFS="`apg -a0 -m15 -x15 -d -M NCL`"
+sed -i -r "s/INSERT_HERE_GENERATED_BLOWFISH_SECRET/$BFS/g" /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/config.inc.php
 
 chown -R nginx:nginx /home/restricted/logs
 chown -R nginx:nginx /home/restricted/temp
