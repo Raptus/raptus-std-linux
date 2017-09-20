@@ -1,5 +1,5 @@
 echo "### Setting up pure-ftpd (disabled per default)"
-yum -y install pure-ftpd >> $LOGFILE 
+yum -y install pure-ftpd >> $LOGFILE 2>&1
 
 mv /etc/pure-ftpd/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf.ORIG
 cp $WEB_PATH/configs-centos/etc-pure-ftpd/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf

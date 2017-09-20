@@ -24,7 +24,7 @@ yum -y --enablerepo=$REPONAME install MariaDB-shared >> $LOGFILE 2>&1
 yum -y --enablerepo=$REPONAME install MariaDB-devel >> $LOGFILE 2>&1
 yum -y --enablerepo=$REPONAME install MariaDB-client >> $LOGFILE 2>&1
 yum -y --enablerepo=$REPONAME install MariaDB-server >> $LOGFILE 2>&1
-yum -y install mytop innotop mysqltuner >> $LOGFILE
+yum -y install mytop innotop mysqltuner >> $LOGFILE 2>&1
 rm /etc/my.cnf.d/*.rpm*
 cp $WEB_PATH/configs-centos/etc-mariadb/* /etc/my.cnf.d/
 chown mysql:mysql /var/log/mysql

@@ -1,5 +1,5 @@
 echo "### Setting up postgresql (disabled per default)"
-yum -y install postgresql-server postgresql postgresql-libs postgresql-contrib postgis pgtune python-psycopg2 rhdb-utils perl-DBD-Pg perl-DateTime-Format-Pg >> $LOGFILE
+yum -y install postgresql-server postgresql postgresql-libs postgresql-contrib postgis pgtune python-psycopg2 rhdb-utils perl-DBD-Pg perl-DateTime-Format-Pg >> $LOGFILE 2>&1
 
 /usr/bin/postgresql-setup initdb >> $LOGFILE
 systemctl disable postgresql.service >> $LOGFILE 2>&1

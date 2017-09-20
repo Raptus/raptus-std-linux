@@ -12,7 +12,7 @@ enabled=1
 EOF
 
 # Need to build from source, since no loadable module support yet 
-yum -y install nginx >> $LOGFILE
+yum -y install nginx >> $LOGFILE 2>&1
 
 mv /etc/nginx /etc/nginx.ORIG
 cp -R $WEB_PATH/configs-centos/etc-nginx /etc/nginx

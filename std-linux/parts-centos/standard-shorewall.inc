@@ -1,5 +1,5 @@
 echo "### Setting up shorewall"
-yum install shorewall fail2ban-shorewall fail2ban -y >> $LOGFILE
+yum install shorewall fail2ban-shorewall fail2ban -y >> $LOGFILE 2>&1
 
 mv /etc/fail2ban/jail.d/00-firewalld.conf /etc/fail2ban/jail.d/00-firewalld.conf.ORIG
 cp $STD_PATH/configs-centos/etc-fail2ban/* /etc/fail2ban/jail.d/
