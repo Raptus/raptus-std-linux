@@ -2,10 +2,26 @@
 
 ### What is this repository for? ###
 
-* Raptus Standard Linux Installation
+* Simple Standard Linux Installation
 * WebStack with Nginx, PHP, MariaDB
-* Veeam Agent
 
 ### How do I get set up? ###
 
-* ```bash <(curl -s https://bitbucket.org/raptus-it-services/raptus-std-linux/raw/master/kickstart-standard-linux.sh)```
+1. Install CentOS v7
+   * Use CentOS Minimal Installer
+   * Make sure Keyboard, Date, Time and NTP is working
+   * Disable all security policies (currently unsupported)
+   * Disable kdump
+
+
+2. Create/edit the configuration file
+   ```
+   echo "OUR_IPS=1.2.3.4,11.22.33.44" > /root/.rslcfg
+   echo "ADMIN_EMAIL=myname@domain.tld" >> /root/.rslcfg
+   echo "ENABLE_FIREWALL=yes" >> /root/.rslcfg
+   ```
+
+
+3. Kickstart the installation
+   ```
+   bash <(curl -s https://bitbucket.org/raptus-it-services/raptus-std-linux/raw/master/kickstart-standard-linux.sh)    ```
