@@ -24,6 +24,13 @@ echo "### Standard setup for webserver"
 echo "    Logfile: $LOGFILE"
 askConfirmation
 
+echo "### Setting up basic structure"
+mkdir -p /home/archived
+mkdir -p /home/sites
+mkdir -p /home/restricted/{scripts,logs,temp}
+chown -R nginx:nginx /home/restricted/logs
+chown -R nginx:nginx /home/restricted/temp
+
 # ATTENTION: Dependencies!!!
 source $WEB_PATH/parts-centos/standard-webserver.inc
 source $WEB_PATH/parts-centos/standard-memcached.inc
@@ -32,13 +39,6 @@ source $WEB_PATH/parts-centos/standard-mariadb.inc
 source $WEB_PATH/parts-centos/standard-postgresql.inc
 source $WEB_PATH/parts-centos/standard-nginx.inc
 source $WEB_PATH/parts-centos/standard-php.inc
-
-echo "### Setting up basic structure"
-mkdir -p /home/archived
-mkdir -p /home/sites
-mkdir -p /home/restricted/{scripts,logs,temp}
-chown -R nginx:nginx /home/restricted/logs
-chown -R nginx:nginx /home/restricted/temp
 
 echo "### Setting up default/admin site $HNFULL"
 $WEB_PATH/scripts/create-site.sh $HNFULL default-admin-site >> $LOGFILE

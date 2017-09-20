@@ -1,4 +1,4 @@
-echo "### Setting up pure-ftpd"
+echo "### Setting up pure-ftpd (disabled per default)"
 yum -y install pure-ftpd >> $LOGFILE 
 
 mv /etc/pure-ftpd/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf.ORIG

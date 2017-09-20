@@ -1,4 +1,4 @@
-echo "### Setting up postgresql"
+echo "### Setting up postgresql (disabled per default)"
 yum -y install postgresql-server postgresql postgresql-libs postgresql-contrib postgis pgtune python-psycopg2 rhdb-utils perl-DBD-Pg perl-DateTime-Format-Pg >> $LOGFILE
 
 /usr/bin/postgresql-setup initdb >> $LOGFILE
