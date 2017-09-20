@@ -7,9 +7,9 @@
 
 ### Install Step 1 ###
 * Install CentOS v7
-* Use CentOS Minimal Installer
+* Use CentOS minimal Installer
 * Make sure Keyboard, Date, Time and NTP is working
-* Disable all security policies (currently unsupported)
+* Disable security policies
 * Disable kdump
 
 ### Install Step 2 ###
@@ -27,5 +27,6 @@ bash <(curl -s https://bitbucket.org/raptus-it-services/raptus-std-linux/raw/mas
 ```
 
 ### Install Step 4: ###
-Optional: If this should be a WebServer run 
+If this should be a WebServer run
 ```/root/scripts/rsl/std-webserver-nginx/standard-webserver.sh```
+

@@ -54,3 +54,10 @@ mkdir -p /opt/composer/bin
 getFileFromURL https://getcomposer.org/composer.phar /opt/composer/bin
 cp $WEB_PATH/configs-centos/composer-wrapper.sh /opt/composer/bin
 ln -s /opt/composer/bin/composer /usr/local/bin
+
+#BFS="`apg -a0 -m15 -x15 -d -M NCL`"
+#sed -i -r "s/INSERT_HERE_GENERATED_BLOWFISH_SECRET/$BFS/g" /home/ADMIN-SITE/pub/httpdocs/admin/phpmyadmin/config.inc.php
+
+
+#usermod -s /bin/bash s_testix.zurigos.local
+#sudo -u s_testix.zurigos.local /home/sites/testix.zurigos.local/scripts/php-cli.sh /opt/composer/bin/composer create-project phpmyadmin/phpmyadmin /home/sites/testix.zurigos.local/pub/httpdocs/admin/

@@ -144,8 +144,10 @@ function updateConfig()
         chown $uid:nginx /home/sites/$site
         $WEB_PATH/scripts/reset-access-rights.sh $site >> $LOGFILE
 
-        if ! test "$template" = "$ADMINTMPL"
+        if test "$template" = "$ADMINTMPL"
         then
+            ln -s /home/sites/$site /home/ADMIN-SITE
+        else
             echo
             echo "ATTENTION"
             echo "In order to activate the site, use the following command:"

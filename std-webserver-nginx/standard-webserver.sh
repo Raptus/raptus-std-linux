@@ -32,7 +32,6 @@ source $WEB_PATH/parts-centos/standard-mariadb.inc
 source $WEB_PATH/parts-centos/standard-postgresql.inc
 source $WEB_PATH/parts-centos/standard-nginx.inc
 source $WEB_PATH/parts-centos/standard-php.inc
-source $WEB_PATH/parts-centos/standard-phpmyadmin.inc
 
 echo "### Setting up basic structure"
 mkdir -p /home/archived
@@ -42,11 +41,13 @@ chown -R nginx:nginx /home/restricted/logs
 chown -R nginx:nginx /home/restricted/temp
 
 echo "### Setting up default/admin site $HNFULL"
+echo "A1"
 $WEB_PATH/scripts/create-site.sh $HNFULL default-admin-site >> $LOGFILE
-ln -s /home/sites/$HNFULL /home/ADMIN-SITE
+echo "A2"
 $WEB_PATH/scripts/manage-site.sh $HNFULL site-enable >> $LOGFILE
+echo "A3"
 $WEB_PATH/scripts/manage-site.sh $HNFULL php-enable >> $LOGFILE
-$WEB_PATH/scripts/update-static.sh >> $LOGFILE
+echo "A4"
 
 admin_site_uid="`stat -c %U /home/sites/$site`"
 cp -Rp $WEB_PATH/admin-site/* /home/ADMIN-SITE/pub/httpdocs/
