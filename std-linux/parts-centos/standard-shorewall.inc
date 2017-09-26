@@ -35,11 +35,12 @@ rm /tmp/shorewall-excludes
 
 systemctl disable firewalld.service >> $LOGFILE 2>&1
 
-echo "30    1    * * *   root    /usr/sbin/shorewall restart" >> /etc/crontab
-
 if test "$ENABLE_FIREWALL" = "yes"
 then
     systemctl enable fail2ban.service >> $LOGFILE 2>&1
     systemctl restart fail2ban.service >> $LOGFILE 2>&1
     systemctl enable shorewall.service >> $LOGFILE 2>&1
+    echo "30    1    * * *   root    /usr/sbin/shorewall restart" >> /etc/crontab
+else
+    echo "#30    1    * * *   root    /usr/sbin/shorewall restart" >> /etc/crontab
 fi
