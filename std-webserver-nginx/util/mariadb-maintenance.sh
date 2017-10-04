@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # only do something if service is active
-if ! test "`systemctl is-active mysql.service`" = "active"
+if ! test "`systemctl is-active mariadb.service`" = "active"
 then
     exit
 fi
