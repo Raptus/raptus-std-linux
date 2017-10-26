@@ -16,6 +16,20 @@ function enablePHP()
         $WEB_PATH/scripts/update-static.sh
         echo "PHP-FPM pool for $site is now started and enabled"
     fi
+
+    if test -L /etc/systemd/system/php-fcp_$site.service
+        if test "`systemctl is-active php-fcp_$site.service`" = "active"
+        then
+            echo "PHP-FCP pool for $site is already enabled" >>/dev/stderr
+            exit 1
+        else
+            systemctl enable /etc/systemd/system/php-fcp_$site.service
+            systemctl start php-fcp_$site.service
+            systemctl status php-fcp_$site.service
+            echo "PHP-FCP pool for $site is now started and enabled"
+        fi
+    then
+    fi
 }
 
 function disablePHP()
@@ -30,6 +44,19 @@ function disablePHP()
         systemctl disable php-fpm_$site.service
         $WEB_PATH/scripts/update-static.sh
         echo "PHP-FPM pool for $site is now stopped and disabled"
+    fi
+
+    if test -L /etc/systemd/system/php-fcp_$site.service
+        if test "`systemctl is-active php-fcp_$site.service`" = "active"
+        then
+            echo "PHP-FCP pool for $site is already disabled" >>/dev/stderr
+            exit 1
+        else
+            systemctl stop php-fcp_$site.service
+            systemctl disable php-fcp_$site.service
+            echo "PHP-FCP pool for $site is now started and enabled"
+        fi
+    then
     fi
 }
 
@@ -68,7 +95,7 @@ function deleteSite()
 {
     site=$1
     uid="`stat -c %U /home/sites/$site`"
-    
+
     echo "The site $site will be deleted, if you confirm now"
     if $ASK; then
         echo "Are you sure? [y/n] "
@@ -79,7 +106,7 @@ function deleteSite()
 
     if test -L /etc/nginx/sites-enabled/$site.conf
     then
-        disableSite $site 
+        disableSite $site
     fi
 
     # remove FTP account
@@ -153,7 +180,7 @@ then
         echo "Aborting."
         exit 1
     fi
-    
+
     case $2 in
         site-enable)     enableSite $1
         ;;
@@ -179,7 +206,7 @@ then
     esac
 
 else
-    echo "Usage: $0 <domain.tld> <action>" 
+    echo "Usage: $0 <domain.tld> <action>"
     echo
     echo "Available actions:"
     echo "                       site-enable        enables the site"
