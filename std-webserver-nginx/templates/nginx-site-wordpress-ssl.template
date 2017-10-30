@@ -3,9 +3,9 @@
 ###
 
 ### FCGI-Cacheing: Block
-#fastcgi_cache_path              /home/sites/SITE_NAME/cache 
-#                                levels=1:2 
-#                                keys_zone=fc_SITE_NAME:64M 
+#fastcgi_cache_path              /home/sites/SITE_NAME/cache
+#                                levels=1:2
+#                                keys_zone=fc_SITE_NAME:64M
 #                                inactive=30h
 #                                max_size=1024M;
 
@@ -70,7 +70,7 @@ server {
 
         try_files               $uri $uri/ /index.html /index.php?$args;
     }
-    
+
     ### External file for SEO rewrites
     include                     /home/sites/SITE_NAME/conf/nginx-rewrites.conf;
 
@@ -100,7 +100,7 @@ server {
 #        rewrite ^/video-sitemap\.xsl$ /index.php?xsl=video last;
 #    }
 
-    ### Add trailing slash to */wp-admin 
+    ### Add trailing slash to */wp-admin
     rewrite                     /wp-admin$ $scheme://$host$uri/ permanent;
 
     ### Prevent public access for Wordpress internals
@@ -119,7 +119,7 @@ server {
         return 404;
     }
 
-    ### Disallow access to important files            
+    ### Disallow access to important files
     location ~* (/\.|wp-config\.php|(liesmich|readme).*) {
         return 404;
     }
@@ -131,15 +131,15 @@ server {
     }
 
     ### Prevent access to any files starting with a dot, like .htaccess or temp files
-    location ~ /\. { 
+    location ~ /\. {
         log_not_found           off;
-        deny                    all; 
+        deny                    all;
     }
 
     ### Prevent access to any files starting with a $ (usually temp files)
-    location ~ ~$ { 
-        log_not_found           off; 
-        deny                    all; 
+    location ~ ~$ {
+        log_not_found           off;
+        deny                    all;
     }
 
     ### W3TC Page Cache
@@ -222,6 +222,21 @@ server {
         ### FCGI-Cacheing: Uncomment this for cache debugging via browser
 #        add_header              X-Cache $upstream_cache_status;
     }
+
+    ### Uncomment to enable fcgi cache purging
+#    location ~ ^/fcgi_cache_purge {
+#        allow 127.0.0.1;
+#        deny  all;
+#
+#        # This will inherit the allow/deny from the outer location
+#        location ~ \.php$ {
+#            include             fastcgi_params;
+#            fastcgi_pass        unix:/home/sites/beta.fankhauser-solar.ch/run/php-fcp.sock;
+#            fastcgi_temp_path   /home/sites/beta.fankhauser-solar.ch/pub/tmp/fcgi 1 2;
+#            fastcgi_param       SCRIPT_FILENAME $document_root$fastcgi_script_name;
+#            fastcgi_param       HTTPS on;
+#        }
+#    }
 
     ### Show "Not Found" 404 errors in place of "Forbidden" 403 errors, because
     ### forbidden errors allow attackers potential insight into your server's
