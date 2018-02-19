@@ -12,7 +12,7 @@ enabled=1
 EOF
 
 # Need to build from source, since no loadable module support yet 
-yum -y install nginx >> $LOGFILE
+yum -y install nginx >> $LOGFILE 2>&1
 
 mv /etc/nginx /etc/nginx.ORIG
 cp -R $WEB_PATH/configs-centos/etc-nginx /etc/nginx
@@ -34,6 +34,5 @@ echo >> /etc/nginx/conf.d/global-maps.conf
 # https://security.stackexchange.com/questions/95178/diffie-hellman-parameters-still-calculating-after-24-hours
 openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 4096 >> $LOGFILE 2>&1
 
-systemctl daemon-reload
 systemctl enable nginx.service >> $LOGFILE 2>&1
-
+systemctl start nginx.service >> $LOGFILE 2>&1

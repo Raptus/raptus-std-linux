@@ -135,6 +135,7 @@ function updateConfig()
 
         if ! test -f $CONFDIR/php-fpm/php-fpm.conf
         then
+            echo "Creating PHP-FPM pool configuration"
             sed "s/SITE_NAME/$site/g" $TEMPLPATH/php-fpm-pool.template > $CONFDIR/php-fpm/php-fpm.conf.IN.1
             sed "s/UID_NAME/$uid/g" $CONFDIR/php-fpm/php-fpm.conf.IN.1 > $CONFDIR/php-fpm/php-fpm.conf.IN.2
             sed "s/PHPFPM_PORT/$PORT/g" $CONFDIR/php-fpm/php-fpm.conf.IN.2 > $CONFDIR/php-fpm/php-fpm.conf
@@ -144,8 +145,10 @@ function updateConfig()
         chown $uid:nginx /home/sites/$site
         $WEB_PATH/scripts/reset-access-rights.sh $site >> $LOGFILE
 
-        if ! test "$template" = "$ADMINTMPL"
+        if test "$template" = "$ADMINTMPL"
         then
+            ln -s /home/sites/$site /home/ADMIN-SITE
+        else
             echo
             echo "ATTENTION"
             echo "In order to activate the site, use the following command:"
@@ -182,6 +185,7 @@ else
     echo
     echo "Available templates:"
     ls -1 $TEMPLPATH/nginx-site-*.template | perl -pe "s/.*nginx-site-(.*).template/\1/"
+    echo
 fi
 echo
 

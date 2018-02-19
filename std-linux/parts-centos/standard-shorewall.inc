@@ -1,5 +1,5 @@
 echo "### Setting up shorewall"
-yum install shorewall fail2ban-shorewall fail2ban -y >> $LOGFILE
+yum install shorewall fail2ban-shorewall fail2ban -y >> $LOGFILE 2>&1
 
 mv /etc/fail2ban/jail.d/00-firewalld.conf /etc/fail2ban/jail.d/00-firewalld.conf.ORIG
 cp $STD_PATH/configs-centos/etc-fail2ban/* /etc/fail2ban/jail.d/
@@ -35,11 +35,12 @@ rm /tmp/shorewall-excludes
 
 systemctl disable firewalld.service >> $LOGFILE 2>&1
 
-echo "30    1    * * *   root    /usr/sbin/shorewall restart" >> /etc/crontab
-
 if test "$ENABLE_FIREWALL" = "yes"
 then
     systemctl enable fail2ban.service >> $LOGFILE 2>&1
     systemctl restart fail2ban.service >> $LOGFILE 2>&1
     systemctl enable shorewall.service >> $LOGFILE 2>&1
+    echo "30    1    * * *   root    /usr/sbin/shorewall restart" >> /etc/crontab
+else
+    echo "#30    1    * * *   root    /usr/sbin/shorewall restart" >> /etc/crontab
 fi

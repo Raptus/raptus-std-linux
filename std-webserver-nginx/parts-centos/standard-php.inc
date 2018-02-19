@@ -48,9 +48,10 @@ ln -s /opt/remi/php71/root /opt/php7
 
 cp $WEB_PATH/configs-centos/etc-logrotate.d/php-fpm_sites /etc/logrotate.d/php-fpm_sites
 
-###
+### Composer
 
 mkdir -p /opt/composer/bin
 getFileFromURL https://getcomposer.org/composer.phar /opt/composer/bin
-cp $WEB_PATH/configs-centos/composer-wrapper.sh /opt/composer/bin
+cp $WEB_PATH/configs-centos/composer-wrapper.sh /opt/composer/bin/composer
 ln -s /opt/composer/bin/composer /usr/local/bin
+

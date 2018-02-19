@@ -1,6 +1,6 @@
 echo "### Setting up system defaults"
 
-yum -y install yum-cron >> $LOGFILE
+yum -y install yum-cron >> $LOGFILE 2>&1
 systemctl enable yum-cron >> $LOGFILE 2>&1
 sed -i -r "s/(^emit_via = )stdio/\1email/g" /etc/yum/yum-cron.conf
 sed -i -r "s/(^email_from = ).*$/\1$ADMIN_EMAIL/g" /etc/yum/yum-cron.conf

@@ -1,0 +1,6 @@
+# This will be passed to all mysql clients
+# It has been reported that passwords should be enclosed with ticks/quotes
+# escpecially if they contain "#" chars...
+[client]
+port        = 3306
+socket      = /var/lib/mysql/mysql.sock

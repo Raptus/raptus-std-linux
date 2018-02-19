@@ -6,7 +6,7 @@
 #fastcgi_cache_path              /home/sites/SITE_NAME/cache 
 #                                levels=1:2 
 #                                keys_zone=fc_SITE_NAME:64M 
-#                                inactive=90m
+#                                inactive=30h
 #                                max_size=1024M;
 
 ### Redirect alias domains

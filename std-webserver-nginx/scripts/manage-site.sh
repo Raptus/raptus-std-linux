@@ -10,7 +10,7 @@ function enablePHP()
         echo "PHP-FPM pool for $site is already enabled" >>/dev/stderr
         exit 1
     else
-        systemctl enable /etc/systemd/system/php-fpm_$site.service >> $LOGFILE 2>&1
+        systemctl enable /etc/systemd/system/php-fpm_$site.service
         systemctl start php-fpm_$site.service
         systemctl status php-fpm_$site.service
         $WEB_PATH/scripts/update-static.sh
@@ -27,7 +27,7 @@ function disablePHP()
         exit 1
     else
         systemctl stop php-fpm_$site.service
-        systemctl disable php-fpm_$site.service >> $LOGFILE 2>&1
+        systemctl disable php-fpm_$site.service
         $WEB_PATH/scripts/update-static.sh
         echo "PHP-FPM pool for $site is now stopped and disabled"
     fi
@@ -68,7 +68,7 @@ function deleteSite()
 {
     site=$1
     uid="`stat -c %U /home/sites/$site`"
-    
+
     echo "The site $site will be deleted, if you confirm now"
     if $ASK; then
         echo "Are you sure? [y/n] "
@@ -79,7 +79,7 @@ function deleteSite()
 
     if test -L /etc/nginx/sites-enabled/$site.conf
     then
-        disableSite $site 
+        disableSite $site
     fi
 
     # remove FTP account
@@ -153,7 +153,7 @@ then
         echo "Aborting."
         exit 1
     fi
-    
+
     case $2 in
         site-enable)     enableSite $1
         ;;
@@ -179,7 +179,7 @@ then
     esac
 
 else
-    echo "Usage: $0 <domain.tld> <action>" 
+    echo "Usage: $0 <domain.tld> <action>"
     echo
     echo "Available actions:"
     echo "                       site-enable        enables the site"

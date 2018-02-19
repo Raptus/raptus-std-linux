@@ -6,6 +6,9 @@ emergency_restart_threshold = 10
 emergency_restart_interval = 1m
 process_control_timeout = 10s
 
+
+; ----------------------------------------------- Main FPM Pool
+
 [php-fpm-pool_SITE_NAME]
 prefix = /home/sites/SITE_NAME
 security.limit_extensions = .php
@@ -64,4 +67,36 @@ env[PATH] = /usr/local/bin:/usr/bin:/bin
 env[TMP] = /home/sites/SITE_NAME/pub/tmp
 env[TMPDIR] = /home/sites/SITE_NAME/pub/tmp
 env[TEMP] = /home/sites/SITE_NAME/pub/tmp
+
+
+; ----------------------------------------------- FPM Pool running as nginx to purge cache
+
+;[php-fcp-pool_SITE_NAME]
+;prefix = /home/sites/SITE_NAME
+;security.limit_extensions = .php
+;user = nginx
+;group = nginx
+;rlimit_files = 131072
+;rlimit_core = unlimited
+
+;listen = /home/sites/SITE_NAME/run/php-fcp.sock
+;listen.allowed_clients = 127.0.0.1
+;listen.owner = nginx
+;listen.group = nginx
+;listen.mode = 0660
+;listen.backlog = -1
+
+;pm = ondemand
+;pm.max_children = 1
+;pm.max_requests = 5
+;pm.process_idle_timeout = 15s
+
+;request_terminate_timeout = 360s
+;catch_workers_output = yes
+
+;env[HOSTNAME] = $HOSTNAME
+;env[PATH] = /usr/local/bin:/usr/bin:/bin
+;env[TMP] = /home/sites/SITE_NAME/pub/tmp
+;env[TMPDIR] = /home/sites/SITE_NAME/pub/tmp
+;env[TEMP] = /home/sites/SITE_NAME/pub/tmp
 
