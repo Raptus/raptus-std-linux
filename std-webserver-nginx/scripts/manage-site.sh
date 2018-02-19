@@ -152,7 +152,7 @@ function enablePHPNginxPool()
 
     if grep "php-fpm-nginx.sock" $CONFDIR/php-fpm/php-fpm.conf &> /dev/null
     then
-        echo "Addition PHP-FPM Pool already enabled"
+        echo "Additional PHP-FPM Pool already enabled"
         exit 1
     else
         echo "Adding additional PHP-FPM Pool configuration"
