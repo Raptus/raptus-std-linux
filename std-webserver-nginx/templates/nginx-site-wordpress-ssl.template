@@ -211,6 +211,12 @@ server {
 #        }
 #    }
 
+    ### Do not cache social media crawler
+#    set $override_cache 0;
+#    if ($http_user_agent ~* "facebookexternalhit|twitterbot|developers\.google\.com") {
+#        set $override_cache 1;
+#    }
+
     location ~ \.php$ {
         include                 fastcgi_params;
 #        fastcgi_pass            localhost:PHPFPM_PORT;
@@ -227,9 +233,9 @@ server {
 #        fastcgi_cache_valid     200         30h;
 #        fastcgi_cache_valid     301         1d;
 #        fastcgi_cache           fc_SITE_NAME;
-#        fastcgi_cache_bypass    $http_pragma;
+#        fastcgi_cache_bypass    $http_pragma $override_cache;
         ### FCGI-Cacheing: Delegate cacheing decision to App using X-No-Cache header
-#        fastcgi_no_cache        $sent_http_x_no_cache;
+#        fastcgi_no_cache        $sent_http_x_no_cache $override_cache;
 
         ### FCGI-Cacheing: Uncomment this for cache debugging via browser
 #        add_header              X-Cache $upstream_cache_status;
