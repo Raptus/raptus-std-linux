@@ -197,7 +197,7 @@ then
         ;;
         php-set-major7)  setPHPMajor 7 $1
         ;;
-        php-enable-nginx-pool)  enablePHPNginxPool 7 $1
+        php-enable-nginx-pool)  enablePHPNginxPool $1
         ;;
         *)
             echo "Unknown action specified." >>/dev/stderr
