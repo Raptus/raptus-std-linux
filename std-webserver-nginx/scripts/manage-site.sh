@@ -16,20 +16,6 @@ function enablePHP()
         $WEB_PATH/scripts/update-static.sh
         echo "PHP-FPM pool for $site is now started and enabled"
     fi
-
-    if test -L /etc/systemd/system/php-fcp_$site.service
-    then
-        if test "`systemctl is-active php-fcp_$site.service`" = "active"
-        then
-            echo "PHP-FCP pool for $site is already enabled" >>/dev/stderr
-            exit 1
-        else
-            systemctl enable /etc/systemd/system/php-fcp_$site.service
-            systemctl start php-fcp_$site.service
-            systemctl status php-fcp_$site.service
-            echo "PHP-FCP pool for $site is now started and enabled"
-        fi
-    fi
 }
 
 function disablePHP()
@@ -44,19 +30,6 @@ function disablePHP()
         systemctl disable php-fpm_$site.service
         $WEB_PATH/scripts/update-static.sh
         echo "PHP-FPM pool for $site is now stopped and disabled"
-    fi
-
-    if test -L /etc/systemd/system/php-fcp_$site.service
-    then
-        if test "`systemctl is-active php-fcp_$site.service`" = "active"
-        then
-            echo "PHP-FCP pool for $site is already disabled" >>/dev/stderr
-            exit 1
-        else
-            systemctl stop php-fcp_$site.service
-            systemctl disable php-fcp_$site.service
-            echo "PHP-FCP pool for $site is now started and enabled"
-        fi
     fi
 }
 

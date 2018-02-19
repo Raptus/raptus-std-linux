@@ -116,22 +116,10 @@ function updateConfig()
             ln -s /etc/php5/conf.d /home/sites/$site/conf/php-fpm/php5-conf.d
         fi
 
-        if ! test -z "$3" && ! test -f $CONFDIR/php-fpm/php5-fcp.ini
-        then
-            echo "Creating php.ini for PHP5 FCP pool from template"
-            sed "s/SITE_NAME/$site/g" $TEMPLPATH/php5-fcp.ini.template > $CONFDIR/php-fpm/php5-fcp.ini
-        fi
-
         if ! test -f $CONFDIR/php-fpm/php7.ini
         then
             sed "s/SITE_NAME/$site/g" $TEMPLPATH/php7-fpm.ini.template > $CONFDIR/php-fpm/php7.ini
             ln -s /etc/php7/conf.d /home/sites/$site/conf/php-fpm/php7-conf.d
-        fi
-
-        if ! test -z "$3" && ! test -f $CONFDIR/php-fpm/php7-fcp.ini
-        then
-            echo "Creating php.ini for PHP7 FCP pool from template"
-            sed "s/SITE_NAME/$site/g" $TEMPLPATH/php7-fcp.ini.template > $CONFDIR/php-fpm/php7-fcp.ini
         fi
 
         if ! test -f /home/sites/$site/scripts/php-fpm.sh
@@ -139,22 +127,9 @@ function updateConfig()
             sed "s/SITE_NAME/$site/g" $TEMPLPATH/php-fpm.sh.template > /home/sites/$site/scripts/php-fpm.sh
         fi
 
-        if ! test -z "$3" && ! test -f /home/sites/$site/scripts/php-fcp.sh
-        then
-            echo "Creating PHP-FCP pool wrapper script"
-            sed "s/SITE_NAME/$site/g" $TEMPLPATH/php-fcp.sh.template > /home/sites/$site/scripts/php-fcp.sh
-        fi
-
         if ! test -f /etc/systemd/system/php-fpm_$site.service
         then
             sed "s/SITE_NAME/$site/g" $TEMPLPATH/php-fpm-systemd-unit.template > /etc/systemd/system/php-fpm_$site.service
-            systemctl daemon-reload
-        fi
-
-        if ! test -v "$3" && ! test -f /etc/systemd/system/php-fcp_$site.service
-        then
-            echo "Creating PHP-FCP pool systemd unit"
-            sed "s/SITE_NAME/$site/g" $TEMPLPATH/php-fcp-systemd-unit.template > /etc/systemd/system/php-fcp_$site.service
             systemctl daemon-reload
         fi
 
@@ -165,15 +140,6 @@ function updateConfig()
             sed "s/UID_NAME/$uid/g" $CONFDIR/php-fpm/php-fpm.conf.IN.1 > $CONFDIR/php-fpm/php-fpm.conf.IN.2
             sed "s/PHPFPM_PORT/$PORT/g" $CONFDIR/php-fpm/php-fpm.conf.IN.2 > $CONFDIR/php-fpm/php-fpm.conf
             rm -f $CONFDIR/php-fpm/php-fpm.conf.IN.*
-        fi
-
-        if ! test -z "$3" && ! test -f $CONFDIR/php-fpm/php-fcp.conf
-        then
-            echo "Creating PHP-FCP pool configuration"
-            sed "s/SITE_NAME/$site/g" $TEMPLPATH/php-fcp-pool.template > $CONFDIR/php-fpm/php-fcp.conf.IN.1
-            sed "s/UID_NAME/$uid/g" $CONFDIR/php-fpm/php-fcp.conf.IN.1 > $CONFDIR/php-fpm/php-fcp.conf.IN.2
-            sed "s/PHPFPM_PORT/$PORT/g" $CONFDIR/php-fpm/php-fcp.conf.IN.2 > $CONFDIR/php-fpm/php-fcp.conf
-            rm -f $CONFDIR/php-fpm/php-fcp.conf.IN.*
         fi
 
         chown $uid:nginx /home/sites/$site
@@ -213,14 +179,13 @@ then
             exit 1
         fi
 
-        updateConfig $1 $2 $3
+        updateConfig $1 $2
 else
-    echo "Usage: $0 <domain.tld> <template> (<fcgi-cache-purging>)"
+    echo "Usage: $0 <domain.tld> <template>"
     echo
     echo "Available templates:"
     ls -1 $TEMPLPATH/nginx-site-*.template | perl -pe "s/.*nginx-site-(.*).template/\1/"
     echo
-    echo "fcgi-cache-purging: optional, omit if unwanted"
 fi
 echo
 
