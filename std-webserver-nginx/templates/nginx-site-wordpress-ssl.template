@@ -68,6 +68,36 @@ server {
         ### SPECIAL: Disallow search engines by force
 #        add_header              X-Robots-Tag "noindex, nofollow, nosnippet, noarchive";
 
+   ### Cachify Configuration
+#        open_file_cache         off;
+#
+#        if ( $query_string ) {
+#            return 405;
+#        }
+#        if ( $request_method = POST ) {
+#            return 405;
+#        }
+#        if ( $request_uri ~ /wp-admin/ ) {
+#            return 405;
+#        }
+#        if ( $http_cookie ~ (wp-postpass|wordpress_logged_in|comment_author)_ ) {
+#            return 405;
+#        }
+#
+#        error_page 404 405 = @nocache;
+#
+#        try_files /content/cache/cachify/https-${host}${uri}index.html @nocache;
+#    }
+#
+#    ## PROTECT CACHE
+#    location ~ /content/cache {
+#        internal;
+#    }
+#
+#    ## NOCACHE LOCATION
+#    location @nocache {
+   ### END Cachify Configuration
+
         try_files               $uri $uri/ /index.html /index.php?$args;
     }
 
@@ -109,23 +139,37 @@ server {
     location ~* wp-includes/js/tinymce/langs/.*\.php { deny all; }
 
     ### Prevent potentially-executable files in the uploads directory
-    location ~* ^/wp-content/uploads/.*.(html|htm|shtml|php)$ {
+    location ~* /uploads/.*.(html|htm|shtml|php)$ {
         types                   { }
         default_type            text/plain;
     }
 
     ### Disable direct access of any *.php in /wp_content/uploads folder
-    location ~ ^/wp-content/uploads/.+\.php$ {
+    location ~* /uploads/.+\.php$ {
         return 404;
     }
 
     ### Disallow access to important files
-    location ~* (/\.|wp-config\.php|(liesmich|readme).*) {
+    location ~* (/\.|wp-config\.php|wp-env\.php|(liesmich|readme).*) {
         return 404;
     }
 
+    ### MDM Imported media
+#    location ~* /uploads/imported/.*$ {
+#        ### WP Performance Pack Rewrite Rule
+#        if (!-e $request_filename) {
+#            rewrite ^/(.*)-([0-9]+)x([0-9]+)?\.((?i)jpeg|jpg|png|gif) /content/plugins/raptus-theme-library/compatibility/wp-performance-pack/serve-dynamic-images-ut.php;
+#        }
+#        log_not_found           off;
+#        expires                 max; # Imported media files have unique file names and therefor allow max caching
+#    }
+
     ### Keep images and CSS in browser cache for as long as possible, to cut down on server load
-    location ~* \.(jpg|jpeg|gif|png|css|js|ico|xml|svg|woff|eot|ttf)$ {
+    location ~* \.(jpg|jpeg|gif|png|css|js|ico|xml|svg|woff|woff2|eot|ttf)$ {
+#        ### WP Performance Pack Rewrite Rule
+#        if (!-e $request_filename) {
+#            rewrite ^/(.*)-([0-9]+)x([0-9]+)?\.((?i)jpeg|jpg|png|gif) /content/plugins/raptus-theme-library/compatibility/wp-performance-pack/serve-dynamic-images-ut.php;
+#        }
         log_not_found           off;
         expires                 1w;
     }
@@ -142,52 +186,29 @@ server {
         deny                    all;
     }
 
-    ### W3TC Page Cache
-#    location ~ /content/cache/page_enhanced.*html$ {
-#        add_header              Vary "Accept-Encoding, Cookie";
-#    }
-#    location ~ /content/cache/page_enhanced.*gzip$ {
-#        gzip                    off;
-#        types                   {}
-#        default_type            text/html;
-#        add_header              Vary "Accept-Encoding, Cookie";
-#        add_header              Content-Encoding gzip;
-#    }
-
-    ### FCGI-Cacheing DEBUG: Honour Ctrl+R, ignore Ctrl+Shift+R
-#    set                         $ctrl_f_five 0;
-#    if ($http_cache_control = "no-cache") {
-#        set $ctrl_f_five        1;
-#    }
-
-    ### FCGI-Cacheing: Default policy is to cache all
-#    set                         $skip_cache 0;
-
-    ### FCGI-Cacheing: Tagging
-#    if ($query_string != "") {
-#        set $skip_cache         1;
+    ### Allow access to web-hooks only for certain local requests
+#    location ~ ^/web-hooks {
+#        allow 127.0.0.1;
+#        deny all;
+#
+#        try_files $uri $uri/index.php?$args;
+#
+#        # This will inherit the allow/deny from the outer location
+#        location ~ \.php$ {
+#            include             fastcgi_params;
+#            fastcgi_pass        unix:/home/sites/SITE_NAME/run/php-fpm-nginx.sock;
+#            fastcgi_temp_path   /home/sites/SITE_NAME/pub/tmp/fcgi 1 2;
+#            fastcgi_param       SCRIPT_FILENAME $document_root$fastcgi_script_name;
+#            fastcgi_param       HTTPS on;
+#
+#            add_header          WebHook 1;
+#        }
 #    }
 
-    ### FCGI-Cacheing: Tagging
-#    if ($request_uri ~* "(/wc-api/|/wp-admin/|/xmlrpc.php|/wp-(app|cron|login|register|mail).php|wp-.*.php|/feed/|index.php|wp-comments-popup.php|wp-links-opml.php|wp-locations.php|sitemap(_index)?.xml|[a-z0-9_-]+-sitemap([0-9]+)?.xml)") {
-#        set $skip_cache         1;
-#    }
-
-    ### FCGI-Cacheing: Cache filtering and ordering
-    ###                OVERRIDES NOT CACHEING REQUESTS WITH QUERY STRINGS
-#    if ($query_string ~* "^((filter_[^=]+=[^&^$]+|query_type_[^=]+=(or|and)|order_by=[^&^$]*|raf_ajax=1)(&|$))+$") {
-#        set $skip_cache         0;
-#    }
-
-    ### FCGI-Cacheing: Tagging
-#    if ($http_cookie ~* "comment_author|wordpress_[a-f0-9]+|wp-postpass|wordpress_logged_in") {
-#        set $skip_cache         1;
-#    }
-
-    ### FCGI-Cacheing: POST Requests are not cached by default, but this ensures that
-    ###                the cookie headers are not cleared for them
-#    if ($request_method = POST) {
-#        set $skip_cache         1;
+    ### Do not cache social media crawler
+#    set $override_cache 0;
+#    if ($http_user_agent ~* "facebookexternalhit|twitterbot|developers\.google\.com") {
+#        set $override_cache 1;
 #    }
 
     location ~ \.php$ {
@@ -197,46 +218,22 @@ server {
         fastcgi_temp_path       /home/sites/SITE_NAME/pub/tmp/fcgi 1 2;
         fastcgi_param           SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_param           HTTPS on;
+        fastcgi_param           REQUEST_METHOD $request_method;
 
         ### Uncomment to let webapp handle the error page
         fastcgi_intercept_errors off;
-
-        ### FCGI-Cacheing: if cacheing, dont cache cookies NEEDS: http://wiki.nginx.org/HttpHeadersMoreModule
-        ###                the clear_cookie_headers variable is defined in /etc/nginx/conf.d/global-maps.conf
-        ###                and makes sure cookies are not cleared if the App sets the X-No-Cache header:
-        ###
-        ###                default           => $clear_cookie_headers: "Set-Cookie*"
-        ###                X-No-Cache: 1     => $clear_cookie_headers: ""
-#        if ($skip_cache = 0) {
-#            more_clear_headers $clear_cookie_headers;
-#        }
 
         ### FCGI-Cacheing: Enable the cacheing mechanism
 #        fastcgi_cache_valid     200         30h;
 #        fastcgi_cache_valid     301         1d;
 #        fastcgi_cache           fc_SITE_NAME;
-#        fastcgi_cache_bypass    $skip_cache $http_pragma $ctrl_f_five;
+#        fastcgi_cache_bypass    $http_pragma $override_cache;
         ### FCGI-Cacheing: Delegate cacheing decision to App using X-No-Cache header
-#        fastcgi_no_cache        $skip_cache $sent_http_x_no_cache;
+#        fastcgi_no_cache        $sent_http_x_no_cache $override_cache;
 
         ### FCGI-Cacheing: Uncomment this for cache debugging via browser
 #        add_header              X-Cache $upstream_cache_status;
     }
-
-    ### Uncomment to enable fcgi cache purging
-#    location ~ ^/fcgi_cache_purge {
-#        allow 127.0.0.1;
-#        deny  all;
-#
-#        # This will inherit the allow/deny from the outer location
-#        location ~ \.php$ {
-#            include             fastcgi_params;
-#            fastcgi_pass        unix:/home/sites/beta.fankhauser-solar.ch/run/php-fcp.sock;
-#            fastcgi_temp_path   /home/sites/beta.fankhauser-solar.ch/pub/tmp/fcgi 1 2;
-#            fastcgi_param       SCRIPT_FILENAME $document_root$fastcgi_script_name;
-#            fastcgi_param       HTTPS on;
-#        }
-#    }
 
     ### Show "Not Found" 404 errors in place of "Forbidden" 403 errors, because
     ### forbidden errors allow attackers potential insight into your server's

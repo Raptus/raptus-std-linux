@@ -144,12 +144,38 @@ function setPHPMajor()
     echo
 }
 
+function enablePHPNginxPool()
+{
+    site=$1
+    CONFDIR="/home/sites/$site/conf"
+    TEMPLPATH="$WEB_PATH/templates"
+
+    if grep "php-fpm-nginx.sock" $CONFDIR/php-fpm/php-fpm.conf &> /dev/null
+    then
+        echo "Additional PHP-FPM Pool already enabled"
+        exit 1
+    else
+        echo "Adding additional PHP-FPM Pool configuration"
+        sed "s/SITE_NAME/$site/g" $TEMPLPATH/php-fpm-nginx-pool.template >> $CONFDIR/php-fpm/php-fpm.conf
+    fi
+
+    if test "`systemctl is-active php-fpm_$site.service`" = "inactive"
+    then
+        echo "PHP-FPM pool for $site is inactive" >>/dev/stderr
+        exit 1
+    else
+        echo "Restarting PHP-FPM Pool"
+        systemctl stop php-fpm_$site.service
+        systemctl start php-fpm_$site.service
+    fi
+}
+
 echo
 if test $# -ge 2 && (! test -z "$1" || ! test -z "$2")
 then
     if ! test -d /home/sites/$1
     then
-        echo "Sites $1 does not exist." >>/dev/stderr
+        echo "Site $1 does not exist." >>/dev/stderr
         echo "Aborting."
         exit 1
     fi
@@ -171,6 +197,8 @@ then
         ;;
         php-set-major7)  setPHPMajor 7 $1
         ;;
+        php-enable-nginx-pool)  enablePHPNginxPool $1
+        ;;
         *)
             echo "Unknown action specified." >>/dev/stderr
             echo
@@ -182,14 +210,15 @@ else
     echo "Usage: $0 <domain.tld> <action>"
     echo
     echo "Available actions:"
-    echo "                       site-enable        enables the site"
-    echo "                       site-disable       disables the site, but leaves everything intact"
-    echo "                       site-delete        deletes the site (including FTP, but not databases)"
-    echo "                       site-archive       archives and then deletes the site"
-    echo "                       php-enable         enables the PHP backend"
-    echo "                       php-disable        enables the PHP backend"
-    echo "                       php-set-major5     switch to PHP v5x for cli and fpm"
-    echo "                       php-set-major7     switch to PHP v7x for cli and fpm"
+    echo "                       site-enable            enables the site"
+    echo "                       site-disable           disables the site, but leaves everything intact"
+    echo "                       site-delete            deletes the site (including FTP, but not databases)"
+    echo "                       site-archive           archives and then deletes the site"
+    echo "                       php-enable             enables the PHP backend"
+    echo "                       php-disable            enables the PHP backend"
+    echo "                       php-set-major5         switch to PHP v5x for cli and fpm"
+    echo "                       php-set-major7         switch to PHP v7x for cli and fpm"
+    echo "                       php-enable-nginx-pool  enable separate PHP-FPM Pool running as nginx user rather than host owner"
 fi
 echo
 
