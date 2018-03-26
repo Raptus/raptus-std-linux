@@ -158,7 +158,7 @@ server {
 #    location ~* /uploads/imported/.*$ {
 #        ### WP Performance Pack Rewrite Rule
 #        if (!-e $request_filename) {
-#            rewrite ^/(.*)-([0-9]+)x([0-9]+)?\.((?i)jpeg|jpg|png|gif) /content/plugins/raptus-theme-library/compatibility/wp-performance-pack/serve-dynamic-images-ut.php;
+#            rewrite ^/(.*)-([0-9]+)x([0-9]+)?\.((?i)jpeg|jpg|png|gif) /content/plugins/raptus-image-compression/compatibility/wp-performance-pack/serve-dynamic-images-ut.php;
 #        }
 #        log_not_found           off;
 #        expires                 max; # Imported media files have unique file names and therefor allow max caching
@@ -168,7 +168,7 @@ server {
     location ~* \.(jpg|jpeg|gif|png|css|js|ico|xml|svg|woff|woff2|eot|ttf)$ {
 #        ### WP Performance Pack Rewrite Rule
 #        if (!-e $request_filename) {
-#            rewrite ^/(.*)-([0-9]+)x([0-9]+)?\.((?i)jpeg|jpg|png|gif) /content/plugins/raptus-theme-library/compatibility/wp-performance-pack/serve-dynamic-images-ut.php;
+#            rewrite ^/(.*)-([0-9]+)x([0-9]+)?\.((?i)jpeg|jpg|png|gif) /content/plugins/raptus-image-compression/compatibility/wp-performance-pack/serve-dynamic-images-ut.php;
 #        }
         log_not_found           off;
         expires                 1w;
