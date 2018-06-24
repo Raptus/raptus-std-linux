@@ -5,7 +5,7 @@ PHPMAJ="`cat /home/sites/$SITE/conf/php-fpm/php-major`"
 CFGFILE="/home/sites/$SITE/conf/php-fpm/php-fpm.conf"
 PHPINI="/home/sites/$SITE/conf/php-fpm/php${PHPMAJ}.ini"
 LOGFILE="/home/sites/$SITE/pub/log/php-fpm.log"
-PHPBIN="/opt/php$PHPMAJ/sbin/php-fpm"
+PHPBIN="/home/sites/$SITE/conf/php-fpm/php$PHPMAJ/sbin/php-fpm"
 PHP_INI_SCAN_DIR="/home/sites/$SITE/conf/php-fpm/php${PHPMAJ}-conf.d"
 
 CFGCHECK="`$PHPBIN --fpm-config $CFGFILE -c $PHPINI -t 2>&1 | grep 'test is successful' `"

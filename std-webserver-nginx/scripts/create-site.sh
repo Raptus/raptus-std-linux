@@ -5,6 +5,7 @@ TEMPLPATH="$WEB_PATH/templates"
 ADMINTMPL="default-admin-site"
 
 DEFPHPMAJ="7"
+DEFPHPBINS="php56 php72"
 PORTBASE="10010"
 PORTSIZE="9"
 PORTFILE="/var/rsl/state/last-port-offset"
@@ -76,6 +77,12 @@ function updateConfig()
         then
             cp $TEMPLPATH/nginx-rewrites.conf $CONFDIR/
         fi
+
+        for PHPBINS in $DEFPHPBINS
+        do
+            ln -s /opt/$PHPBINS $CONFDIR/php-cli/$PHPBINS
+            ln -s /opt/$PHPBINS $CONFDIR/php-fpm/$PHPBINS
+        done
 
         ### PHP-CLI
 
