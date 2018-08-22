@@ -20,11 +20,11 @@ fi
 
 if test -f /home/sites/$SITE/scripts/php-fcp.sh
 then
-    sed -r -i "s/^PHPBIN=.*$/PHPBIN=\"\/home\/sites\/\$SITE\/conf\/php-fpm\/php\$PHPMAJ\/bin\/php\"/g" /home/sites/$SITE/scripts/php-fcp.sh
+    sed -r -i "s/^PHPBIN=.*$/PHPBIN=\"\/home\/sites\/\$SITE\/conf\/php-fpm\/php\$PHPMAJ\/sbin\/php-fpm\"/g" /home/sites/$SITE/scripts/php-fcp.sh
 fi
 
 if test -f /home/sites/$SITE/scripts/php-fpm.sh
 then
-    sed -r -i "s/^PHPBIN=.*$/PHPBIN=\"\/home\/sites\/\$SITE\/conf\/php-fpm\/php\$PHPMAJ\/bin\/php\"/g" /home/sites/$SITE/scripts/php-fpm.sh
+    sed -r -i "s/^PHPBIN=.*$/PHPBIN=\"\/home\/sites\/\$SITE\/conf\/php-fpm\/php\$PHPMAJ\/sbin\/php-fpm\"/g" /home/sites/$SITE/scripts/php-fpm.sh
 fi
 
