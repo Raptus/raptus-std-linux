@@ -1,6 +1,6 @@
 #!/bin/bash
 
-$SITE="$1"
+SITE="$1"
 if ! test -d /home/sites/$SITE
 then
     echo "Sites $SITE does not exist."
@@ -15,16 +15,16 @@ ln -sfT /opt/php71 /home/sites/$SITE/conf/php-fpm/php7
 
 if test -f /home/sites/$SITE/scripts/php-cli.sh
 then
-    sed -r -i "s/^PHPBIN=.*$/PHPBIN=\"\/home\/sites\/\$SITE\/conf\/php-cli\/php\$PHPMAJ\/bin\/php\"/g" php-cli.sh
+    sed -r -i "s/^PHPBIN=.*$/PHPBIN=\"\/home\/sites\/\$SITE\/conf\/php-cli\/php\$PHPMAJ\/bin\/php\"/g" /home/sites/$SITE/scripts/php-cli.sh
 fi
 
 if test -f /home/sites/$SITE/scripts/php-fcp.sh
 then
-    sed -r -i "s/^PHPBIN=.*$/PHPBIN=\"\/home\/sites\/\$SITE\/conf\/php-fpm\/php\$PHPMAJ\/bin\/php\"/g" php-fcp.sh
+    sed -r -i "s/^PHPBIN=.*$/PHPBIN=\"\/home\/sites\/\$SITE\/conf\/php-fpm\/php\$PHPMAJ\/bin\/php\"/g" /home/sites/$SITE/scripts/php-fcp.sh
 fi
 
 if test -f /home/sites/$SITE/scripts/php-fpm.sh
 then
-    sed -r -i "s/^PHPBIN=.*$/PHPBIN=\"\/home\/sites\/\$SITE\/conf\/php-fpm\/php\$PHPMAJ\/bin\/php\"/g" php-fpm.sh
+    sed -r -i "s/^PHPBIN=.*$/PHPBIN=\"\/home\/sites\/\$SITE\/conf\/php-fpm\/php\$PHPMAJ\/bin\/php\"/g" /home/sites/$SITE/scripts/php-fpm.sh
 fi
 
