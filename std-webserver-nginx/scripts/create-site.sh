@@ -6,7 +6,7 @@ ADMINTMPL="default-admin-site"
 
 DEFPHPMAJ="7"
 DEFPHPMAJ5="php56"
-DEFPHPMAJ7="php72"
+DEFPHPMAJ7="php73"
 PORTBASE="10010"
 PORTSIZE="9"
 PORTFILE="/var/rsl/state/last-port-offset"
