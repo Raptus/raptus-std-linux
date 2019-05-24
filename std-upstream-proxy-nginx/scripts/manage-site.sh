@@ -12,6 +12,7 @@ function enableSite()
     else
         ln -s /home/sites/$site/conf/nginx.conf /etc/nginx/sites-enabled/$site.conf
         systemctl reload nginx.service
+        $PRX_PATH/scripts/update-static.sh
         echo "Nginx configuration for $site enabled"
     fi
 }
@@ -26,6 +27,7 @@ function disableSite()
     else
         rm -f /etc/nginx/sites-enabled/$site.conf
         systemctl reload nginx.service
+        $PRX_PATH/scripts/update-static.sh
         echo "Nginx configuration for $site enabled"
     fi
 }
@@ -57,6 +59,8 @@ function deleteSite()
     echo -n "Removing unix account $uid ... "
     userdel $uid
     echo "done"
+
+    $PRX_PATH/scripts/update-static.sh
 
     echo
     echo "ATTENTION: Databases are NOT being deleted. Please do this manually!"
