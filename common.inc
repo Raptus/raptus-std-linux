@@ -5,6 +5,7 @@
 RSL_PATH=/root/scripts/rsl
 STD_PATH=/root/scripts/rsl/std-linux
 WEB_PATH=/root/scripts/rsl/std-webserver-nginx
+PRX_PATH=/root/scripts/rsl/std-upstream-proxy-nginx
 
 # Detect distribution
 DISTRO=""

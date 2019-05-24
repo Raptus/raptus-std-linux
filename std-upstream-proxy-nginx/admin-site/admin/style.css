@@ -1,0 +1,29 @@
+body {
+    font-family:arial,sans-serif;
+    font-size:13px;
+    font-size-adjust:none;
+    font-style:normal;
+    font-variant:normal;
+    font-weight:normal;
+    line-height:normal;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    padding: 5px 5px 3px 0;
+    vertical-align: top;
+    text-align: left;
+    white-space: nowrap;
+}
+
+th {
+    padding-right: 10px;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background: #F2F2F2;
+}
