@@ -1,0 +1,113 @@
+###
+### Nginx default admin site
+###
+
+### Redirect all non-encrypted to encrypted
+server {
+    server_name                 SITE_NAME;
+    listen                      *:80 default_server;
+    error_log                   /home/sites/SITE_NAME/pub/log/nginx-error.log warn;
+
+    ### Nginx status page
+    location /nginx-status {
+        stub_status             on;
+        allow                   127.0.0.1;
+        deny                    all;
+    }
+
+    ### PHP-FPM status
+#    location ~ ^/(php-fpm-status|php-fpm-ping)$ {
+#        include                 fastcgi_params;
+#        fastcgi_pass            unix:/home/sites/SITE_NAME/run/php-fpm.sock;
+#        fastcgi_param           SCRIPT_FILENAME $document_root$fastcgi_script_name;
+#        allow                   127.0.0.1/32;
+#        deny                    all;
+#    }
+
+    ### PHP FCGI cache purging
+    location /fcgi_cache_purge {
+        allow                   127.0.0.1;
+        deny                    all;
+    }
+
+    ### Primary location, matches probably last
+    location / {
+        return                  301 https://SITE_NAME$request_uri;
+    } 
+}
+
+### Server block (aka. virtualhost)
+server {
+    server_name                 SITE_NAME;
+    listen                      *:443 ssl default_server;
+
+    error_log                   /home/sites/SITE_NAME/pub/log/nginx-error.log warn;
+    root                        /home/sites/SITE_NAME/pub/httpdocs;
+    index                       index.html index.php;
+
+    ssl_certificate             /home/sites/SITE_NAME/ssl/package.pem;
+    ssl_certificate_key         /home/sites/SITE_NAME/ssl/private.key;
+
+    ### Primary location, matches probably last
+    location / {
+        add_header              X-Robots-Tag "noindex, nofollow, nosnippet, noarchive";
+        try_files               $uri $uri/ /index.html /index.php?$args =404;
+    }
+
+    location /admin {        
+        auth_basic              "Restricted Admin Area";
+        auth_basic_user_file    /home/sites/SITE_NAME/auth/htpasswd;
+    }
+
+    ### Keep images and CSS in browser cache for as long as possible, to cut down on server load
+    location ~* \.(jpg|jpeg|gif|png|css|js|ico|xml)$ {
+        log_not_found           off;
+        expires                 1d;
+    }
+
+    ### Prevent access to any files starting with a dot, like .htaccess or temp files
+    location ~ /\. { 
+        log_not_found           off;
+        deny                    all; 
+    }
+
+    ### Prevent access to any files starting with a $ (usually temp files)
+    location ~ ~$ { 
+        log_not_found           off; 
+        deny                    all; 
+    }
+
+    location ~ \.php$ {
+        include                 fastcgi_params;
+        fastcgi_pass            unix:/home/sites/SITE_NAME/run/php-fpm.sock;
+        fastcgi_temp_path       /home/sites/SITE_NAME/pub/tmp/fcgi 1 2;
+        fastcgi_param           SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param           HTTPS on;
+    }
+
+    ### Show "Not Found" 404 errors in place of "Forbidden" 403 errors, because
+    ### forbidden errors allow attackers potential insight into your server's
+    ### layout and contents
+    error_page                  403 = 404;
+
+    ### Enable these for custom error pages
+#    error_page                  403 /error-page/403.html;
+#    error_page                  404 /error-page/404.html;
+#    error_page                  405 /error-page/405.html;
+#    location ^~ /error-page/ {
+#        internal;
+#        root                    /home/sites/SITE_NAME/pub;
+#    }
+
+    ### These error pages must have properly set http headers!
+    error_page                  500 501 504 http://temp.raptus.com/overload/;
+    error_page                  502 503 http://temp.raptus.com/maintenance/;
+
+    ### Uncomment next lines to enable maintenance mode
+#    if ($not-our-ips) {
+#        return                  503;
+#    }
+
+}
+
+# eof
