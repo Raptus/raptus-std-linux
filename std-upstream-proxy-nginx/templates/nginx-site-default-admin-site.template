@@ -15,25 +15,10 @@ server {
         deny                    all;
     }
 
-    ### PHP-FPM status
-#    location ~ ^/(php-fpm-status|php-fpm-ping)$ {
-#        include                 fastcgi_params;
-#        fastcgi_pass            unix:/home/sites/SITE_NAME/run/php-fpm.sock;
-#        fastcgi_param           SCRIPT_FILENAME $document_root$fastcgi_script_name;
-#        allow                   127.0.0.1/32;
-#        deny                    all;
-#    }
-
-    ### PHP FCGI cache purging
-    location /fcgi_cache_purge {
-        allow                   127.0.0.1;
-        deny                    all;
-    }
-
     ### Primary location, matches probably last
     location / {
         return                  301 https://SITE_NAME$request_uri;
-    } 
+    }
 }
 
 ### Server block (aka. virtualhost)
@@ -54,7 +39,7 @@ server {
         try_files               $uri $uri/ /index.html /index.php?$args =404;
     }
 
-    location /admin {        
+    location /admin {
         auth_basic              "Restricted Admin Area";
         auth_basic_user_file    /home/sites/SITE_NAME/auth/htpasswd;
     }
@@ -66,23 +51,15 @@ server {
     }
 
     ### Prevent access to any files starting with a dot, like .htaccess or temp files
-    location ~ /\. { 
+    location ~ /\. {
         log_not_found           off;
-        deny                    all; 
+        deny                    all;
     }
 
     ### Prevent access to any files starting with a $ (usually temp files)
-    location ~ ~$ { 
-        log_not_found           off; 
-        deny                    all; 
-    }
-
-    location ~ \.php$ {
-        include                 fastcgi_params;
-        fastcgi_pass            unix:/home/sites/SITE_NAME/run/php-fpm.sock;
-        fastcgi_temp_path       /home/sites/SITE_NAME/pub/tmp/fcgi 1 2;
-        fastcgi_param           SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_param           HTTPS on;
+    location ~ ~$ {
+        log_not_found           off;
+        deny                    all;
     }
 
     ### Show "Not Found" 404 errors in place of "Forbidden" 403 errors, because
