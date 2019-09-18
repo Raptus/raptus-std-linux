@@ -28,6 +28,7 @@ yum -y install \
     $PHPVER-php-intl \
     $PHPVER-php-json \
     $PHPVER-php-pecl-json-post \
+    $PHPVER-php-pecl-imagick \
     $PHPVER-php-mbstring \
     $PHPVER-php-mcrypt \
     $PHPVER-php-mysqlnd \
