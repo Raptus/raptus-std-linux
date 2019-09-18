@@ -27,6 +27,7 @@ yum -y install \
     $PHPVER-php-gmp \
     $PHPVER-php-intl \
     $PHPVER-php-json \
+    $PHPVER-php-pecl-json-post \
     $PHPVER-php-mbstring \
     $PHPVER-php-mcrypt \
     $PHPVER-php-mysqlnd \
