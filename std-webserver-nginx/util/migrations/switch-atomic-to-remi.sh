@@ -41,31 +41,7 @@ echo "### Installing PHP v5.6 and v7.1 from Repi"
 PHPVERS="php56 php71"
 for PHPVER in $PHPVERS
 do
-    yum -y install \
-        $PHPVER-php-fpm \
-        $PHPVER-php-cli \
-        $PHPVER-php-bcmath \
-        $PHPVER-php-dba \
-        $PHPVER-php-embedded \
-        $PHPVER-php-gd \
-        $PHPVER-php-gmp \
-        $PHPVER-php-intl \
-        $PHPVER-php-json \
-        $PHPVER-php-mbstring \
-        $PHPVER-php-mcrypt \
-        $PHPVER-php-mysqlnd \
-        $PHPVER-php-opcache \
-        $PHPVER-php-pdo \
-        $PHPVER-php-pgsql \
-        $PHPVER-php-process \
-        $PHPVER-php-pspell \
-        $PHPVER-php-recode \
-        $PHPVER-php-snmp \
-        $PHPVER-php-soap \
-        $PHPVER-php-tidy \
-        $PHPVER-php-xml \
-        $PHPVER-php-xmlrpc \
-        $PHPVER-php-zip >> $LOGFILE 2>&1
+    /root/scripts/rsl/std-webserver-nginx/util/install-php.sh $PHPVER >> $LOGFILE 2>&1
 done
 yum -y install aspell-de aspell-es aspell-fr aspell-it >> $LOGFILE 2>&1
 
