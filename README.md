@@ -23,7 +23,7 @@ echo "ENABLE_FIREWALL=yes" >> /root/.rslcfg
 ### Install Step 3: ###
 Kickstart the installation
 ```shell
-bash <(curl -s https://bitbucket.org/raptus-it-services/raptus-std-linux/raw/master/kickstart-standard-linux.sh)
+bash <(curl -s https://bitbucket.org/raptus-it/raptus-std-linux/raw/master/kickstart-standard-linux.sh)
 ```
 
 ### Install Step 4: ###
