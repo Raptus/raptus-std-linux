@@ -10,7 +10,7 @@ cp $STD_PATH/configs-centos/etc-security/limits.conf /etc/security/limits.conf
 sed -i -r "s/^SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config
 sed -i -r "s/(^Defaults.*requiretty)/\#\1/g" /etc/sudoers
 
-git clone --depth 1 https://bitbucket.org/raptus-it-services/ssl-management-scripts.git /root/scripts/ssl-mgmt > /dev/null 2>&1
+git clone --depth 1 https://bitbucket.org/raptus-it/ssl-management-scripts.git /root/scripts/ssl-mgmt > /dev/null 2>&1
 
 SSL_CERT_HOSTNAME="$HNFULL"
 /root/scripts/ssl-mgmt/ssl-create-private-key-and-csr.sh "$SSL_CERT_HOSTNAME" "None of your business" "CH" "Nowhere" "$ADMIN_EMAIL" >> $LOGFILE 2>&1
