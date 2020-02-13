@@ -29,6 +29,8 @@ done
 echo "}" >> /etc/nginx/conf.d/global-maps.conf
 echo >> /etc/nginx/conf.d/global-maps.conf
 
+cp $WEB_PATH/configs-centos/etc-logrotate.d/nginx /etc/logrotate.d/nginx
+
 # generate a stronger DHE parameter 
 # Using -dsaparam to speedup. See this for more information:
 # https://security.stackexchange.com/questions/95178/diffie-hellman-parameters-still-calculating-after-24-hours
