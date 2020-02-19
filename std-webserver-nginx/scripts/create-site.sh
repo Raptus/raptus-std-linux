@@ -74,6 +74,27 @@ function updateConfig()
             rm -f $CONFDIR/nginx.conf.IN.*
         fi
 
+        for DIR in $NGINX_DIR
+        do
+            if test -d $DIR
+            then
+                d="$(basename -- $DIR)"
+                d="${d/nginx-site-$2-/}"
+                if ! test -d $CONFDIR/$d
+                then
+                    mkdir $CONFDIR/$d
+                fi
+                for FILE in $DIR/*.conf
+                do
+                    if ! test "$FILE" == "*.conf"
+                    then
+                        f="$(basename -- $FILE)"
+                        sed "s/SITE_NAME/$site/g" "$FILE" > "$CONFDIR/$d/$f"
+                    fi
+                done
+            fi
+        done
+
         if ! test -f $CONFDIR/nginx-rewrites.conf
         then
             cp $TEMPLPATH/nginx-rewrites.conf $CONFDIR/
@@ -173,6 +194,7 @@ echo
 if test $# -ge 2 && (! test -z "$1" || ! test -z "$2")
 then
         NGINX_TEMPL="$TEMPLPATH/nginx-site-$2.template"
+        NGINX_DIR="$TEMPLPATH/nginx-site-$2-*"
         if ! test -f "$NGINX_TEMPL"
         then
             echo "Cannot find template $2" >>/dev/stderr
