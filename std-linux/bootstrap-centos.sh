@@ -7,9 +7,7 @@ dnf -y clean all >> $LOGFILE 2>&1
 echo "### Installing base packages"
 dnf -y upgrade >> $LOGFILE 2>&1
 dnf -y update ca-certificates >> $LOGFILE 2>&1
-#dnf -y remove NetworkManager >> $LOGFILE 2>&1
 dnf -y groupinstall 'Development Tools' >> $LOGFILE 2>&1
-#dnf -y install apg python-devel unhide unrtf vim-vimoutliner w3m sshfs >> $LOGFILE 2>&1
 dnf -y --enablerepo=PowerTools install fuse-sshfs >> $LOGFILE 2>&1
 dnf -y install acpid pwgen bzip2 bind-utils bonnie++ ftp ghostscript htop nano nmap nload \
                net-tools nfs-utils psmisc platform-python-devel rsync screen subversion \
