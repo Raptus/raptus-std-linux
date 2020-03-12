@@ -7,7 +7,7 @@ dnf -y clean all >> $LOGFILE 2>&1
 echo "### Installing base packages"
 dnf -y upgrade >> $LOGFILE 2>&1
 dnf -y update ca-certificates >> $LOGFILE 2>&1
-dnf -y remove NetworkManager >> $LOGFILE 2>&1
+#dnf -y remove NetworkManager >> $LOGFILE 2>&1
 dnf -y groupinstall 'Development Tools' >> $LOGFILE 2>&1
 #dnf -y install apg python-devel unhide unrtf vim-vimoutliner w3m sshfs >> $LOGFILE 2>&1
 dnf -y --enablerepo=PowerTools install fuse-sshfs >> $LOGFILE 2>&1
@@ -15,7 +15,7 @@ dnf -y install acpid pwgen bzip2 bind-utils bonnie++ ftp ghostscript htop nano n
                net-tools nfs-utils psmisc platform-python-devel rsync screen subversion \
                subversion-tools symlinks tcpdump tcpdump telnet traceroute tree unzip \
                wget whois readline-devel openssl-devel bash-completion pciutils virt-what \
-               sshfs dnf-utils sysstat virt-what >> $LOGFILE 2>&1
+               sshfs dnf-utils sysstat vim vim-common >> $LOGFILE 2>&1
 
 echo "### Setting up environment"
 yes | cp $STD_PATH/configs-centos/.bashrc /root/
