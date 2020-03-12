@@ -151,8 +151,7 @@ function detectSystem
 {
     if test -z "`which virt-what`"
     then
-        echo "Cannot find virt-what package."
-        exit 1
+        dnf -y install virt-what >> /dev/null 2>&1
     fi
 
     VDETECT="`virt-what | tail -n1`"
