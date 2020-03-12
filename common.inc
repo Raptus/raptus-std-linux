@@ -149,7 +149,7 @@ function htpasswd
 
 function detectSystem
 {
-    if test -z "`which virt-what`"
+    if test -z "`which virt-what >> /dev/null 2>&1`"
     then
         dnf -y install virt-what >> /dev/null 2>&1
     fi
