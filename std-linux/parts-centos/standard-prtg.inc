@@ -1,5 +1,6 @@
 echo "### Setting up prtg sensors"
-yum -y install python-psutil >> $LOGFILE 2>&1
+dnf -y install python3-pip >> $LOGFILE 2>&1
+pip3 install psutil >> $LOGFILE 2>&1
 
 mkdir -p /var/prtg/scripts
 mkdir -p /var/prtg/scriptsxml

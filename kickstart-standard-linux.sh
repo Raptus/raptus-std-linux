@@ -10,14 +10,14 @@ fi
 
 export DISTRO_NAME="`sed -r -n 's/PRETTY_NAME=\"(.*)\"/\1/p' /etc/os-release`"
 
-echo 
+echo
 echo "### Kickstarting $DISTRO_NAME"
 echo
 
 if test "$DISTRO" = "centos"
 then
     echo "### Installing GIT"
-    yum -y install git > /dev/null 2>&1
+    dnf -y install git uuid > /dev/null 2>&1
 else
     echo "Linux distribution not supported."
     exit 1

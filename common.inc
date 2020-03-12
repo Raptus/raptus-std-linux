@@ -1,4 +1,4 @@
-# 
+#
 # Defaults & Helpers
 #
 
@@ -65,7 +65,7 @@ function checkInstall
 {
     if test "$DISTRO" = "centos"
     then
-        if test -z "`cat /etc/os-release | grep 'VERSION_ID=\"7\"'`"
+        if test -z "`cat /etc/os-release | grep 'VERSION_ID=\"8\"'`"
         then
             echo "This CentOS Version is not supported. Aborting ..."
             exit 1
@@ -92,7 +92,7 @@ function checkLockFile
     then
         echo "This script should only be executed once."
         echo "If you want to override that, please follow this procedure:"
-        echo 
+        echo
         echo "1. Know what you are doing!"
         echo "2. Remove the lock file $LOCKFILE"
         exit 1
@@ -136,7 +136,7 @@ function passwordInfo
     echo "$1  Username: $2  Password: $3     Address: $4" >> $PWDFILE
     echo "    ATTENTON"
     echo "    A Password has been generated for $1, please see in $PWDFILE"
-    echo 
+    echo
 }
 
 function htpasswd

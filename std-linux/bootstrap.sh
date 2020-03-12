@@ -28,7 +28,7 @@ echo "###"
 echo "###"
 echo "###"
 echo "###"
-echo 
+echo
 echo "### Bootstrapping this system with Linux standards"
 echo "    Logfile: $LOGFILE"
 askConfirmation

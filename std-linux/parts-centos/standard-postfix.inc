@@ -1,7 +1,7 @@
 echo "### Setting up postfix"
 
 # Needed for smtp auth
-yum -y install cyrus-sasl-plain  >> $LOGFILE 2>&1
+dnf -y install postfix cyrus-sasl-plain  >> $LOGFILE 2>&1
 
 mv /etc/postfix/main.cf /etc/postfix/main.cf.ORIG
 cp $STD_PATH/configs-centos/etc-postfix/main.cf /etc/postfix/main.cf
@@ -16,4 +16,3 @@ EOF
 newaliases
 cd /etc/postfix
 ln -s ../aliases
-

@@ -6,7 +6,7 @@
 * WebStack with Nginx, PHP, MariaDB
 
 ### Install Step 1 ###
-* Install CentOS v7
+* Install CentOS v8
 * Use CentOS minimal Installer
 * Make sure Keyboard, Date, Time and NTP is working
 * Disable security policies
@@ -29,4 +29,3 @@ bash <(curl -s https://bitbucket.org/raptus-it/raptus-std-linux/raw/master/kicks
 ### Install Step 4: ###
 If this should be a WebServer run
 ```/root/scripts/rsl/std-webserver-nginx/standard-webserver.sh```
-
