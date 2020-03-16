@@ -36,7 +36,7 @@ else
     SCRIPTID="`basename $0 | head -c -4`"
 fi
 
-APGOPTS="-n1 -m15 -x15 -a0 -q -M NCL"
+PWGENOPTS="-B -c -N1 -n 15"
 TEMPDIR="/var/rsl/tmp"
 LOCKDIR="/var/rsl/lock"
 LOGDIR="/var/rsl/log"

@@ -11,13 +11,13 @@ then
 fi
 
 PHPVER="$1"
-if test "`yum -q search $PHPVER-php-fpm 2>&1 | grep 'No matches found for'`"
+if test "`dnf -q search $PHPVER-php-fpm 2>&1 | grep 'No matches found for'`"
 then
     echo "Cannot find PHP package $PHPVER-php-fpm. Aborting ..."
     exit 1
 fi
 
-yum -y install \
+dnf -y install \
     $PHPVER-php-fpm \
     $PHPVER-php-cli \
     $PHPVER-php-bcmath \

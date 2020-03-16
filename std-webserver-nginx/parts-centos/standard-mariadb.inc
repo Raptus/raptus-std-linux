@@ -1,30 +1,12 @@
 echo "### Setting up mariadb"
 
-REPONAME="mariadb102"
-MARIADBVER="10.2"
-
-cat > /etc/yum.repos.d/$REPONAME.repo << EOF
-[$REPONAME]
-name = MariaDB
-baseurl = http://yum.mariadb.org/$MARIADBVER/centos7-amd64
-gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-enabled=0
-gpgcheck=1
-EOF
-
-#
-# THE REPO IS DISABLED BY DEFAULT, BECAUSE WE DO NOT WANT "yum update" TO INCLUDE ADDITIONAL PACKETS
-# IN ORDER TO ENABLE THE REPO USE THIS (AT YOUR OWN RISK):   yum-config-manager --enable <name of repository>
-#
-
 rm /etc/my.cnf.d/*
 cp $WEB_PATH/configs-centos/etc-mariadb/* /etc/my.cnf.d/
 mkdir -p /var/log/mysql
-yum -y --enablerepo=$REPONAME install MariaDB-shared >> $LOGFILE 2>&1
-yum -y --enablerepo=$REPONAME install MariaDB-devel >> $LOGFILE 2>&1
-yum -y --enablerepo=$REPONAME install MariaDB-client >> $LOGFILE 2>&1
-yum -y --enablerepo=$REPONAME install MariaDB-server >> $LOGFILE 2>&1
-yum -y install mytop innotop mysqltuner >> $LOGFILE 2>&1
+
+dnf -y install mariadb-devel mariadb-server >> $LOGFILE 2>&1
+dnf -y install mytop innotop >> $LOGFILE 2>&1
+
 rm /etc/my.cnf.d/*.rpm*
 cp $WEB_PATH/configs-centos/etc-mariadb/* /etc/my.cnf.d/
 chown mysql:mysql /var/log/mysql
@@ -32,7 +14,7 @@ chown mysql:mysql /var/log/mysql
 systemctl enable mariadb.service >> $LOGFILE 2>&1
 systemctl start mariadb.service >> $LOGFILE 2>&1
 
-MPASS="`apg $APGOPTS`"
+MPASS="`pwgen $PWGENOPTS`"
 TFILE="`mktemp -u -t`"
 cat > $TFILE << EOF
 use mysql;

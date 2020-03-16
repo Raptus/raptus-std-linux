@@ -1,11 +1,11 @@
 #!/bin/bash
-
+#UNTESTED!
 source /root/scripts/rsl/common.inc
 
 if test -z "$1" || test -z "$2"
 then
     echo "Usage: $0 <domain.tld> <acme_account_email>"
-    echo 
+    echo
     exit 1
 fi
 
@@ -17,13 +17,7 @@ then
     exit 2
 fi
 
-if test -z "`yum list installed | grep certbot-nginx`"
-then
-    echo "FATAL: Missing package 'certbot-nginx'" >>/dev/stderr
-    exit 3
-fi
-
-certbot --nginx certonly --agree-tos -n -m "$ACMEACCOUNT" -d "$SITE" >> $LOGFILE 2>&1
+/usr/local/bin/certbot-auto certonly -w /home/sites/$SITE/pub/httpdocs -d $SITE
 
 if ! test -f /etc/letsencrypt/live/$SITE/fullchain.pem &&
    ! test -f /etc/letsencrypt/live/$SITE/privkey.pem
@@ -44,10 +38,10 @@ fi
 
 systemctl reload nginx
 
-if test -z "`grep 'certbot renew --post-hook' /etc/crontab`"
+if test -z "`grep '/usr/local/bin/certbot-auto renew -q' /etc/crontab`"
 then
     echo "### Certbot" >> /etc/crontab
-    echo "00    23   * * *   root    certbot renew --post-hook \"systemctl reload nginx\" >> /var/log/certbot.log 2>&1" >> /etc/crontab
+    echo "0 0,12 * * * root python3 -c 'import random; import time; time.sleep(random.random() * 3600)' && /usr/local/bin/certbot-auto renew -q >> /var/log/certbot.log 2>&1" >> /etc/crontab
     echo . >> /etc/crontab
     echo "# eof" >> /etc/crontab
 fi

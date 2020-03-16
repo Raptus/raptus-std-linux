@@ -2,7 +2,7 @@
 
 OLDDIR="`pwd`"
 cd /root/scripts/rsl
-git pull >> /dev/null 
+git pull >> /dev/null
 source /root/scripts/rsl/common.inc
 checkHostname
 checkInstall
@@ -36,13 +36,15 @@ source $WEB_PATH/parts-centos/standard-pureftp.inc
 source $WEB_PATH/parts-centos/standard-postgresql.inc
 source $WEB_PATH/parts-centos/standard-mariadb.inc
 source $WEB_PATH/parts-centos/standard-nginx.inc
+source $WEB_PATH/parts-centos/standard-certbot.inc
 source $WEB_PATH/parts-centos/standard-php.inc
 
 echo "### Setting up default/admin site $HNFULL"
 $WEB_PATH/scripts/create-site.sh $HNFULL default-admin-site >> $LOGFILE 2>&1
 admin_site_uid="`stat -c %U /home/sites/$site`"
 cp -Rp $WEB_PATH/admin-site/* /home/ADMIN-SITE/pub/httpdocs/
-DVP="`apg $APGOPTS`"
+DVP="`pwgen $PWGENOPTS`"
+
 htpasswd /home/sites/$HNFULL/auth/htpasswd admin $DVP
 passwordInfo "Default site" "admin" "$DVP" "https://$HNFULL/admin"
 $WEB_PATH/scripts/manage-site.sh $HNFULL site-enable >> $LOGFILE 2>&1
@@ -51,7 +53,7 @@ $WEB_PATH/scripts/manage-site.sh $HNFULL php-enable >> $LOGFILE 2>&1
 echo "### Setting up phpMyAdmin"
 /opt/composer/bin/composer --quiet --no-interaction create-project phpmyadmin/phpmyadmin /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/ >> $LOGFILE 2>&1
 cp $WEB_PATH/configs-centos/phpmyadmin/config.inc.php /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/
-BFS="`apg -a0 -m15 -x15 -d -M NCL`"
+BFS="`pwgen -B -c -N1 -n 15`"
 sed -i -r "s/INSERT_HERE_GENERATED_BLOWFISH_SECRET/$BFS/g" /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/config.inc.php
 
 chown -R nginx:nginx /home/restricted/logs

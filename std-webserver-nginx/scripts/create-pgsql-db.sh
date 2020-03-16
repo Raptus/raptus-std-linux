@@ -8,11 +8,11 @@ function createDB()
     dbuser=$2
     dbpass="`apg -n1 -m10 -x10 -a0 -q -M NCL`"
 
-    if ! test "`systemctl is-active postgresql.service`" = "active"
+    if ! test "`systemctl is-active postgresql-12.service`" = "active"
     then
         echo "Enabling PostgreSQL service"
-        systemctl enable postgresql.service >> $LOGFILE 2>&1
-        systemctl start postgresql.service
+        systemctl enable postgresql-12.service >> $LOGFILE 2>&1
+        systemctl start postgresql-12.service
     fi
 
     if ! test -z "`psql -h localhost -U dbadmin -c 'SELECT DATNAME FROM PG_DATABASE;' template1 | grep $dbname$`"
@@ -47,4 +47,3 @@ else
     echo "Usage: $0 <db_name> <db_user>"
 fi
 echo
-

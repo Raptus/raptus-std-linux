@@ -6,7 +6,7 @@ function createDB()
 {
     dbname=$1
     dbuser=$2
-    dbpass="`apg -n1 -m10 -x10 -a0 -q -M NCL`"
+    dbpass="`pwgen -B -c -N1 -n 15`"
 
     if ((${#dbuser} > 16 ))
     then
@@ -47,4 +47,3 @@ else
     echo "Usage: $0 <db_name> <db_user>"
 fi
 echo
-

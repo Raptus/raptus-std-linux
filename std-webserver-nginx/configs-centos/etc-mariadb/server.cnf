@@ -14,7 +14,7 @@ port        = 3306
 basedir     = /usr
 datadir     = /var/lib/mysql
 tmpdir      = /tmp
-lc-messages-dir = /usr/share/mysql
+lc-messages-dir = /usr/share/mariadb
 skip-external-locking
 log-error   = /var/log/mysqld.log
 lock_wait_timeout = 60
@@ -43,7 +43,7 @@ skip-name-resolve
 skip-host-cache
 
 # Tuning
-# See my first guide at 
+# See my first guide at
 # http://vekseid.com/blogs/vekseid/optimizing_a_server_for_mysql
 # For how to enable HugePages so you can use the large-pages option
 #large-pages
@@ -61,7 +61,7 @@ max_allowed_packet       = 16M
 
 # The following two are best set to the same size, because the size
 # of temporary tables is limited by the lower o the two.
-# I have not found any benefit in increasing the value past my 
+# I have not found any benefit in increasing the value past my
 # tmp_table_size default.
 tmp_table_size           = 20M
 max_heap_table_size      = 20M
@@ -181,11 +181,11 @@ innodb_autoextend_increment     = 64
 innodb_data_file_path           = ibdata1:32M:autoextend
 # Supposedly, smaller is better because it makes recovery faster, even
 # if larger means slightly better performance. I have no idea what the
-# logic of this is - if I have a crash, downtime is expected. But I 
+# logic of this is - if I have a crash, downtime is expected. But I
 # have not had InnoDB crash on me in three years now.
 innodb_log_files_in_group       = 2
 innodb_log_file_size            = 48M
-# No reason to make the buffers too large, however. 
+# No reason to make the buffers too large, however.
 innodb_log_buffer_size          = 8M
 # Setting innodb_flush_log_at_trx_commit to 0 causes InnoDB to only
 # flush to disk once per second, improving performance considerably.
@@ -242,7 +242,7 @@ long_query_time             = 5
 
 # The binlog is for replication, so I've commented it out here.
 # Setting sync_binlog to an extraordinarily high value (256 in my case)
-# significantly reduces the load the binlog puts on the server. 
+# significantly reduces the load the binlog puts on the server.
 #server-id                 = 1
 #log_bin                   = /var/log/mysql/mysql-bin.log
 #binlog_cache_size         = 256K
