@@ -1,3 +1,4 @@
 echo "### Installing base packages"
 
-yum -y install lynx mailx certbot-nginx >> $LOGFILE 2>&1
+dnf -y install mailx >> $LOGFILE 2>&1
+dnf -y --enablerepo=PowerTools install lynx elinks >> $LOGFILE 2>&1

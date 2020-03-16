@@ -2,7 +2,7 @@
 
 OLDDIR="`pwd`"
 cd /root/scripts/rsl
-git pull >> /dev/null 
+git pull >> /dev/null
 source /root/scripts/rsl/common.inc
 checkHostname
 checkInstall
@@ -33,6 +33,7 @@ mkdir -p /home/restricted/{scripts,logs,temp}
 source $PRX_PATH/parts-centos/standard-webserver.inc
 source $PRX_PATH/parts-centos/standard-memcached.inc
 source $PRX_PATH/parts-centos/standard-nginx.inc
+source $PRX_PATH/parts-centos/standard-certbot.inc
 
 echo "### Setting up default/admin site $HNFULL"
 $PRX_PATH/scripts/create-site.sh $HNFULL default-admin-site >> $LOGFILE 2>&1
