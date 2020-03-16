@@ -6,7 +6,7 @@ function createDB()
 {
     dbname=$1
     dbuser=$2
-    dbpass="`apg -n1 -m10 -x10 -a0 -q -M NCL`"
+    dbpass="`pwgen -B -c -N1 -n 15`"
 
     if ! test "`systemctl is-active postgresql-12.service`" = "active"
     then

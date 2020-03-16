@@ -6,7 +6,7 @@ function createBasicAuth()
 {
     site=$1
     httpuser=$2
-    httppass="`apg -n1 -m10 -x10 -a0 -q -M NCL`"
+    httppass="`pwgen -B -c -N1 -n 15`"
     authfile="/home/sites/$site/auth/htpasswd"
 
     if ! test -d /home/sites/$site
@@ -40,11 +40,10 @@ function createBasicAuth()
 echo
 if test $# -ge 2 &&
    ! test -z "$1" &&
-   ! test -z "$2" 
+   ! test -z "$2"
 then
-    createBasicAuth $1 $2 
+    createBasicAuth $1 $2
 else
     echo "Usage: $0 <site> <http_user>"
 fi
 echo
-

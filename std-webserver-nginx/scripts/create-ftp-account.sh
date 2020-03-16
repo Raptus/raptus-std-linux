@@ -6,7 +6,7 @@ function createFTP()
 {
     site=$1
     ftpuser=$2
-    ftppass="`apg -n1 -m10 -x10 -a0 -q -M NCL`"
+    ftppass="`pwgen -B -c -N1 -n 15`"
 
     if ! test -d /home/sites/$site
     then
@@ -44,7 +44,7 @@ function createFTP()
     echo "$ftppass" >> $tfile
     pure-pw useradd $ftpuser -u $uid -g nginx -d /home/sites/$site/pub < $tfile >> $LOGFILE
     pure-pw mkdb
-    rm $tfile    
+    rm $tfile
     echo "done"
 
     passwordInfo "FTP Account" "$ftpuser" "$ftppass" "ftp://$site"
@@ -62,4 +62,3 @@ else
     echo "Usage: $0 <site> <ftp_user>"
 fi
 echo
-

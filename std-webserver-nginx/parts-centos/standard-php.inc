@@ -10,7 +10,6 @@ dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm >> $LOGFI
 dnf -y install aspell-en >> $LOGFILE 2>&1
 
 mkdir -p /etc/php7
-cp -R $WEB_PATH/configs-centos/etc-php5/conf.d /etc/php5/conf.d
 cp -R $WEB_PATH/configs-centos/etc-php7/conf.d /etc/php7/conf.d
 
 mkdir /var/lib/memcache

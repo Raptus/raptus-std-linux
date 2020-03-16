@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # only do something if service is active
-if ! test "`systemctl is-active postgresql.service`" = "active"
+if ! test "`systemctl is-active postgresql-12.service`" = "active"
 then
-    exit 
+    exit
 fi
 
 DUMPDIR="/home/backups/pgsql"
-DATABASES="`/usr/bin/psql -h localhost -U dbadmin -d template1 -t -A -F, -c '\l'`"
+DATABASES="`/usr/pgsql-12/bin/psql -h localhost -U dbadmin -d template1 -t -A -F, -c '\l'`"
 
 test -d "$DUMPDIR" || mkdir -p "$DUMPDIR"
 for i in $DATABASES
@@ -19,7 +19,7 @@ do
         DUMPFILE="$DUMPDIR/pgsql_"$DBE"_dump_`date +%H`h.pgsql"
 
         #echo "Dumping $DB to $DUMPFILE"
-        /usr/bin/pg_dump -h localhost -U dbadmin --no-owner --no-privileges "$DB" > $DUMPFILE
+        /usr/pgsql-12/bin/pg_dump -h localhost -U dbadmin --no-owner --no-privileges "$DB" > $DUMPFILE
         gzip -9 --force --rsyncable $DUMPFILE
     fi
 done
