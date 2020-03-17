@@ -5,7 +5,6 @@ cp $WEB_PATH/configs-centos/etc-mariadb/* /etc/my.cnf.d/
 mkdir -p /var/log/mysql
 
 dnf -y install mariadb-devel mariadb-server >> $LOGFILE 2>&1
-dnf -y install mytop innotop >> $LOGFILE 2>&1
 
 rm /etc/my.cnf.d/*.rpm*
 cp $WEB_PATH/configs-centos/etc-mariadb/* /etc/my.cnf.d/

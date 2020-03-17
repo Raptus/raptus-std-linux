@@ -1,6 +1,6 @@
 echo "### Setting up postgresql (disabled per default)"
 dnf -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm >> $LOGFILE 2>&1
-# Disable the built-in PostgreSQL module (AppStream)
+# Disable the built-in PostgreSQL module
 dnf -y module disable postgresql >> $LOGFILE 2>&1
 dnf -y --enablerepo=PowerTools install postgresql12-server postgresql12 postgresql12-libs postgresql12-contrib \
                postgis30_12 python3-psycopg2 perl-DBD-Pg >> $LOGFILE 2>&1
