@@ -4,4 +4,4 @@ dnf -y install freeglut geoip geoipupdate mailx ImageMagick ImageMagick-devel li
                freetype freetype-devel gd gd-devel libjpeg-turbo-static libjpeg-turbo-devel\
                libxml2-devel libxslt-devel optipng pngquant poppler-utils ruby >> $LOGFILE 2>&1
 
-dnf --enablerepo=PowerTools install lynx elinks >> $LOGFILE 2>&1
+dnf -y --enablerepo=PowerTools install lynx elinks >> $LOGFILE 2>&1
