@@ -17,7 +17,7 @@ then
     exit 2
 fi
 
-/usr/local/bin/certbot-auto certonly -w /home/sites/$SITE/pub/httpdocs -d $SITE
+/usr/local/bin/certbot-auto certonly --webroot --webroot-path /home/sites/$SITE/pub/httpdocs -d $SITE -m $ACMEACCOUNT --agree-tos
 
 if ! test -f /etc/letsencrypt/live/$SITE/fullchain.pem &&
    ! test -f /etc/letsencrypt/live/$SITE/privkey.pem
