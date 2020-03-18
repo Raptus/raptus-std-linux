@@ -99,8 +99,6 @@ function updateConfig()
             cp $TEMPLPATH/nginx-rewrites.conf $CONFDIR/
         fi
 
-        ln -s /opt/$DEFPHPMAJ5 $CONFDIR/php-cli/php5
-        ln -s /opt/$DEFPHPMAJ5 $CONFDIR/php-fpm/php5
         ln -s /opt/$DEFPHPMAJ7 $CONFDIR/php-cli/php7
         ln -s /opt/$DEFPHPMAJ7 $CONFDIR/php-fpm/php7
 
@@ -110,12 +108,6 @@ function updateConfig()
         then
             echo "Setting PHP CLI major version to $DEFPHPMAJ"
             echo "$DEFPHPMAJ" > $CONFDIR/php-cli/php-major
-        fi
-
-        if ! test -f $CONFDIR/php-cli/php5.ini
-        then
-            sed "s/SITE_NAME/$site/g" $TEMPLPATH/php5-cli.ini.template > $CONFDIR/php-cli/php5.ini
-            ln -s /etc/php5/conf.d /home/sites/$site/conf/php-cli/php5-conf.d
         fi
 
         if ! test -f $CONFDIR/php-cli/php7.ini
@@ -135,12 +127,6 @@ function updateConfig()
         then
             echo "Setting PHP-FPM pool major version to $DEFPHPMAJ"
             echo "$DEFPHPMAJ" > $CONFDIR/php-fpm/php-major
-        fi
-
-        if ! test -f $CONFDIR/php-fpm/php5.ini
-        then
-            sed "s/SITE_NAME/$site/g" $TEMPLPATH/php5-fpm.ini.template > $CONFDIR/php-fpm/php5.ini
-            ln -s /etc/php5/conf.d /home/sites/$site/conf/php-fpm/php5-conf.d
         fi
 
         if ! test -f $CONFDIR/php-fpm/php7.ini

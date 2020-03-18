@@ -2,7 +2,6 @@ echo "### Setting up php"
 
 dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm >> $LOGFILE 2>&1
 
-/root/scripts/rsl/std-webserver-nginx/util/install-php.sh php70 >> $LOGFILE 2>&1
 /root/scripts/rsl/std-webserver-nginx/util/install-php.sh php71 >> $LOGFILE 2>&1
 /root/scripts/rsl/std-webserver-nginx/util/install-php.sh php72 >> $LOGFILE 2>&1
 /root/scripts/rsl/std-webserver-nginx/util/install-php.sh php73 >> $LOGFILE 2>&1
