@@ -6,7 +6,7 @@
 
 ### Proxy Cacheing: Block
 proxy_cache_path                /home/sites/SITE_NAME/cache
-                                levels=1:2 
+                                levels=1:2
                                 keys_zone=pc_SITE_NAME:100m
                                 max_size=4000m
                                 inactive=14d;
@@ -90,15 +90,20 @@ server {
     }
 
     ### Prevent access to any files starting with a dot, like .htaccess or temp files
-    location ~ /\. { 
+    location ~ /\. {
         log_not_found           off;
-        deny                    all; 
+        deny                    all;
     }
 
     ### Prevent access to any files starting with a $ (usually temp files)
-    location ~ ~$ { 
-        log_not_found           off; 
-        deny                    all; 
+    location ~ ~$ {
+        log_not_found           off;
+        deny                    all;
+    }
+
+    ### Make CertBot work with webroot manual authentication with ACME challenge
+    location ^~ /.well-known/acme-challenge/ {
+        try_files               $uri $uri/ =404;
     }
 
     ### Show "Not Found" 404 errors in place of "Forbidden" 403 errors, because

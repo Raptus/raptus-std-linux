@@ -17,7 +17,7 @@ then
     exit 2
 fi
 
-/usr/local/bin/certbot-auto certonly --webroot --webroot-path /home/sites/$SITE/pub/httpdocs -d $SITE -m $ACMEACCOUNT --agree-tos
+/usr/local/bin/certbot-auto certonly --no-bootstrap --webroot --webroot-path /home/sites/$SITE/pub/httpdocs -d $SITE -m $ACMEACCOUNT --agree-tos
 
 if ! test -f /etc/letsencrypt/live/$SITE/fullchain.pem &&
    ! test -f /etc/letsencrypt/live/$SITE/privkey.pem
@@ -38,10 +38,11 @@ fi
 
 systemctl reload nginx
 
-if test -z "`grep '/usr/local/bin/certbot-auto renew -q' /etc/crontab`"
+if test -z "`grep '/usr/local/bin/certbot-auto renew' /etc/crontab`"
 then
+    echo "" >> /etc/crontab
     echo "### Certbot" >> /etc/crontab
-    echo "0 0,12 * * * root python3 -c 'import random; import time; time.sleep(random.random() * 3600)' && /usr/local/bin/certbot-auto renew -q >> /var/log/certbot.log 2>&1" >> /etc/crontab
+    echo "00    23   * * *   root    /usr/local/bin/certbot-auto renew --post-hook "systemctl reload nginx" >> /var/log/certbot.log 2>&1" >> /etc/crontab
     echo . >> /etc/crontab
     echo "# eof" >> /etc/crontab
 fi

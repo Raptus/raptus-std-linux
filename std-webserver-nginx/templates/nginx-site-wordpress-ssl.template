@@ -149,7 +149,10 @@ server {
         deny                    all;
     }
 
-
+    ### Make CertBot work with webroot manual authentication with ACME challenge
+    location ^~ /.well-known/acme-challenge/ {
+        try_files               $uri $uri/ =404;
+    }
 
     ### Allow access to web-hooks only for certain local requests
 #    include                     /home/sites/SITE_NAME/conf/nginx/web-hooks.conf;

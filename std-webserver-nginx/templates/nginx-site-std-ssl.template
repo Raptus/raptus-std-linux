@@ -3,9 +3,9 @@
 ###
 
 ### FCGI-Cacheing: Block
-#fastcgi_cache_path              /home/sites/SITE_NAME/cache 
-#                                levels=1:2 
-#                                keys_zone=fc_SITE_NAME:64M 
+#fastcgi_cache_path              /home/sites/SITE_NAME/cache
+#                                levels=1:2
+#                                keys_zone=fc_SITE_NAME:64M
 #                                inactive=30h
 #                                max_size=1024M;
 
@@ -67,7 +67,7 @@ server {
 
     ### External file for SEO rewrites
     include                     /home/sites/SITE_NAME/conf/nginx-rewrites.conf;
-    
+
     location = /favicon.ico {
         log_not_found           off;
     }
@@ -83,15 +83,20 @@ server {
     }
 
     ### Prevent access to any files starting with a dot, like .htaccess or temp files
-    location ~ /\. { 
+    location ~ /\. {
         log_not_found           off;
-        deny                    all; 
+        deny                    all;
     }
 
     ### Prevent access to any files starting with a $ (usually temp files)
-    location ~ ~$ { 
-        log_not_found           off; 
-        deny                    all; 
+    location ~ ~$ {
+        log_not_found           off;
+        deny                    all;
+    }
+
+    ### Make CertBot work with webroot manual authentication with ACME challenge
+    location ^~ /.well-known/acme-challenge/ {
+        try_files               $uri $uri/ =404;
     }
 
     ### FCGI-Cacheing: Default policy is to cache all
