@@ -39,7 +39,7 @@ echo "### Setting up default/admin site $HNFULL"
 $PRX_PATH/scripts/create-site.sh $HNFULL default-admin-site >> $LOGFILE 2>&1
 admin_site_uid="`stat -c %U /home/sites/$site`"
 cp -Rp $PRX_PATH/admin-site/* /home/ADMIN-SITE/pub/httpdocs/
-DVP="`apg $APGOPTS`"
+DVP="`pwgen $PWGENOPTS`"
 htpasswd /home/sites/$HNFULL/auth/htpasswd admin $DVP
 passwordInfo "Default site" "admin" "$DVP" "https://$HNFULL/admin"
 $PRX_PATH/scripts/manage-site.sh $HNFULL site-enable >> $LOGFILE 2>&1
