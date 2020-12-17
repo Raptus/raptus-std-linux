@@ -49,9 +49,7 @@ function resetSiteRights()
     setChmod /home/sites/$site/pub/scripts "u=+rwx,go=+r" "u=+rwx,go=+rx"
 
     # Restrict read access on ssh keys
-    chown root:nginx /home/restricted/ssh/authorized_keys
     setChmod /home/sites/$site/.ssh "u=rw,go=" "u=rw,go="
-    chmod u=rw,g=r,o= /home/restricted/ssh/authorized_keys
 
     echo "done"
 }
