@@ -6,7 +6,7 @@ function createBasicAuth()
 {
     site=$1
     httpuser=$2
-    httppass="`apg -n1 -m10 -x10 -a0 -q -M NCL`"
+    httppass="`pwgen -B -c -N1 -n 15`"
     authfile="/home/sites/$site/auth/htpasswd"
 
     if ! test -d /home/sites/$site

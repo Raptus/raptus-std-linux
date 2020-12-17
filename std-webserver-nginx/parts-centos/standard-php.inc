@@ -15,6 +15,10 @@ mkdir /var/lib/memcache
 
 cp $WEB_PATH/configs-centos/etc-logrotate.d/php-fpm_sites /etc/logrotate.d/php-fpm_sites
 
+systemctl disable php71-php-fpm.service
+systemctl disable php72-php-fpm.service
+systemctl disable php73-php-fpm.service
+
 ### Composer
 
 mkdir -p /opt/composer/bin
