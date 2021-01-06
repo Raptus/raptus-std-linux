@@ -1,5 +1,5 @@
 ###
-### Nginx Zope Site
+### Nginx Proxy Upstream Site
 ###
 ### Per default this configuration uses SSL. If you want to disable SSL, look for
 ### the string NOSSL-CHANGE and adapt the corresponding line
