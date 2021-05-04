@@ -51,6 +51,8 @@ debugger_command =
      PATH=/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin
      ddd $daemon_directory/$process_name $process_id & sleep 5
 
+smtpd_relay_restrictions = permit_mynetworks, defer_unauth_destination
+
 #relayhost = [put-your-smtp-relay-server-here]:25
 #smtp_sasl_password_maps = hash:/etc/postfix/smtp_auth
 #smtp_sasl_auth_enable = yes
