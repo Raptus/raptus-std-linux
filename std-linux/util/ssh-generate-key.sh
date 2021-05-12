@@ -2,7 +2,7 @@
 
 if test -z "$1"
 then
-    ssh-keygen -q -t rsa -b 4096 -f ~/.ssh/id_rsa -N ''
+    ssh-keygen -q -t ed25519 -f ~/.ssh/id_ed25519 -N ''
     exit 0
 fi
 
@@ -20,7 +20,7 @@ then
     exit 1
 fi
 
-sudo su -c "ssh-keygen -q -t rsa -b 4096 -f ~/.ssh/id_rsa -N ''" -s /bin/sh $1
+sudo su -c "ssh-keygen -q -t ed25519 -f ~/.ssh/id_ed25519 -N ''" -s /bin/sh $1
 touch ~/.ssh/authorized_keys
 
 # eof
