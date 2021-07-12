@@ -121,8 +121,8 @@ server {
 #    }
 
     ### Error pages must have properly set http headers!
-    error_page                  500 501 504 http://temp.raptus.com/overload/;
-    error_page                  502 503 http://temp.raptus.com/maintenance/;
+    error_page                  500 501 504 https://temp.raptus.com/overload/;
+    error_page                  502 503 https://temp.raptus.com/maintenance/;
 
     ### Uncomment to enable maintenance mode
 #    if ($not-our-ips) {
