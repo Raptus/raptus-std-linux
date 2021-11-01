@@ -3,9 +3,9 @@
 test `whoami` == root || { echo "You need to be root!"; exit 1; }
 
 DISTRO=""
-if ! test -z "`grep 'ID.*centos' /etc/os-release`"
+if ! test -z "`grep 'ID.*ol' /etc/os-release`"
 then
-    export DISTRO="centos"
+    export DISTRO="ol"
 fi
 
 export DISTRO_NAME="`sed -r -n 's/PRETTY_NAME=\"(.*)\"/\1/p' /etc/os-release`"
@@ -14,12 +14,12 @@ echo
 echo "### Kickstarting $DISTRO_NAME"
 echo
 
-if test "$DISTRO" = "centos"
+if test "$DISTRO" = "ol"
 then
     echo "### Installing GIT"
     dnf -y install git uuid > /dev/null 2>&1
 else
-    echo "Linux distribution not supported."
+    echo "Linux distribution not supported, check other branches in this repo."
     exit 1
 fi
 

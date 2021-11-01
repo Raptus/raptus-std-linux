@@ -9,9 +9,9 @@ PRX_PATH=/root/scripts/rsl/std-upstream-proxy-nginx
 
 # Detect distribution
 DISTRO=""
-if ! test -z "`grep 'ID.*centos' /etc/os-release`"
+if ! test -z "`grep 'ID.*ol' /etc/os-release`"
 then
-    DISTRO="centos"
+    DISTRO="ol"
     HNFULL="`hostnamectl status | sed -r -n 's/^.*Static hostname: (.*)$/\1/p'`"
 
 fi
@@ -63,11 +63,11 @@ function askConfirmation
 
 function checkInstall
 {
-    if test "$DISTRO" = "centos"
+    if test "$DISTRO" = "ol"
     then
         if test -z "`cat /etc/os-release | grep 'VERSION_ID=\"8\"'`"
         then
-            echo "This CentOS Version is not supported. Aborting ..."
+            echo "This Oracle Linux Version is not supported. Aborting ..."
             exit 1
         fi
     else

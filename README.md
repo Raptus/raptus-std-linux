@@ -6,18 +6,26 @@
 * WebStack with Nginx, PHP, MariaDB
 
 ### Install Step 1 ###
-* Install CentOS v8
-* Use CentOS minimal Installer
+* Install Oracle Linux v8
+* Use [Oracle Linux Boot ISO](https://yum.oracle.com/oracle-linux-isos.html) minimal Installer
+* Main installation source: https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64
 * Make sure Keyboard, Date, Time and NTP is working
+* Create a 2 GiB boot partition for snapshot reasons
+* * Use UEFI when possible (not in VDC)
 * Disable security policies
 * Disable kdump
+* Set a hostname in FQDN format
 
 ### Install Step 2 ###
-Create/edit the configuration file
+* Create/edit the configuration file
 ```shell
 echo "OUR_IPS=1.2.3.4,11.22.33.44" > /root/.rslcfg
 echo "ADMIN_EMAIL=myname@domain.tld" >> /root/.rslcfg
 echo "ENABLE_FIREWALL=yes" >> /root/.rslcfg
+```
+* Set hostname if not already configured
+```shell
+hostnamectl set-hostname hostname.domain.tld 
 ```
 
 ### Install Step 3: ###
