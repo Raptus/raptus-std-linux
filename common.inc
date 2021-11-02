@@ -190,10 +190,12 @@ function getFileFromURL
 
 function getNetworkInterfaceName
 {
-    for i in $(ip -o link show | awk -F': ' '{print $2}')
+   for i in $(ip -o link show | awk -F': ' '{print $2}')
     do
         mac=$(ethtool -P $i)
-        [[ $mac != *"00:00:00:00:00:00"* ]] && echo "$i"
+        if [[ "$mac" != *"00:00:00:00:00:00"* ]] && [[ "$mac" != *"not set"* ]]; then
+            echo "$i"
+        fi
     done
 }
 
