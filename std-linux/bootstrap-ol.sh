@@ -10,11 +10,12 @@ echo "### Installing base packages"
 dnf -y upgrade >> $LOGFILE 2>&1
 dnf -y update ca-certificates >> $LOGFILE 2>&1
 dnf -y groupinstall 'Development Tools' >> $LOGFILE 2>&1
-dnf -y install acpid pwgen bzip2 bind-utils bonnie++ ftp ghostscript htop nano nmap nload \
-               net-tools nfs-utils psmisc platform-python-devel rsync screen subversion \
-               subversion-tools symlinks tcpdump tcpdump telnet traceroute tree unzip \
-               wget whois readline-devel openssl-devel bash-completion pciutils virt-what \
-               sshfs dnf-utils sysstat vim vim-common fuse-sshfs >> $LOGFILE 2>&1
+dnf -y install acpid pwgen bzip2 bind-utils ghostscript htop nano nmap nload \
+               net-tools nfs-utils psmisc platform-python-devel rsync screen \
+               symlinks telnet traceroute tree unzip dnf-utils sysstat vim vim-common \
+               wget whois readline-devel openssl-devel bash-completion pciutils virt-what >> $LOGFILE 2>&1
+#dnf install sshfs fuse-sshfs >> $LOGFILE 2>&1 #no oracle repository
+#dnf install tcpdump bonnie++ ftp subversion subversion-tools >> $LOGFILE 2>&1 #not standard anymore
 
 echo "### Setting up environment"
 yes | cp $STD_PATH/configs-centos/.bashrc /root/
