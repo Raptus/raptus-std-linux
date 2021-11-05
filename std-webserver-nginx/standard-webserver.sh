@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo "### Initializing package repositories"
+dnf -y config-manager --set-enabled ol8_codeready_builder  >> $LOGFILE 2>&1
+dnf -y clean all >> $LOGFILE 2>&1
+
 OLDDIR="`pwd`"
 cd /root/scripts/rsl
 git pull >> /dev/null
@@ -30,14 +34,13 @@ mkdir -p /home/sites
 mkdir -p /home/restricted/{scripts,logs,temp}
 
 # ATTENTION: Dependencies!!!
-source $WEB_PATH/parts-centos/standard-webserver.inc
-source $WEB_PATH/parts-centos/standard-memcached.inc
-source $WEB_PATH/parts-centos/standard-pureftp.inc
-source $WEB_PATH/parts-centos/standard-postgresql.inc
-source $WEB_PATH/parts-centos/standard-mariadb.inc
-source $WEB_PATH/parts-centos/standard-nginx.inc
-source $WEB_PATH/parts-centos/standard-certbot.inc
-source $WEB_PATH/parts-centos/standard-php.inc
+source $WEB_PATH/parts-ol/standard-webserver.inc
+source $WEB_PATH/parts-ol/standard-memcached.inc
+source $WEB_PATH/parts-ol/standard-postgresql.inc
+source $WEB_PATH/parts-ol/standard-mariadb.inc
+source $WEB_PATH/parts-ol/standard-nginx.inc
+source $WEB_PATH/parts-ol/standard-certbot.inc
+source $WEB_PATH/parts-ol/standard-php.inc
 
 echo "### Setting up default/admin site $HNFULL"
 $WEB_PATH/scripts/create-site.sh $HNFULL default-admin-site >> $LOGFILE 2>&1
@@ -52,7 +55,7 @@ $WEB_PATH/scripts/manage-site.sh $HNFULL php-enable >> $LOGFILE 2>&1
 
 echo "### Setting up phpMyAdmin"
 /opt/composer/bin/composer --quiet --no-interaction create-project phpmyadmin/phpmyadmin /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/ >> $LOGFILE 2>&1
-cp $WEB_PATH/configs-centos/phpmyadmin/config.inc.php /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/
+cp $WEB_PATH/configs-ol/phpmyadmin/config.inc.php /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/
 BFS="`pwgen -B -c -N1 -n 15`"
 sed -i -r "s/INSERT_HERE_GENERATED_BLOWFISH_SECRET/$BFS/g" /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/config.inc.php
 

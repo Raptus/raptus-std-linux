@@ -4,6 +4,7 @@
 
 RSL_PATH=/root/scripts/rsl
 STD_PATH=/root/scripts/rsl/std-linux
+ADN_PATH=/root/scripts/rsl/std-linux-addons
 WEB_PATH=/root/scripts/rsl/std-webserver-nginx
 PRX_PATH=/root/scripts/rsl/std-upstream-proxy-nginx
 

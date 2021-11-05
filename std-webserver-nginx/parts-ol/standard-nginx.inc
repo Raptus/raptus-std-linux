@@ -1,12 +1,13 @@
 echo "### Setting up nginx"
 
+DIST=rhel
 NGINX_OSRELEASE="8"
 NGINX_BASEARCH="x86_64"
 
 cat > /etc/yum.repos.d/nginx.repo << EOF
 [nginx-stable]
 name=nginx stable repo
-baseurl=http://nginx.org/packages/centos/$NGINX_OSRELEASE/$NGINX_BASEARCH/
+baseurl=http://nginx.org/packages/$DIST/$NGINX_OSRELEASE/$NGINX_BASEARCH/
 gpgcheck=1
 enabled=1
 gpgkey=https://nginx.org/keys/nginx_signing.key
@@ -17,7 +18,7 @@ EOF
 dnf -y install nginx >> $LOGFILE 2>&1
 
 mv /etc/nginx /etc/nginx.ORIG
-cp -R $WEB_PATH/configs-centos/etc-nginx /etc/nginx
+cp -R $WEB_PATH/configs-ol/etc-nginx /etc/nginx
 mkdir -p /etc/nginx/sites-enabled
 sed -r -i "s/(.*)HOSTMASTER(.*)$/\1$ADMIN_EMAIL\2/g" /etc/nginx/fastcgi_params
 
@@ -31,7 +32,7 @@ done
 echo "}" >> /etc/nginx/conf.d/global-maps.conf
 echo >> /etc/nginx/conf.d/global-maps.conf
 
-cp $WEB_PATH/configs-centos/etc-logrotate.d/nginx /etc/logrotate.d/nginx
+cp $WEB_PATH/configs-ol/etc-logrotate.d/nginx /etc/logrotate.d/nginx
 
 # generate a stronger DHE parameter
 # Using -dsaparam to speedup. See this for more information:

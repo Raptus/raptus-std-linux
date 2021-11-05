@@ -21,7 +21,7 @@ echo "### Downloading and placing PHP module configurations"
 TEMP_PATH=$(mktemp -d)
 cd $TEMP_PATH
 wget https://bitbucket.org/raptus-it-services/raptus-std-linux/get/0fae43752820.zip >> $LOGFILE 2>&1
-unzip -j ./0fae43752820.zip "raptus-it-services-raptus-std-linux-0fae43752820/std-webserver-nginx/configs-centos/etc-php7/conf.d/*" -d /etc/php7/conf.d/ >> $LOGFILE 2>&1
+unzip -j ./0fae43752820.zip "raptus-it-services-raptus-std-linux-0fae43752820/std-webserver-nginx/configs-ol/etc-php7/conf.d/*" -d /etc/php7/conf.d/ >> $LOGFILE 2>&1
 cd $WEB_PATH
 rm -rf $TEMP_PATH
 

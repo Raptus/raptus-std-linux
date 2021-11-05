@@ -11,30 +11,29 @@ dnf -y upgrade >> $LOGFILE 2>&1
 dnf -y update ca-certificates >> $LOGFILE 2>&1
 dnf -y groupinstall 'Development Tools' >> $LOGFILE 2>&1
 dnf -y install acpid pwgen bzip2 bind-utils ghostscript htop nano nmap nload \
-               net-tools nfs-utils psmisc platform-python-devel rsync screen \
+               net-tools nfs-utils psmisc platform-python-devel rsync screen ftp \
                symlinks telnet traceroute tree unzip dnf-utils sysstat vim vim-common \
                wget whois readline-devel openssl-devel bash-completion pciutils virt-what >> $LOGFILE 2>&1
-#dnf install sshfs fuse-sshfs >> $LOGFILE 2>&1 #no oracle repository
-#dnf install tcpdump bonnie++ ftp subversion subversion-tools >> $LOGFILE 2>&1 #not standard anymore
+#dnf -y install tcpdump bonnie++ >> $LOGFILE 2>&1 #not standard anymore
 
 echo "### Setting up environment"
-yes | cp $STD_PATH/configs-centos/.bashrc /root/
-yes | cp $STD_PATH/configs-centos/.screenrc /root/
-yes | cp $STD_PATH/configs-centos/.vimrc /root/
+yes | cp $STD_PATH/configs-ol/.bashrc /root/
+yes | cp $STD_PATH/configs-ol/.screenrc /root/
+yes | cp $STD_PATH/configs-ol/.vimrc /root/
 touch /root/.bashrc_local
 mkdir /root/{dist,build,temp}
 
-source $STD_PATH/parts-centos/standard-security.inc
-source $STD_PATH/parts-centos/standard-ssh.inc
-source $STD_PATH/parts-centos/standard-cron.inc
-source $STD_PATH/parts-centos/standard-ntp.inc
-source $STD_PATH/parts-centos/standard-postfix.inc
-source $STD_PATH/parts-centos/standard-snmp.inc
-source $STD_PATH/parts-centos/standard-prtg.inc
-source $STD_PATH/parts-centos/standard-fstrim.inc
-source $STD_PATH/parts-centos/standard-sysdefaults.inc
-source $STD_PATH/parts-centos/standard-shorewall.inc
-source $STD_PATH/parts-centos/standard-tuning.inc
+source $STD_PATH/parts-ol/standard-security.inc
+source $STD_PATH/parts-ol/standard-ssh.inc
+source $STD_PATH/parts-ol/standard-cron.inc
+source $STD_PATH/parts-ol/standard-ntp.inc
+source $STD_PATH/parts-ol/standard-postfix.inc
+source $STD_PATH/parts-ol/standard-snmp.inc
+source $STD_PATH/parts-ol/standard-prtg.inc
+source $STD_PATH/parts-ol/standard-fstrim.inc
+source $STD_PATH/parts-ol/standard-sysdefaults.inc
+source $STD_PATH/parts-ol/standard-shorewall.inc
+source $STD_PATH/parts-ol/standard-tuning.inc
 
 echo "### Setting up services"
 chmod +x /etc/rc.local
@@ -49,9 +48,9 @@ chmod -x /usr/lib/systemd/system/ebtables.service
 
 detectSystem
 echo "### Detected machine type: $MACHINE_TYPE / $MACHINE_INFO"
-if test -f "$STD_PATH/parts-centos/machine-$MACHINE_TYPE.inc"
+if test -f "$STD_PATH/parts-ol/machine-$MACHINE_TYPE.inc"
 then
-    source $STD_PATH/parts-centos/machine-$MACHINE_TYPE.inc
+    source $STD_PATH/parts-ol/machine-$MACHINE_TYPE.inc
 fi
 
 #eof

@@ -30,10 +30,10 @@ mkdir -p /home/sites
 mkdir -p /home/restricted/{scripts,logs,temp}
 
 # ATTENTION: Dependencies!!!
-source $PRX_PATH/parts-centos/standard-webserver.inc
-source $PRX_PATH/parts-centos/standard-memcached.inc
-source $PRX_PATH/parts-centos/standard-nginx.inc
-source $PRX_PATH/parts-centos/standard-certbot.inc
+source $PRX_PATH/parts-ol/standard-webserver.inc
+source $PRX_PATH/parts-ol/standard-memcached.inc
+source $PRX_PATH/parts-ol/standard-nginx.inc
+source $PRX_PATH/parts-ol/standard-certbot.inc
 
 echo "### Setting up default/admin site $HNFULL"
 $PRX_PATH/scripts/create-site.sh $HNFULL default-admin-site >> $LOGFILE 2>&1
