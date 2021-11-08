@@ -43,6 +43,8 @@ If this will be an upstream proxy only, run:
 ### OPT Install Step 4: ###
 If you need FTP server, run:
 ```/root/scripts/rsl/std-linux-addons/standard-pureftp.sh```
+If you need Certbot, for Let's Encrypt certificates, run:
+```/root/scripts/rsl/std-linux-addons/standard-certbot.sh```
 If you need command line based browsers, run:
 ```dnf -y install lynx elinks```
 If you need sshfs, run:

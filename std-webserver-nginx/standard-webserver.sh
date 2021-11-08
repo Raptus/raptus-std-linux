@@ -39,7 +39,6 @@ source $WEB_PATH/parts-ol/standard-memcached.inc
 source $WEB_PATH/parts-ol/standard-postgresql.inc
 source $WEB_PATH/parts-ol/standard-mariadb.inc
 source $WEB_PATH/parts-ol/standard-nginx.inc
-source $WEB_PATH/parts-ol/standard-certbot.inc
 source $WEB_PATH/parts-ol/standard-php.inc
 
 echo "### Setting up default/admin site $HNFULL"

@@ -1,23 +1,22 @@
 echo "### Setting up php"
 
+dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm >> $LOGFILE 2>&1
 dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm >> $LOGFILE 2>&1
 
-/root/scripts/rsl/std-webserver-nginx/util/install-php.sh php71 >> $LOGFILE 2>&1
-/root/scripts/rsl/std-webserver-nginx/util/install-php.sh php72 >> $LOGFILE 2>&1
-/root/scripts/rsl/std-webserver-nginx/util/install-php.sh php73 >> $LOGFILE 2>&1
+/root/scripts/rsl/std-webserver-nginx/util/install-php.sh php74 >> $LOGFILE 2>&1
+/root/scripts/rsl/std-webserver-nginx/util/install-php.sh php80 >> $LOGFILE 2>&1
 
 dnf -y install aspell-en >> $LOGFILE 2>&1
 
-mkdir -p /etc/php7
-cp -R $WEB_PATH/configs-ol/etc-php7/conf.d /etc/php7/conf.d
+mkdir -p /etc/php
+cp -R $WEB_PATH/configs-ol/etc-php/conf.d /etc/php/conf.d
 
 mkdir /var/lib/memcache
 
 cp $WEB_PATH/configs-ol/etc-logrotate.d/php-fpm_sites /etc/logrotate.d/php-fpm_sites
 
-systemctl disable php71-php-fpm.service
-systemctl disable php72-php-fpm.service
-systemctl disable php73-php-fpm.service
+systemctl disable php74-php-fpm.service
+systemctl disable php80-php-fpm.service
 
 ### Composer
 
