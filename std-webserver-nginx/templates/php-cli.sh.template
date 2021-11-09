@@ -1,10 +1,9 @@
 #!/bin/bash
 
 SITE="SITE_NAME"
-PHPMAJ="`cat /home/sites/$SITE/conf/php-cli/php-major`"
-PHPBIN="/home/sites/$SITE/conf/php-cli/php$PHPMAJ/bin/php"
-export PHP_INI_SCAN_DIR="/home/sites/$SITE/conf/php-cli/php${PHPMAJ}-conf.d"
+PHPBIN="/home/sites/$SITE/conf/php-cli/php/bin/php"
+export PHP_INI_SCAN_DIR="/home/sites/$SITE/conf/php-cli/php-conf.d"
 
-$PHPBIN -c /home/sites/$SITE/conf/php-cli/php${PHPMAJ}.ini $@
+$PHPBIN -c /home/sites/$SITE/conf/php-cli/php.ini $@
 
 # eof

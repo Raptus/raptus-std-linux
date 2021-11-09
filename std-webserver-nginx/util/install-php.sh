@@ -37,7 +37,7 @@ dnf -y install \
     $PHPVER-php-pgsql \
     $PHPVER-php-process \
     $PHPVER-php-pspell \
-    $PHPVER-php-recode \
+    $PHPVER-php-iconv \
     $PHPVER-php-snmp \
     $PHPVER-php-soap \
     $PHPVER-php-tidy \
@@ -45,6 +45,29 @@ dnf -y install \
     $PHPVER-php-xmlrpc \
     $PHPVER-php-zip >> /dev/null
 
+if [[ $PHPVER = *"php7"* ]]; then
+    dnf -y install $PHPVER-php-recode
+fi
+
 ln -sfT /opt/remi/$PHPVER/root /opt/$PHPVER
+
+# Install composer
+
+mkdir -p /opt/$PHPVER/opt/composer/bin
+cd /opt/$PHPVER/opt/composer/bin
+
+EXPECTED_CHECKSUM="$($PHPVER -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
+$PHPVER -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+ACTUAL_CHECKSUM="$($PHPVER -r "echo hash_file('sha384', 'composer-setup.php');")"
+
+if [ "$EXPECTED_CHECKSUM" != "$ACTUAL_CHECKSUM" ]
+then
+    >&2 echo "ERROR: Installation of PHP-$PHPVER failed: Invalid installer checksum"
+    rm composer-setup.php
+    exit 1
+fi
+
+$PHPVER composer-setup.php --quiet
+rm composer-setup.php
 
 # eof

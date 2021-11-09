@@ -129,17 +129,47 @@ function archiveSite()
     deleteSite $1
 }
 
-function setPHPMajor()
+function setPHPVer()
 {
-    phpmaj=$1
+    phpver=$1
     site=$2
 
-    echo "Switched PHP CLI for site $site to PHP v${phpmaj}x."
-    echo $phpmaj > "/home/sites/$site/conf/php-cli/php-major"
+    /root/scripts/rsl/std-webserver-nginx/util/install-php.sh $phpver
 
-    echo "Switched PHP FPM for site $site to PHP v${phpmaj}x."
-    echo $phpmaj > "/home/sites/$site/conf/php-fpm/php-major"
+    ### PHP Compose
+        
+    cfile="/home/sites/$site/scripts/composer.sh"
 
+    if test -f $cfile; then
+        rm $cfile
+    fi
+
+    touch $cfile
+
+    echo '#!/bin/bash' >> $cfile
+    echo '/opt/'"$phpver"'/bin/php /opt/'"$phpver"'/opt/composer/bin/composer.phar $@' >> $cfile
+    echo '# eof' >> $cfile
+        
+    chmod +x $cfile
+        
+    ### PHP-CLI
+
+    if ! test -f $CONFDIR/php-cli/php.ini
+    then
+        sed "s/SITE_NAME/$site/g" $TEMPLPATH/php-cli.ini.template > $CONFDIR/php-cli/php.ini
+        ln -s /etc/php/conf.d /home/sites/$site/conf/php-cli/php-conf.d
+    fi
+
+    ### PHP-FPM
+
+    if ! test -f $CONFDIR/php-fpm/php.ini
+    then
+        sed "s/SITE_NAME/$site/g" $TEMPLPATH/php-fpm.ini.template > $CONFDIR/php-fpm/php.ini
+        ln -s /etc/php/conf.d /home/sites/$site/conf/php-fpm/php-conf.d
+    fi
+
+    echo "Switched PHP FPM and CLI for site $site to PHP ${phpver}."
+    echo
     echo "In order to activate, the FPM-Pool must be stopped and then started (restart is not enough)"
     echo
 }
@@ -193,9 +223,9 @@ then
         ;;
         php-disable)     disablePHP $1
         ;;
-        php-set-major5)  setPHPMajor 5 $1
+        php-set-php74)  setPHPVer php74 $1
         ;;
-        php-set-major7)  setPHPMajor 7 $1
+        php-set-php80)  setPHPMajor php80 $1
         ;;
         php-enable-nginx-pool)  enablePHPNginxPool $1
         ;;
@@ -216,8 +246,8 @@ else
     echo "                       site-archive           archives and then deletes the site"
     echo "                       php-enable             enables the PHP backend"
     echo "                       php-disable            enables the PHP backend"
-    echo "                       php-set-major5         switch to PHP v5x for cli and fpm"
     echo "                       php-set-major7         switch to PHP v7x for cli and fpm"
+    echo "                       php-set-major8         switch to PHP v8x for cli and fpm"
     echo "                       php-enable-nginx-pool  enable separate PHP-FPM Pool running as nginx user rather than host owner"
 fi
 echo
