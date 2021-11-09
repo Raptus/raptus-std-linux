@@ -6,7 +6,7 @@ OLDDIR="`pwd`"
 cd /root/scripts/rsl
 git pull >> /dev/null
 source /root/scripts/rsl/common.inc
-dnf -y install pure-ftpd >> $LOGFILE 2>&1
+dnf -y install pure-ftpd
 
 mv /etc/pure-ftpd/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf.ORIG
 cp $ADN_PATH/configs-ol/etc-pure-ftpd/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf
@@ -17,5 +17,5 @@ pure-pw mkdb
 
 chmod -x /usr/lib/systemd/system/pure-ftpd.service
 
-systemctl disable pure-ftpd >> $LOGFILE 2>&1
+systemctl disable pure-ftpd
 echo "### run `systemctl enable pure-ftpd` to enable the service"
