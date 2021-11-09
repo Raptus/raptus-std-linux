@@ -156,7 +156,7 @@ function setPHPVer()
 
     if ! test -f $CONFDIR/php-cli/php.ini
     then
-        sed "s/SITE_NAME/$site/g" $TEMPLPATH/php-cli.ini.template > $CONFDIR/php-cli/php.ini
+        rm -rf /home/sites/$site/conf/php-cli/php-conf.d
         ln -s /etc/php/conf.d /home/sites/$site/conf/php-cli/php-conf.d
     fi
 
@@ -164,7 +164,7 @@ function setPHPVer()
 
     if ! test -f $CONFDIR/php-fpm/php.ini
     then
-        sed "s/SITE_NAME/$site/g" $TEMPLPATH/php-fpm.ini.template > $CONFDIR/php-fpm/php.ini
+        rm -rf /home/sites/$site/conf/php-fpm/php-conf.d
         ln -s /etc/php/conf.d /home/sites/$site/conf/php-fpm/php-conf.d
     fi
 
@@ -225,7 +225,7 @@ then
         ;;
         php-set-php74)  setPHPVer php74 $1
         ;;
-        php-set-php80)  setPHPMajor php80 $1
+        php-set-php80)  setPHPVer php80 $1
         ;;
         php-enable-nginx-pool)  enablePHPNginxPool $1
         ;;
@@ -246,8 +246,8 @@ else
     echo "                       site-archive           archives and then deletes the site"
     echo "                       php-enable             enables the PHP backend"
     echo "                       php-disable            enables the PHP backend"
-    echo "                       php-set-major7         switch to PHP v7x for cli and fpm"
-    echo "                       php-set-major8         switch to PHP v8x for cli and fpm"
+    echo "                       php-set-php74          switch to PHP v7x for cli and fpm"
+    echo "                       php-set-php80          switch to PHP v8x for cli and fpm"
     echo "                       php-enable-nginx-pool  enable separate PHP-FPM Pool running as nginx user rather than host owner"
 fi
 echo

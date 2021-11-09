@@ -57,7 +57,7 @@ echo "### Setting up phpMyAdmin"
 runphp=$($phpvers | rev | cut -d ' ' -f 1 | rev)
 $runphp /opt/$runphp/opt/composer/bin/composer.phar --quiet --no-interaction create-project phpmyadmin/phpmyadmin /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/ >> $LOGFILE 2>&1
 cp $WEB_PATH/configs-ol/phpmyadmin/config.inc.php /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/
-BFS="`pwgen -B -c -N1 -n 15`"
+BFS="`pwgen -B -c -N1 -n 64`"
 sed -i -r "s/INSERT_HERE_GENERATED_BLOWFISH_SECRET/$BFS/g" /home/sites/$HNFULL/pub/httpdocs/admin/phpmyadmin/config.inc.php
 
 chown -R nginx:nginx /home/restricted/logs
