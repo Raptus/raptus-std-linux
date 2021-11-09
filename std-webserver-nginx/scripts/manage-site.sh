@@ -156,21 +156,23 @@ function setPHPVer()
 
     if ! test -f $CONFDIR/php-cli/php.ini
     then
-        rm -rf /home/sites/$site/conf/php-cli/php-conf.d
-        ln -s /etc/php/conf.d /home/sites/$site/conf/php-cli/php-conf.d
+        rm -rf /home/sites/$site/conf/php-cli/php
+        ln -s /opt/php74 /home/sites/$iste/conf/php-cli/php
     fi
 
     ### PHP-FPM
 
     if ! test -f $CONFDIR/php-fpm/php.ini
     then
-        rm -rf /home/sites/$site/conf/php-fpm/php-conf.d
-        ln -s /etc/php/conf.d /home/sites/$site/conf/php-fpm/php-conf.d
+        rm -rf /home/sites/$site/conf/php-fpm/php
+        ln -s /opt/php74 /home/sites/$iste/conf/php-fpm/php
     fi
 
     echo "Switched PHP FPM and CLI for site $site to PHP ${phpver}."
     echo
     echo "In order to activate, the FPM-Pool must be stopped and then started (restart is not enough)"
+    echo "systemctl stop php-fpm_$site.service"
+    echo "systemctl start php-fpm_$site.service"
     echo
 }
 

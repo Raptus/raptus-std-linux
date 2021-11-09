@@ -46,7 +46,7 @@ dnf -y install \
     $PHPVER-php-zip >> /dev/null
 
 if [[ $PHPVER = *"php7"* ]]; then
-    dnf -y install $PHPVER-php-recode
+    dnf -y install $PHPVER-php-recode >> /dev/null
 fi
 
 ln -sfT /opt/remi/$PHPVER/root /opt/$PHPVER
