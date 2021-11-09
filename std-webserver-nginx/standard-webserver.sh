@@ -1,11 +1,8 @@
 #!/bin/bash
 
-echo "### Initializing package repositories"
-dnf -y config-manager --set-enabled ol8_codeready_builder  >> $LOGFILE 2>&1
-dnf -y clean all >> $LOGFILE 2>&1
-
 OLDDIR="`pwd`"
 cd /root/scripts/rsl
+git config pull.rebase true
 git pull >> /dev/null
 source /root/scripts/rsl/common.inc
 checkHostname
@@ -14,6 +11,10 @@ checkLockFile
 checkBootstrapped
 touch $LOGFILE
 cd $WEB_PATH
+
+echo "### Initializing package repositories"
+dnf -y config-manager --set-enabled ol8_codeready_builder  >> $LOGFILE 2>&1
+dnf -y clean all >> $LOGFILE 2>&1
 
 echo "###"
 echo "###"
