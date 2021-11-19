@@ -3,13 +3,9 @@ echo "### Setting up php base"
 dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm >> $LOGFILE 2>&1
 dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm >> $LOGFILE 2>&1
 
-# If you change this, put latest php version at the end (for phpmyadmin install)
-phpvers="php74 php80"
-
-for vers in $phpvers; do
-    /root/scripts/rsl/std-webserver-nginx/util/install-php.sh $vers >> $LOGFILE 2>&1
-    systemctl disable $vers-php-fpm.service
-done
+phpvers="php80"
+/root/scripts/rsl/std-webserver-nginx/util/install-php.sh $phpvers >> $LOGFILE 2>&1
+systemctl disable $phpvers-php-fpm.service
 
 dnf -y install aspell-en >> $LOGFILE 2>&1
 
