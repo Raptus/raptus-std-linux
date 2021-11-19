@@ -17,6 +17,8 @@ then
     exit 1
 fi
 
+echo "Installing $PHPVER"
+
 dnf -y install \
     $PHPVER-php-fpm \
     $PHPVER-php-cli \
