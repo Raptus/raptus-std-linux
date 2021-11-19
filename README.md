@@ -51,3 +51,5 @@ If you need sshfs, run:
 ```dnf -y install sshfs fuse-sshfs```
 If you need subversion, run:
 ```dnf -y install subversion subversion-tools```
+If you need additional PHP version, run:
+```/root/scripts/rsl/std-webserver-nginx/util/install-php.sh phpvers```
