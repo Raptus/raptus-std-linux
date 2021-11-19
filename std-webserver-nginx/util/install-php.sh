@@ -17,7 +17,7 @@ then
     exit 1
 fi
 
-echo "Installing $PHPVER"
+echo echo "### Setting up $PHPVER"
 
 dnf -y install \
     $PHPVER-php-fpm \
@@ -54,6 +54,8 @@ fi
 ln -sfT /opt/remi/$PHPVER/root /opt/$PHPVER
 
 # Install composer
+
+echo "### Setting up composer for $PHPVER"
 
 mkdir -p /opt/$PHPVER/opt/composer/bin
 cd /opt/$PHPVER/opt/composer/bin
