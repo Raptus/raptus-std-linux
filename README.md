@@ -17,13 +17,13 @@
 * Set a hostname in FQDN format
 
 ### Install Step 2 ###
-* Create/edit the configuration file
+Create/edit the configuration file
 ```shell
 echo "OUR_IPS=1.2.3.4,11.22.33.44" > /root/.rslcfg
 echo "ADMIN_EMAIL=myname@domain.tld" >> /root/.rslcfg
 echo "ENABLE_FIREWALL=yes" >> /root/.rslcfg
 ```
-* Set hostname if not already configured
+Set hostname if not already configured
 ```shell
 hostnamectl set-hostname hostname.domain.tld 
 ```
@@ -36,20 +36,36 @@ bash <(curl -s https://bitbucket.org/raptus-it/raptus-std-linux/raw/master/kicks
 
 ### Install Step 4: ###
 If this will be a webserver, run:
-```/root/scripts/rsl/std-webserver-nginx/standard-webserver.sh```
+```shell
+/root/scripts/rsl/std-webserver-nginx/standard-webserver.sh
+```
 If this will be an upstream proxy only, run:
-```/root/scripts/rsl/std-upstream-proxy-nginx/standard-webproxy.sh```
+```shell
+/root/scripts/rsl/std-upstream-proxy-nginx/standard-webproxy.sh
+```
 
 ### OPT Install Step 4: ###
 If you need FTP server, run:
-```/root/scripts/rsl/std-linux-addons/standard-pureftp.sh```
+```shell
+/root/scripts/rsl/std-linux-addons/standard-pureftp.sh
+```
 If you need Certbot, for Let's Encrypt certificates, run:
-```/root/scripts/rsl/std-linux-addons/standard-certbot.sh```
+```shell
+/root/scripts/rsl/std-linux-addons/standard-certbot.sh
+```
 If you need command line based browsers, run:
-```dnf -y install lynx elinks```
+```shell
+dnf -y install lynx elinks
+```
 If you need sshfs, run:
-```dnf -y install sshfs fuse-sshfs```
+```shell
+dnf -y install sshfs fuse-sshfs
+```
 If you need subversion, run:
-```dnf -y install subversion subversion-tools```
+```shell
+dnf -y install subversion subversion-tools
+```
 If you need additional PHP version, run:
-```/root/scripts/rsl/std-webserver-nginx/util/install-php.sh phpvers```
+```shell
+/root/scripts/rsl/std-webserver-nginx/util/install-php.sh phpvers
+```
