@@ -4,8 +4,8 @@ dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarc
 dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm >> $LOGFILE 2>&1
 
 phpvers="php80"
+
 /root/scripts/rsl/std-webserver-nginx/util/install-php.sh $phpvers
-systemctl disable $phpvers-php-fpm.service
 
 dnf -y install aspell-en >> $LOGFILE 2>&1
 
@@ -15,5 +15,7 @@ cp -R $WEB_PATH/configs-ol/etc-php/conf.d /etc/php/conf.d
 mkdir /var/lib/memcache
 
 cp $WEB_PATH/configs-ol/etc-logrotate.d/php-fpm_sites /etc/logrotate.d/php-fpm_sites
+
+systemctl disable $phpvers-php-fpm.service
 
 #eof
