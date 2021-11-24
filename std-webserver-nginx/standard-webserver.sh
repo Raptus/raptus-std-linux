@@ -2,7 +2,7 @@
 
 OLDDIR="`pwd`"
 cd /root/scripts/rsl
-git config pull.rebase true
+git config pull.rebase false
 git pull >> /dev/null
 source /root/scripts/rsl/common.inc
 checkHostname

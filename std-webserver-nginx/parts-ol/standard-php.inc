@@ -5,7 +5,7 @@ dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm >> $LOGFI
 
 phpvers="php80"
 
-/root/scripts/rsl/std-webserver-nginx/util/install-php.sh $phpvers
+/root/scripts/rsl/std-webserver-nginx/util/install-php.sh $phpvers >> $LOGFILE 2>&1
 
 dnf -y install aspell-en >> $LOGFILE 2>&1
 
