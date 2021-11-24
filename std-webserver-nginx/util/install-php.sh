@@ -45,7 +45,7 @@ dnf -y install \
     $PHPVER-php-tidy \
     $PHPVER-php-xml \
     $PHPVER-php-xmlrpc \
-    $PHPVER-php-zip >> /dev/null
+    $PHPVER-php-zip >> $LOGFILE 2>&1
 
 if [[ $PHPVER = *"php7"* ]]; then
     dnf -y install $PHPVER-php-recode >> /dev/null
