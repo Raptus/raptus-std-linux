@@ -7,6 +7,7 @@ source /root/scripts/rsl/common.inc
 
 dnf -y install snapd
 systemctl enable --now snapd.socket
+systemctl start snapd
 ln -s /var/lib/snapd/snap /snap
 
 snap install --classic certbot
