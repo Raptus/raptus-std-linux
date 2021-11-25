@@ -4,7 +4,6 @@ echo "### Initializing package repositories"
 dnf -y install oracle-epel-release-el8  >> $LOGFILE 2>&1
 dnf -y config-manager --enable ol8_appstream  >> $LOGFILE 2>&1
 dnf -y clean all >> $LOGFILE 2>&1
-#dnf -y config-manager --set-enabled PowerTools >> $LOGFILE 2>&1
 
 echo "### Installing base packages"
 dnf -y upgrade >> $LOGFILE 2>&1
@@ -14,7 +13,6 @@ dnf -y install acpid pwgen bzip2 bind-utils ghostscript htop nano nmap nload \
                net-tools nfs-utils psmisc platform-python-devel rsync screen ftp \
                symlinks telnet traceroute tree unzip dnf-utils sysstat vim vim-common \
                wget whois readline-devel openssl-devel bash-completion pciutils virt-what >> $LOGFILE 2>&1
-#dnf -y install tcpdump bonnie++ >> $LOGFILE 2>&1 #not standard anymore
 
 echo "### Setting up environment"
 yes | cp $STD_PATH/configs-ol/.bashrc /root/
