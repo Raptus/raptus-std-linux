@@ -14,7 +14,7 @@ snap install --classic certbot
 ln -s /snap/bin/certbot /usr/bin/certbot
 
 echo ""
-echo "Please reboot now, before doing anything with this system"
+echo "You can now use the certbot command"
 echo ""
 
 #eof
