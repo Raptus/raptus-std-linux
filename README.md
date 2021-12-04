@@ -69,3 +69,4 @@ If you need additional PHP version, run:
 ```shell
 /root/scripts/rsl/std-webserver-nginx/util/install-php.sh phpvers
 ```
+Then change the symlinks php binaries in your site
