@@ -16,3 +16,5 @@ EOF
 newaliases
 cd /etc/postfix
 ln -s ../aliases
+
+systemctl enable postfix

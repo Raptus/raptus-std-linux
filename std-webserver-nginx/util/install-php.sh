@@ -74,4 +74,6 @@ fi
 $PHPVER composer-setup.php --quiet
 rm composer-setup.php
 
+systemctl disable $PHPVER-php-fpm.service
+
 # eof

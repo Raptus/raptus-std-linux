@@ -3,6 +3,7 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
+export EDITOR="vim"
 export LS_OPTIONS='--color=auto'
 eval "`dircolors`"
 
@@ -13,8 +14,12 @@ alias ll="ls $LS_OPTIONS -l"
 alias l="ls $LS_OPTIONS -al"
 alias logtail="cd /var/log; tail -f cron dmesg maillog messages secure"
 
-export PS1="\[\033[01;34m\]\u@\[\033[01;31m\]\h\[\033[00m\]:\w # "
-export EDITOR="vim"
+if test "`whoami`" = "root"
+then
+    export PS1="\[\033[41m\]\[\033[1;37m\] DONT USE ROOT! \[\033[00m\]\[\033[01;34m\] \u@\[\033[01;31m\]\h\[\033[00m\]:\w # "
+else
+    export PS1="\[\033[01;34m\]\u@\[\033[01;31m\]\h\[\033[00m\]:\w # "
+fi
 
 if test -f ~/.bashrc_local
 then
