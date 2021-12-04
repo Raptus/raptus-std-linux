@@ -44,27 +44,37 @@ If this will be an upstream proxy only, run:
 /root/scripts/rsl/std-upstream-proxy-nginx/standard-webproxy.sh
 ```
 
-### OPT Install Step 4: ###
+### OPTIONAL Installations Step 4: ###
 If you need FTP server, run:
 ```shell
 /root/scripts/rsl/std-linux-addons/standard-pureftp.sh
 ```
+---
 If you need Certbot, for Let's Encrypt certificates, run:
 ```shell
 /root/scripts/rsl/std-linux-addons/standard-certbot.sh
 ```
+---
+If you want to use Let's Encrypt for a site, use:
+```shell
+/root/scripts/rsl/std-webserver-nginx/ssl-letsencrypt-certificate.sh
+```
+---
 If you need command line based browsers, run:
 ```shell
 dnf -y install lynx elinks
 ```
+---
 If you need sshfs, run:
 ```shell
 dnf -y install sshfs fuse-sshfs
 ```
+---
 If you need subversion, run:
 ```shell
 dnf -y install subversion subversion-tools
 ```
+---
 If you need additional PHP version, run:
 ```shell
 /root/scripts/rsl/std-webserver-nginx/util/install-php.sh phpvers
