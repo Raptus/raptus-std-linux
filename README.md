@@ -5,7 +5,7 @@
 * Simple Standard Linux Installation
 * WebStack with Nginx, PHP, MariaDB
 
-### Install Step 1 ###
+### Install Step 0 - Legacy Virtual Machine ###
 * Install Oracle Linux v8
 * Use [Oracle Linux Boot ISO](https://yum.oracle.com/oracle-linux-isos.html) minimal Installer
 * Main installation source: https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64
@@ -15,6 +15,17 @@
 * Disable security policies
 * Disable kdump
 * Set a hostname in FQDN format
+
+### Install Step 1 - Azure Virtual Machine ###
+* Choose Oracle Linux v8 Template
+* Resize OS-Disk according to concept
+* Resize Partition and Filesystem in System
+```shell
+growpart /dev/sda 2
+pvresize /dev/sda2
+lvresize -l 100%FREE /dev/rootvg/rootlv
+xfs_growfs /dev/mapper/rootvg-rootlv
+```
 
 ### Install Step 2 ###
 Create/edit the configuration file
