@@ -78,11 +78,13 @@ dnf -y install lynx elinks
 ---
 If you need sshfs, run:
 ```shell
+dnf -y config-manager --set-enabled ol8_codeready_builder
 dnf -y install sshfs fuse-sshfs
 ```
 ---
 If you need subversion, run:
 ```shell
+dnf -y config-manager --set-enabled ol8_codeready_builder
 dnf -y install subversion subversion-tools
 ```
 ---
