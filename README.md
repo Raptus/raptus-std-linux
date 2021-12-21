@@ -26,6 +26,23 @@ pvresize /dev/sda2
 lvresize -l 100%FREE /dev/rootvg/rootlv
 xfs_growfs /dev/mapper/rootvg-rootlv
 ```
+* Create Swapfile on startup
+```shell
+touch /var/lib/cloud/scripts/per-boot/create_swapfile.sh
+chmod +x /var/lib/cloud/scripts/per-boot/create_swapfile.sh
+
+cat > /var/lib/cloud/scripts/per-boot/create_swapfile.sh << EOF
+#!/bin/sh
+if [ ! -f '/mnt/swapfile' ]; then
+fallocate --length 2GiB /mnt/swapfile
+chmod 600 /mnt/swapfile
+mkswap /mnt/swapfile
+swapon /mnt/swapfile
+swapon -a 
+else
+swapon /mnt/swapfile; fi
+EOF
+```
 
 ### Install Step 2 ###
 Create/edit the configuration file
