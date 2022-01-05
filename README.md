@@ -45,11 +45,11 @@ EOF
 ```
 
 ### Install Step 2 ###
-Create/edit the configuration file
+Create/edit the configuration file (Azure: do not activate the firewall just yet)
 ```shell
 echo "OUR_IPS=1.2.3.4,11.22.33.44" > /root/.rslcfg
 echo "ADMIN_EMAIL=myname@domain.tld" >> /root/.rslcfg
-echo "ENABLE_FIREWALL=yes" >> /root/.rslcfg
+echo "ENABLE_FIREWALL="no" >> /root/.rslcfg
 ```
 Set hostname if not already configured
 ```shell
@@ -61,6 +61,9 @@ Kickstart the installation
 ```shell
 bash <(curl -s https://bitbucket.org/raptus-it/raptus-std-linux/raw/master/kickstart-standard-linux.sh)
 ```
+
+### Install Step 3.1 - Azure Only: ###
+Remove the IP restrictions in the Shorewall configuration and activate the firewall. IP restrictions have to be managed by NSG in Azure.
 
 ### Install Step 4: ###
 If this will be a webserver, run:
