@@ -26,8 +26,7 @@ pvresize /dev/sda2
 lvresize -l 100%FREE /dev/rootvg/rootlv
 xfs_growfs /dev/mapper/rootvg-rootlv
 ```
-* Create Swapfile on startup
-* Change Size of swapfile according to your needs
+* Swapfile: Change Size of swapfile according to your needs
 ```shell
 touch /var/lib/cloud/scripts/per-boot/create_swapfile.sh
 chmod +x /var/lib/cloud/scripts/per-boot/create_swapfile.sh
