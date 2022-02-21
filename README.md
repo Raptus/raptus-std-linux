@@ -5,7 +5,7 @@
 * Simple Standard Linux Installation
 * WebStack with Nginx, PHP, MariaDB
 
-### (Install Step 0 - LEGACY Virtual Machine) ###
+### (Install Step 0 - Legacy Virtual Machine or local installation) ###
 * Install Oracle Linux v8
 * Use [Oracle Linux Boot ISO](https://yum.oracle.com/oracle-linux-isos.html) minimal Installer
 * Main installation source: https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64
