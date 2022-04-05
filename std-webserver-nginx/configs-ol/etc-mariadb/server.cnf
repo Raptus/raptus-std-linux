@@ -159,6 +159,9 @@ myisam-recover-options   = BACKUP
 # space, for a significant performance improvement in MyISAM tables.
 concurrent_insert        = 2
 
+# Reduce minimum word length in Fulltext indexes
+ft_min_word_len          = 2
+
 # InnoDB
 # The following three line are only necessary in MySQL 5.1, for loading
 # the plugin which supports the new InnoDB file format.
@@ -215,6 +218,10 @@ innodb_lock_wait_timeout        = 60
 # in the filesystem's cache), at a slight cost to reliability.
 # This appears to be more dramatic the more RAM you have.
 innodb_flush_method             = O_DIRECT
+
+# Reduce minimum token length in Fulltext indexes and disable stopwords
+innodb_ft_min_token_size        = 1
+innodb_ft_enable_stopword       = false
 
 # * Logging and Replication
 #
