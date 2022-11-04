@@ -20,7 +20,7 @@ use mysql;
 delete from user where host != 'localhost' and host != '127.0.0.1';
 delete from user where user='';
 rename user 'root'@'localhost' to 'dbadmin'@'localhost';
-set password for 'dbadmin'@localhost = PASSWORD($MPASS);
+set password for 'dbadmin'@localhost = PASSWORD('$MPASS');
 flush privileges;
 EOF
 
