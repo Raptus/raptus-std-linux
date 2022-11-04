@@ -73,7 +73,7 @@ If you need Certbot, for Let's Encrypt certificates, run:
 ---
 If you want to use Let's Encrypt for a site, use:
 ```shell
-/root/scripts/rsl/std-webserver-nginx/ssl-letsencrypt-certificate.sh
+/root/scripts/rsl/std-webserver-nginx/scripts/ssl-letsencrypt-certificate.sh
 ```
 ---
 If you need command line based browsers, run:
