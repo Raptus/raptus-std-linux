@@ -17,4 +17,4 @@ newaliases
 cd /etc/postfix
 ln -s ../aliases
 
-systemctl enable postfix
+systemctl enable postfix >> $LOGFILE 2>&1

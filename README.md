@@ -50,9 +50,6 @@ Kickstart the installation
 bash <(curl -s https://bitbucket.org/raptus-it/raptus-std-linux/raw/master/kickstart-standard-linux.sh)
 ```
 
-### Install Step 3.1 - Azure Only: ###
-Remove the IP restrictions in the Shorewall configuration and activate the firewall. IP restrictions have to be managed by NSG in Azure.
-
 ### Install Step 4: ###
 If this will be a webserver, run:
 ```shell

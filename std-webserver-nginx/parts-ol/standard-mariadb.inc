@@ -19,8 +19,8 @@ cat > $TFILE << EOF
 use mysql;
 delete from user where host != 'localhost' and host != '127.0.0.1';
 delete from user where user='';
-update user set User='dbadmin' where User='root';
-update user set password=PASSWORD('$MPASS') where User='dbadmin';
+rename user 'root'@'localhost' to 'dbadmin'@'localhost';
+set password for 'dbadmin'@localhost = PASSWORD($MPASS);
 flush privileges;
 EOF
 
