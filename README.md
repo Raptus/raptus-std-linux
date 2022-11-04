@@ -5,19 +5,8 @@
 * Simple Standard Linux Installation
 * WebStack with Nginx, PHP, MariaDB
 
-### (Install Step 0 - LEGACY Virtual Machine) ###
-* Install Oracle Linux v8
-* Use [Oracle Linux Boot ISO](https://yum.oracle.com/oracle-linux-isos.html) minimal Installer
-* Main installation source: https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64
-* Make sure Keyboard, Date, Time and NTP is working
-* Create a 2 GiB boot partition for snapshot reasons
-* * Use UEFI when possible (not in VDC)
-* Disable security policies
-* Disable kdump
-* Set a hostname in FQDN format
-
 ### Install Step 1 - AZURE Virtual Machine ###
-* Choose Oracle Linux v8 Template
+* Choose Oracle Linux v9 Template
 * Resize OS-Disk according to concept
 * Resize Partition and Filesystem in System
 ```shell
@@ -34,7 +23,7 @@ chmod +x /var/lib/cloud/scripts/per-boot/create_swapfile.sh
 cat > /var/lib/cloud/scripts/per-boot/create_swapfile.sh << EOF
 #!/bin/sh
 if [ ! -f '/mnt/swapfile' ]; then
-fallocate --length 2GiB /mnt/swapfile
+fallocate --length 4GiB /mnt/swapfile
 chmod 600 /mnt/swapfile
 mkswap /mnt/swapfile
 swapon /mnt/swapfile
@@ -98,13 +87,13 @@ dnf -y install lynx elinks
 ---
 If you need sshfs, run:
 ```shell
-dnf -y config-manager --set-enabled ol8_codeready_builder
+dnf -y config-manager --set-enabled ol9_codeready_builder
 dnf -y install sshfs fuse-sshfs
 ```
 ---
 If you need subversion, run:
 ```shell
-dnf -y config-manager --set-enabled ol8_codeready_builder
+dnf -y config-manager --set-enabled ol9_codeready_builder
 dnf -y install subversion subversion-tools
 ```
 ---

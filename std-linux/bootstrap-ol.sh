@@ -1,8 +1,8 @@
 #!/bin/bash
 
 echo "### Initializing package repositories"
-dnf -y install oracle-epel-release-el8  >> $LOGFILE 2>&1
-dnf -y config-manager --enable ol8_appstream  >> $LOGFILE 2>&1
+dnf -y install oracle-epel-release-el9  >> $LOGFILE 2>&1
+dnf -y config-manager --enable ol9_appstream  >> $LOGFILE 2>&1
 dnf -y clean all >> $LOGFILE 2>&1
 
 echo "### Installing base packages"

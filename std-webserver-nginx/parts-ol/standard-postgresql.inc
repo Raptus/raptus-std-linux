@@ -1,5 +1,5 @@
 echo "### Setting up postgresql (disabled per default)"
-dnf -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm >> $LOGFILE 2>&1
+dnf -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm >> $LOGFILE 2>&1
 # Disable the built-in PostgreSQL module
 dnf -y module disable postgresql >> $LOGFILE 2>&1
 dnf -y install postgresql14-server postgresql14 postgresql14-libs postgresql14-contrib \

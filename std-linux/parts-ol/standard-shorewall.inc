@@ -36,6 +36,7 @@ rsync --exclude-from '/tmp/shorewall-excludes' -a --remove-source-files /etc/sho
 rm -f /tmp/shorewall-excludes
 
 systemctl disable firewalld.service >> $LOGFILE 2>&1
+systemctl disable shorewall.service >> $LOGFILE 2>&1
 
 if test "$ENABLE_FIREWALL" = "yes"
 then

@@ -1,7 +1,7 @@
 echo "### Setting up nginx"
 
 DIST=rhel
-NGINX_OSRELEASE="8"
+NGINX_OSRELEASE="9"
 NGINX_BASEARCH="x86_64"
 
 cat > /etc/yum.repos.d/nginx.repo << EOF
