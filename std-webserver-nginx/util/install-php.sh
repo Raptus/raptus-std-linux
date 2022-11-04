@@ -5,7 +5,7 @@ then
     echo "Usage: $0 <php-version-no-dots>"
     echo
     echo "NOTE:     Specify PHP version without dots"
-    echo "EXAMPLE:  $0 php80"
+    echo "EXAMPLE:  $0 php81"
     echo
     exit 1
 fi
