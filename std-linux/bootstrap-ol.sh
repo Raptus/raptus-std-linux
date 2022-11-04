@@ -30,7 +30,6 @@ source $STD_PATH/parts-ol/standard-snmp.inc
 source $STD_PATH/parts-ol/standard-prtg.inc
 source $STD_PATH/parts-ol/standard-fstrim.inc
 source $STD_PATH/parts-ol/standard-sysdefaults.inc
-source $STD_PATH/parts-ol/standard-shorewall.inc
 source $STD_PATH/parts-ol/standard-tuning.inc
 
 echo "### Setting up services"
@@ -39,6 +38,7 @@ systemctl enable acpid.service >> $LOGFILE 2>&1
 systemctl disable kdump.service >> $LOGFILE 2>&1
 systemctl disable nfs-client.target >> $LOGFILE 2>&1
 systemctl disable gssproxy.service >> $LOGFILE 2>&1
+systemctl disable firewalld.service >> $LOGFILE 2>&1
 
 dnf -y remove polkit polkit-pkla-compat >> $LOGFILE 2>&1
 chmod o=+r /usr/lib/systemd/system/auditd.service
