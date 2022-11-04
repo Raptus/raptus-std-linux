@@ -66,7 +66,7 @@ function checkInstall
 {
     if test "$DISTRO" = "ol"
     then
-        if test -z "`cat /etc/os-release | grep 'VERSION_ID=\"8.[0-9]\"'`"
+        if test -z "`cat /etc/os-release | grep 'VERSION_ID=\"9.[0-9]\"'`"
         then
             echo "This Oracle Linux Version is not supported. Aborting ..."
             exit 1
