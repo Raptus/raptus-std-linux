@@ -1,5 +1,5 @@
 echo "### Installing base packages"
 
-dnf -y install mailx >> $LOGFILE 2>&1
+dnf -y install s-nail >> $LOGFILE 2>&1
 
 #eof
