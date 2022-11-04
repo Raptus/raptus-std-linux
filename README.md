@@ -38,7 +38,6 @@ Create/edit the configuration file (Azure: do not activate the firewall just yet
 ```shell
 echo "OUR_IPS=1.2.3.4,11.22.33.44" > /root/.rslcfg
 echo "ADMIN_EMAIL=myname@domain.tld" >> /root/.rslcfg
-echo "ENABLE_FIREWALL=no" >> /root/.rslcfg
 ```
 Set hostname if not already configured
 ```shell
