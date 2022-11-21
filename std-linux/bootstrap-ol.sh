@@ -9,7 +9,7 @@ echo "### Installing base packages"
 dnf -y upgrade >> $LOGFILE 2>&1
 dnf -y update ca-certificates >> $LOGFILE 2>&1
 dnf -y groupinstall 'Development Tools' >> $LOGFILE 2>&1
-dnf -y install acpid pwgen bzip2 bind-utils ghostscript htop nano nmap nload \
+dnf -y install acpid pwgen bzip2 bind-utils ghostscript htop nano nmap nload cifs-utils \
                net-tools nfs-utils psmisc platform-python-devel rsync screen ftp \
                symlinks telnet traceroute tree unzip dnf-utils sysstat vim vim-common \
                wget whois readline-devel openssl-devel bash-completion pciutils virt-what >> $LOGFILE 2>&1
