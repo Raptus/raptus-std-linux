@@ -54,6 +54,9 @@ bash <(curl -s https://bitbucket.org/raptus-it/raptus-std-linux/raw/master/kicks
 ```
 
 ### Install Step 4: ###
+Do now secure the vm with new [Raptus security standards](https://bitbucket.org/raptus-it/raptus-linux-access/src/master/)
+
+### Additional Steps: ###
 If this will be a webserver, run:
 ```shell
 /root/scripts/rsl/std-webserver-nginx/standard-webserver.sh
@@ -63,7 +66,7 @@ If this will be an upstream proxy only, run:
 /root/scripts/rsl/std-upstream-proxy-nginx/standard-webproxy.sh
 ```
 
-### OPTIONAL Installations Step 4: ###
+### OPTIONAL Additional Installations Steps: ###
 If you need FTP server, run:
 ```shell
 /root/scripts/rsl/std-linux-addons/standard-pureftp.sh
