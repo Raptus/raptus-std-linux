@@ -42,6 +42,10 @@ Set hostname if not already configured
 ```shell
 hostnamectl set-hostname hostname.domain.tld 
 ```
+Set admin e-mail
+```shell
+echo "ADMIN_EMAIL=myname@domain.tld" >> /root/.rslcfg 
+```
 
 ### Install Step 3: ###
 Kickstart the installation
