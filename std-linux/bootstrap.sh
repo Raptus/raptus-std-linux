@@ -6,9 +6,7 @@ then
     echo ""
     echo "    Example configuration:"
     echo ""
-    echo "        OUR_IPS=1.2.3.4,1.2.3.5            # Allowed by Firewall etc."
     echo "        ADMIN_EMAIL=yourname@domain.tld    # Mail notifications"
-    echo "        ENABLE_FIREWALL=yes                # allowed: yes/no"
     echo ""
     exit 1
 fi
