@@ -8,6 +8,10 @@
 ### Install Step 1 - AZURE Virtual Machine ###
 * Choose Oracle Linux v9 Template
 * Resize OS-Disk according to concept
+* There is a LVM bug in Oracle 9, workaround with the following:
+```shell
+sed -i 's/# use_devicesfile = 0/use_devicesfile = 0/g' /etc/lvm/lvm.conf
+```
 * Resize Partition and Filesystem in System
 ```shell
 growpart /dev/sda 2
