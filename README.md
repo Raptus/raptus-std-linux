@@ -5,6 +5,8 @@
 * Simple Standard Linux Installation
 * WebStack with Nginx, PHP, MariaDB
 
+#### NOTE: This Bootstrapper also works with Rocky Linux 9. Azure Instances are always created with Oracle Linux ####
+
 ### Install Step 1 - AZURE Virtual Machine ###
 * Choose Oracle Linux v9 Template
 * Resize OS-Disk according to concept

@@ -1,13 +1,13 @@
 echo "### Setting up mariadb"
 
 rm /etc/my.cnf.d/*
-cp $WEB_PATH/configs-ol/etc-mariadb/* /etc/my.cnf.d/
+cp $WEB_PATH/configs/etc-mariadb/* /etc/my.cnf.d/
 mkdir -p /var/log/mysql
 
 dnf -y install mariadb-devel mariadb-server >> $LOGFILE 2>&1
 
 rm /etc/my.cnf.d/*.rpm*
-cp $WEB_PATH/configs-ol/etc-mariadb/* /etc/my.cnf.d/
+cp $WEB_PATH/configs/etc-mariadb/* /etc/my.cnf.d/
 chown mysql:mysql /var/log/mysql
 
 systemctl enable mariadb.service >> $LOGFILE 2>&1

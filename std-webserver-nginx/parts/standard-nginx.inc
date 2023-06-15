@@ -18,8 +18,9 @@ EOF
 dnf -y install nginx >> $LOGFILE 2>&1
 
 mv /etc/nginx /etc/nginx.ORIG
-cp -R $PRX_PATH/configs-ol/etc-nginx /etc/nginx
+cp -R $WEB_PATH/configs/etc-nginx /etc/nginx
 mkdir -p /etc/nginx/sites-enabled
+sed -r -i "s/(.*)HOSTMASTER(.*)$/\1$ADMIN_EMAIL\2/g" /etc/nginx/fastcgi_params
 
 echo "### Our IP List"                    >> /etc/nginx/conf.d/global-maps.conf
 echo "map \$remote_addr \$not-our-ips {"  >> /etc/nginx/conf.d/global-maps.conf
@@ -30,6 +31,8 @@ do
 done
 echo "}" >> /etc/nginx/conf.d/global-maps.conf
 echo >> /etc/nginx/conf.d/global-maps.conf
+
+cp $WEB_PATH/configs/etc-logrotate.d/nginx /etc/logrotate.d/nginx
 
 # generate a stronger DHE parameter
 # Using -dsaparam to speedup. See this for more information:

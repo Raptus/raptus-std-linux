@@ -6,6 +6,9 @@ DISTRO=""
 if ! test -z "`grep 'ID.*ol' /etc/os-release`"
 then
     export DISTRO="ol"
+elif ! test -z "`grep 'ID.*rocky' /etc/os-release`"
+then
+    export DISTRO="rocky"
 fi
 
 export DISTRO_NAME="`sed -r -n 's/PRETTY_NAME=\"(.*)\"/\1/p' /etc/os-release`"
@@ -14,7 +17,7 @@ echo
 echo "### Kickstarting $DISTRO_NAME"
 echo
 
-if test "$DISTRO" = "ol"
+if test "$DISTRO" = "ol" || test "$DISTRO" = "rocky"
 then
     echo "### Installing GIT"
     dnf -y install git uuid > /dev/null 2>&1

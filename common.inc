@@ -14,7 +14,10 @@ if ! test -z "`grep 'ID.*ol' /etc/os-release`"
 then
     DISTRO="ol"
     HNFULL="`hostnamectl status | sed -r -n 's/^.*Static hostname: (.*)$/\1/p'`"
-
+elif ! test -z "`grep 'ID.*rocky' /etc/os-release`"
+then
+    DISTRO="rocky"
+    HNFULL="`hostnamectl status | sed -r -n 's/^.*Static hostname: (.*)$/\1/p'`"
 fi
 
 DISTRO_NAME="`sed -r -n 's/PRETTY_NAME=\"(.*)\"/\1/p' /etc/os-release`"
@@ -68,9 +71,16 @@ function checkInstall
     then
         if test -z "`cat /etc/os-release | grep 'VERSION_ID=\"9.[0-9]\"'`"
         then
-            echo "This Oracle Linux Version is not supported. Aborting ..."
+            echo "This Oracle Linux Version is not yet supported. Aborting ..."
             exit 1
         fi
+    elif test "$DISTRO" = "rocky"
+    then
+         if test -z "`cat /etc/os-release | grep 'VERSION_ID=\"9.[0-9]\"'`"
+        then
+            echo "This Rocky Linux Version is not yet supported. Aborting ..."
+            exit 1
+        fi   
     else
         echo "This Linux distribution is not supported. Aborting ..."
         exit 1

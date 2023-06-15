@@ -5,7 +5,7 @@ systemctl enable haveged >> $LOGFILE 2>&1
 systemctl start haveged >> $LOGFILE 2>&1
 
 mv /etc/security/limits.conf /etc/security/limits.conf.ORIG
-cp $STD_PATH/configs-ol/etc-security/limits.conf /etc/security/limits.conf
+cp $STD_PATH/configs/etc-security/limits.conf /etc/security/limits.conf
 
 sed -i -r "s/^SELINUX=.*/SELINUX=permissive/g" /etc/selinux/config
 sed -i -r "s/(^Defaults.*requiretty)/\#\1/g" /etc/sudoers

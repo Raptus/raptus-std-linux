@@ -10,11 +10,11 @@ phpvers="php81"
 dnf -y install aspell-en >> $LOGFILE 2>&1
 
 mkdir -p /etc/php
-cp -R $WEB_PATH/configs-ol/etc-php/conf.d /etc/php/conf.d
+cp -R $WEB_PATH/configs/etc-php/conf.d /etc/php/conf.d
 
 mkdir /var/lib/memcache
 
-cp $WEB_PATH/configs-ol/etc-logrotate.d/php-fpm_sites /etc/logrotate.d/php-fpm_sites
+cp $WEB_PATH/configs/etc-logrotate.d/php-fpm_sites /etc/logrotate.d/php-fpm_sites
 
 systemctl disable $phpvers-php-fpm.service
 

@@ -15,22 +15,22 @@ dnf -y install acpid pwgen bzip2 bind-utils ghostscript htop nano nmap nload cif
                wget whois readline-devel openssl-devel bash-completion pciutils virt-what >> $LOGFILE 2>&1
 
 echo "### Setting up environment"
-yes | cp $STD_PATH/configs-ol/.bashrc /root/
-yes | cp $STD_PATH/configs-ol/.screenrc /root/
-yes | cp $STD_PATH/configs-ol/.vimrc /root/
+yes | cp $STD_PATH/configs/.bashrc /root/
+yes | cp $STD_PATH/configs/.screenrc /root/
+yes | cp $STD_PATH/configs/.vimrc /root/
 touch /root/.bashrc_local
 mkdir /root/{dist,build,temp}
 
-source $STD_PATH/parts-ol/standard-security.inc
-source $STD_PATH/parts-ol/standard-ssh.inc
-source $STD_PATH/parts-ol/standard-cron.inc
-source $STD_PATH/parts-ol/standard-ntp.inc
-source $STD_PATH/parts-ol/standard-postfix.inc
-source $STD_PATH/parts-ol/standard-snmp.inc
-source $STD_PATH/parts-ol/standard-prtg.inc
-source $STD_PATH/parts-ol/standard-fstrim.inc
-source $STD_PATH/parts-ol/standard-sysdefaults.inc
-source $STD_PATH/parts-ol/standard-tuning.inc
+source $STD_PATH/parts/standard-security.inc
+source $STD_PATH/parts/standard-ssh.inc
+source $STD_PATH/parts/standard-cron.inc
+source $STD_PATH/parts/standard-ntp.inc
+source $STD_PATH/parts/standard-postfix.inc
+source $STD_PATH/parts/standard-snmp.inc
+source $STD_PATH/parts/standard-prtg.inc
+source $STD_PATH/parts/standard-fstrim.inc
+source $STD_PATH/parts/standard-sysdefaults.inc
+source $STD_PATH/parts/standard-tuning.inc
 
 echo "### Setting up services"
 chmod +x /etc/rc.local
@@ -45,9 +45,9 @@ chmod o=+r /usr/lib/systemd/system/auditd.service
 
 detectSystem
 echo "### Detected machine type: $MACHINE_TYPE / $MACHINE_INFO"
-if test -f "$STD_PATH/parts-ol/machine-$MACHINE_TYPE.inc"
+if test -f "$STD_PATH/parts/machine-$MACHINE_TYPE.inc"
 then
-    source $STD_PATH/parts-ol/machine-$MACHINE_TYPE.inc
+    source $STD_PATH/parts/machine-$MACHINE_TYPE.inc
 fi
 
 #eof

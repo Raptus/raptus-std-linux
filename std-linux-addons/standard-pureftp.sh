@@ -9,7 +9,7 @@ source /root/scripts/rsl/common.inc
 dnf -y install pure-ftpd
 
 mv /etc/pure-ftpd/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf.ORIG
-cp $ADN_PATH/configs-ol/etc-pure-ftpd/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf
+cp $ADN_PATH/configs/etc-pure-ftpd/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf
 
 touch /etc/pure-ftpd/pureftpd.passwd
 chmod u=+rw,go= /etc/pure-ftpd/pureftpd.passwd

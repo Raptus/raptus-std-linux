@@ -4,7 +4,7 @@ echo "### Setting up postfix"
 dnf -y install postfix cyrus-sasl-plain  >> $LOGFILE 2>&1
 
 mv /etc/postfix/main.cf /etc/postfix/main.cf.ORIG
-cp $STD_PATH/configs-ol/etc-postfix/main.cf /etc/postfix/main.cf
+cp $STD_PATH/configs/etc-postfix/main.cf /etc/postfix/main.cf
 
 mv /etc/aliases /etc/aliases.ORIG
 cat > /etc/aliases << EOF
