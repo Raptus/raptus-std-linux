@@ -44,7 +44,7 @@ Set hostname if not already configured
 ```shell
 hostnamectl set-hostname hostname.domain.tld 
 ```
-Set admin e-mail
+Set admin e-mail (usually "report.hosting-info@raptus.com")
 ```shell
 echo "ADMIN_EMAIL=myname@domain.tld" >> /root/.rslcfg 
 ```
