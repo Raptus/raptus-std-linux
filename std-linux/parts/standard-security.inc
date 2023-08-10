@@ -19,3 +19,8 @@ SSL_CERT_HOSTNAME="$HNFULL"
 
 mkdir /etc/ssl/selfsigned_$SSL_CERT_HOSTNAME
 mv /etc/ssl/waiting/$SSL_CERT_HOSTNAME.* /etc/ssl/selfsigned_$SSL_CERT_HOSTNAME/
+
+echo "### Disabling Cockpit"
+
+systemctl stop cockpit >> $LOGFILE 2>&1
+systemctl disable cockpit >> $LOGFILE 2>&1
