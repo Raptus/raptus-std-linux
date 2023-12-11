@@ -55,6 +55,7 @@ smtpd_relay_restrictions = permit_mynetworks, defer_unauth_destination
 # Rate limiting (30 message per minute)
 smtpd_client_message_rate_limit = 30
 anvil_rate_time_unit = 60s
+smtp_destination_rate_delay = 2s
 
 # SMTP over Azure Comm Services
 #relayhost = [smtp.azurecomm.net]:587
