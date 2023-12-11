@@ -52,9 +52,19 @@ debugger_command =
 
 smtpd_relay_restrictions = permit_mynetworks, defer_unauth_destination
 
-#relayhost = [put-your-smtp-relay-server-here]:25
+# Rate limiting (30 message per minute)
+smtpd_client_message_rate_limit = 30
+anvil_rate_time_unit = 60s
+
+# SMTP over Azure Comm Services
+#relayhost = [smtp.azurecomm.net]:587
+#smtp_use_tls = yes
 #smtp_sasl_password_maps = hash:/etc/postfix/smtp_auth
 #smtp_sasl_auth_enable = yes
 #smtp_sasl_security_options = noanonymous
+
+# SMTP over Sophos FW
+#relayhost = [gate.domain.tls]:25
+#smtp_sasl_auth_enable = no
 
 # eof
