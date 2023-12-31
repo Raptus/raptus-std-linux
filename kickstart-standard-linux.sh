@@ -3,10 +3,7 @@
 test `whoami` == root || { echo "You need to be root!"; exit 1; }
 
 DISTRO=""
-if ! test -z "`grep 'ID.*ol' /etc/os-release`"
-then
-    export DISTRO="ol"
-elif ! test -z "`grep 'ID.*rocky' /etc/os-release`"
+if ! test -z "`grep 'ID.*rocky' /etc/os-release`"
 then
     export DISTRO="rocky"
 fi
@@ -17,7 +14,7 @@ echo
 echo "### Kickstarting $DISTRO_NAME"
 echo
 
-if test "$DISTRO" = "ol" || test "$DISTRO" = "rocky"
+if test "$DISTRO" = "rocky"
 then
     echo "### Installing GIT"
     dnf -y install git uuid > /dev/null 2>&1
