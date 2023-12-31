@@ -89,18 +89,6 @@ If you need command line based browsers, run:
 dnf -y install lynx elinks
 ```
 ---
-If you need sshfs, run:
-```shell
-dnf -y config-manager --set-enabled ol9_codeready_builder
-dnf -y install sshfs fuse-sshfs
-```
----
-If you need subversion, run:
-```shell
-dnf -y config-manager --set-enabled ol9_codeready_builder
-dnf -y install subversion subversion-tools
-```
----
 If you need additional PHP version, run:
 ```shell
 /root/scripts/rsl/std-webserver-nginx/util/install-php.sh phpvers

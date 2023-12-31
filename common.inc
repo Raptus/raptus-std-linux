@@ -10,11 +10,7 @@ PRX_PATH=/root/scripts/rsl/std-upstream-proxy-nginx
 
 # Detect distribution
 DISTRO=""
-if ! test -z "`grep 'ID.*ol' /etc/os-release`"
-then
-    DISTRO="ol"
-    HNFULL="`hostnamectl status | sed -r -n 's/^.*Static hostname: (.*)$/\1/p'`"
-elif ! test -z "`grep 'ID.*rocky' /etc/os-release`"
+if ! test -z "`grep 'ID.*rocky' /etc/os-release`"
 then
     DISTRO="rocky"
     HNFULL="`hostnamectl status | sed -r -n 's/^.*Static hostname: (.*)$/\1/p'`"
@@ -67,14 +63,7 @@ function askConfirmation
 
 function checkInstall
 {
-    if test "$DISTRO" = "ol"
-    then
-        if test -z "`cat /etc/os-release | grep 'VERSION_ID=\"9.[0-9]\"'`"
-        then
-            echo "This Oracle Linux Version is not yet supported. Aborting ..."
-            exit 1
-        fi
-    elif test "$DISTRO" = "rocky"
+    if test "$DISTRO" = "rocky"
     then
          if test -z "`cat /etc/os-release | grep 'VERSION_ID=\"9.[0-9]\"'`"
         then
