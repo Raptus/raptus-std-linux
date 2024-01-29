@@ -13,7 +13,7 @@ touch $LOGFILE
 cd $WEB_PATH
 
 echo "### Initializing package repositories"
-dnf -y config-manager --set-enabled ol9_codeready_builder  >> $LOGFILE 2>&1
+dnf -y config-manager --set-enabled crb  >> $LOGFILE 2>&1
 dnf -y clean all >> $LOGFILE 2>&1
 
 echo "###"
