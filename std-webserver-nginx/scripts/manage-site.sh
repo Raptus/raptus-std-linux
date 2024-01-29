@@ -226,9 +226,9 @@ then
         ;;
         php-disable)     disablePHP $1
         ;;
-        php-set-php80)  setPHPVer php80 $1
+        php-set-php82)  setPHPVer php82 $1
         ;;
-        php-set-php81)  setPHPVer php81 $1
+        php-set-php83)  setPHPVer php83 $1
         ;;
         php-enable-nginx-pool)  enablePHPNginxPool $1
         ;;
@@ -249,8 +249,8 @@ else
     echo "                       site-archive           archives and then deletes the site"
     echo "                       php-enable             enables the PHP backend"
     echo "                       php-disable            enables the PHP backend"
-    echo "                       php-set-php80          switch to PHP v8.0 for cli and fpm"
-    echo "                       php-set-php81          switch to PHP v8.1 for cli and fpm"
+    echo "                       php-set-php82          switch to PHP v8.0 for cli and fpm"
+    echo "                       php-set-php83          switch to PHP v8.1 for cli and fpm"
     echo "                       php-enable-nginx-pool  enable separate PHP-FPM Pool running as nginx user rather than host owner"
 fi
 echo

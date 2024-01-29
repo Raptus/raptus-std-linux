@@ -3,7 +3,7 @@ echo "### Setting up php base"
 dnf -y install \
     https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm \
     https://dl.fedoraproject.org/pub/epel/epel-next-release-latest-9.noarch.rpm >> $LOGFILE 2>&1
-
+    
 dnf -y install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-9.rpm >> $LOGFILE 2>&1
 
 phpvers="php83"

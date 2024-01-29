@@ -5,7 +5,7 @@ TEMPLPATH="$WEB_PATH/templates"
 ADMINTMPL="default-admin-site"
 
 DEFPHPMAJ="8"
-DEFPHPMAJ8="php81"
+DEFPHPMAJ8="php83"
 PORTBASE="10010"
 PORTSIZE="9"
 PORTFILE="/var/rsl/state/last-port-offset"
