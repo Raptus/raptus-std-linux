@@ -249,8 +249,8 @@ else
     echo "                       site-archive           archives and then deletes the site"
     echo "                       php-enable             enables the PHP backend"
     echo "                       php-disable            enables the PHP backend"
-    echo "                       php-set-php82          switch to PHP v8.0 for cli and fpm"
-    echo "                       php-set-php83          switch to PHP v8.1 for cli and fpm"
+    echo "                       php-set-php82          switch to PHP v8.2 for cli and fpm"
+    echo "                       php-set-php83          switch to PHP v8.3 for cli and fpm"
     echo "                       php-enable-nginx-pool  enable separate PHP-FPM Pool running as nginx user rather than host owner"
 fi
 echo
