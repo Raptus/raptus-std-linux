@@ -9,6 +9,7 @@
 
 ### Install Step 1 - AZURE Virtual Machine ###
 * Choose **Rocky Linux 9** Template
+  * Azure Marketplace Name: (Rocky Linux for x86_64 (AMD64) - Official)[https://azuremarketplace.microsoft.com/en-us/marketplace/apps/resf.rockylinux-x86_64?tab=PlansAndPrice]
 * Resize OS-Disk according to concept
 * There might be an LVM bug in RL9, workaround with the following:
 ```shell
@@ -16,10 +17,10 @@ sed -i 's/# use_devicesfile = 0/use_devicesfile = 0/g' /etc/lvm/lvm.conf
 ```
 * Resize Partition and Filesystem in System
 ```shell
-growpart /dev/sda 2
-pvresize /dev/sda2
-lvresize -l 100%FREE /dev/rootvg/rootlv
-xfs_growfs /dev/mapper/rootvg-rootlv
+growpart /dev/sda 5
+pvresize /dev/sda5
+lvresize -l 100%FREE /dev/rocky/root
+xfs_growfs /dev/mapper/rocky-root
 ```
 * Swapfile: Change Size of swapfile according to your needs
 ```shell
