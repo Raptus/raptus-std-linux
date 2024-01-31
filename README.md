@@ -9,7 +9,7 @@
 
 ### Install Step 1 - AZURE Virtual Machine ###
 * Choose **Rocky Linux 9** Template
-  * Azure Marketplace Name: (Rocky Linux for x86_64 (AMD64) - Official)[https://azuremarketplace.microsoft.com/en-us/marketplace/apps/resf.rockylinux-x86_64?tab=PlansAndPrice]
+      * Azure Marketplace Name: (Rocky Linux for x86_64 (AMD64) - Official)[https://azuremarketplace.microsoft.com/en-us/marketplace/apps/resf.rockylinux-x86_64?tab=PlansAndPrice]
 * Resize OS-Disk according to concept
 * There might be an LVM bug in RL9, workaround with the following:
 ```shell
