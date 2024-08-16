@@ -13,7 +13,7 @@ HOUR="`date +%H`"
 test -d "$DUMPDIR" || mkdir -p "$DUMPDIR"
 for i in $DATABASES
 do
-  if ! test $i = "Database" && ! test $i = "performance_schema"
+  if ! test $i = "Database" && ! test $i = "performance_schema" && ! test $i = "information_schema"
   then
     DUMPFILE="$DUMPDIR/mysql_"$i"_dump_"$HOUR"h.mysql"
 
