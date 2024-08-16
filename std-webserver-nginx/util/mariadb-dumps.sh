@@ -8,13 +8,14 @@ fi
 
 DUMPDIR="/home/backups/mariadb"
 DATABASES="`mysql --user=dbadmin --batch --execute 'show databases;'`"
+HOUR="`date +%H`"
 
 test -d "$DUMPDIR" || mkdir -p "$DUMPDIR"
 for i in $DATABASES
 do
   if ! test $i = "Database" && ! test $i = "performance_schema"
   then
-    DUMPFILE="$DUMPDIR/mysql_"$i"_dump_`date +%H`h.mysql"
+    DUMPFILE="$DUMPDIR/mysql_"$i"_dump_"$HOUR"h.mysql"
 
     #echo "Dumping $i to $DUMPFILE"
     mysqldump --user=dbadmin --single-transaction --allow-keywords --events $i > $DUMPFILE
