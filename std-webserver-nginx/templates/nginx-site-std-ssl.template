@@ -19,7 +19,8 @@ server {
     ssl_certificate             /home/sites/SITE_NAME/ssl/package.pem;
     ssl_certificate_key         /home/sites/SITE_NAME/ssl/private.key;
     listen                      *:80;
-    listen                      *:443 ssl http2;
+    listen                      *:443 ssl;
+    http2                       on;
     error_log                   /home/sites/SITE_NAME/pub/log/nginx-error.log warn;
     return                      301 https://SITE_NAME$request_uri;
 }
@@ -35,7 +36,8 @@ server {
 ### Server block (aka. virtualhost)
 server {
     server_name                 SITE_NAME;
-    listen                      *:443 ssl http2;
+    listen                      *:443 ssl;
+    http2                       on;
 
     ### Uncomment to enable FCGI cache logging
 #    access_log                  /home/sites/SITE_NAME/pub/log/nginx-access.log cache_log;
