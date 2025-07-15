@@ -26,8 +26,8 @@ queue_minfree = 100000000
 unknown_local_recipient_reject_code = 550
 recipient_delimiter = +
 
-alias_maps = hash:/etc/aliases
-alias_database = hash:/etc/aliases
+alias_maps = lmdb:/etc/aliases
+alias_database = lmdb:/etc/aliases
 
 setgid_group = postdrop
 html_directory = no
@@ -60,7 +60,7 @@ smtp_destination_rate_delay = 2s
 # SMTP over Azure Comm Services
 #relayhost = [smtp.azurecomm.net]:587
 #smtp_use_tls = yes
-#smtp_sasl_password_maps = hash:/etc/postfix/smtp_auth
+#smtp_sasl_password_maps = lmdb:/etc/postfix/smtp_auth
 #smtp_sasl_auth_enable = yes
 #smtp_sasl_security_options = noanonymous
 
