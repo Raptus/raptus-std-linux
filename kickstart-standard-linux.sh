@@ -8,7 +8,7 @@ then
     export DISTRO="rocky"
 fi
 
-export DISTRO_NAME="`sed -r -n 's/PRETTY_NAME=\"(.*)\"/\1/p' /etc/os-release`"
+export DISTRO_NAME="`sed -r -n 's/^PRETTY_NAME=\"(.*)\"/\1/p' /etc/os-release`"
 
 echo
 echo "### Kickstarting $DISTRO_NAME"
@@ -32,7 +32,7 @@ fi
 
 if test -f "/root/scripts/rsl/std-linux/bootstrap.sh"
 then
-	/root/scripts/rsl/std-linux/bootstrap.sh
+    /root/scripts/rsl/std-linux/bootstrap.sh
 else
     echo "Cannot find bootstrap file. Aborting."
     exit 1
