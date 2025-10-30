@@ -15,7 +15,7 @@ module_hotfixes=true
 EOF
 
 # Need to build from source, since no loadable module support yet
-dnf -y install nginx >> $LOGFILE 2>&1
+dnf -y install nginx certbot python3-certbot-nginx >> $LOGFILE 2>&1
 
 mv /etc/nginx /etc/nginx.ORIG
 cp -R $WEB_PATH/configs/etc-nginx /etc/nginx

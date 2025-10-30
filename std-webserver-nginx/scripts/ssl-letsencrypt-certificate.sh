@@ -2,22 +2,21 @@
 #UNTESTED!
 source /root/scripts/rsl/common.inc
 
-if test -z "$1" || test -z "$2"
+if test -z "$1"
 then
-    echo "Usage: $0 <domain.tld> <acme_account_email>"
+    echo "Usage: $0 <domain.tld>"
     echo
     exit 1
 fi
 
 SITE="$1"
-ACMEACCOUNT="$2"
 if ! test -d "/home/sites/$SITE"
 then
     echo "Cannot find site $SITE"
     exit 2
 fi
 
-/usr/local/bin/certbot-auto certonly --no-bootstrap --webroot --webroot-path /home/sites/$SITE/pub/httpdocs -d $SITE -m $ACMEACCOUNT --agree-tos
+certbot certonly --nginx --register-unsafely-without-email --agree-tos -d $SITE
 
 if ! test -f /etc/letsencrypt/live/$SITE/fullchain.pem &&
    ! test -f /etc/letsencrypt/live/$SITE/privkey.pem
@@ -38,11 +37,11 @@ fi
 
 systemctl reload nginx
 
-if test -z "`grep '/usr/local/bin/certbot-auto renew' /etc/crontab`"
+if test -z "`grep 'certbot renew' /etc/crontab`"
 then
     echo "" >> /etc/crontab
     echo "### Certbot" >> /etc/crontab
-    echo "00    23   * * *   root    /usr/local/bin/certbot-auto renew --post-hook "systemctl reload nginx" >> /var/log/certbot.log 2>&1" >> /etc/crontab
+    echo "00    23   * * *   root    certbot renew --post-hook "systemctl reload nginx" >> /var/log/certbot.log 2>&1" >> /etc/crontab
     echo . >> /etc/crontab
     echo "# eof" >> /etc/crontab
 fi
