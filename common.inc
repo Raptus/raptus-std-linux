@@ -65,7 +65,7 @@ function checkInstall
 {
     if test "$DISTRO" = "rocky"
     then
-         if test -z "`cat /etc/os-release | grep 'VERSION_ID=\"10.[0-9]\"'`"
+         if test -z "`cat /etc/os-release | grep 'VERSION_ID=\"9.[0-9]\"'`"
         then
             echo "This Rocky Linux Version is not yet supported. Aborting ..."
             exit 1

@@ -11,16 +11,11 @@
 * Choose **Rocky Linux 9** Template
       * Azure Marketplace Name: [Rocky Linux for x86_64](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/resf.rockylinux-x86_64?tab=PlansAndPrice)
 * Resize OS-Disk according to concept
-* There might be an LVM bug in RL9, workaround with the following:
-```shell
-sed -i 's/# use_devicesfile = 0/use_devicesfile = 0/g' /etc/lvm/lvm.conf
-```
+* Chose non-LVM Version, since XFS is flexible enough
 * Resize Partition and Filesystem in System
 ```shell
-growpart /dev/sda 5
-pvresize /dev/sda5
-lvresize -l 100%FREE /dev/rocky/root
-xfs_growfs /dev/mapper/rocky-root
+growpart /dev/nvme0n1 4
+xfs_growfs /dev/nvme0n1p4
 ```
 * Swapfile: Change Size of swapfile according to your needs
 ```shell
@@ -29,14 +24,14 @@ chmod +x /var/lib/cloud/scripts/per-boot/create_swapfile.sh
 
 cat > /var/lib/cloud/scripts/per-boot/create_swapfile.sh << EOF
 #!/bin/sh
-if [ ! -f '/mnt/swapfile' ]; then
-fallocate --length 4GiB /mnt/swapfile
-chmod 600 /mnt/swapfile
-mkswap /mnt/swapfile
-swapon /mnt/swapfile
+if [ ! -f '/var/swapfile' ]; then
+fallocate --length 4GiB /var/swapfile
+chmod 600 /var/swapfile
+mkswap /var/swapfile
+swapon /var/swapfile
 swapon -a 
 else
-swapon /mnt/swapfile; fi
+swapon /var/swapfile; fi
 EOF
 ```
 
