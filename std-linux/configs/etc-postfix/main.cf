@@ -26,6 +26,7 @@ queue_minfree = 100000000
 unknown_local_recipient_reject_code = 550
 recipient_delimiter = +
 
+database_type = lmdb
 alias_maps = lmdb:/etc/aliases
 alias_database = lmdb:/etc/aliases
 
