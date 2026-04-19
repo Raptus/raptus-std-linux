@@ -2,4 +2,5 @@ echo "### Setting up ssh"
 
 $STD_PATH/util/ssh-generate-key.sh root >> $LOGFILE
 
-ln -sf /usr/share/crypto-policies/LEGACY/opensshserver.txt opensshserver.config
+# To enable legacy SSH algorithms if needed:
+# update-crypto-policies --set DEFAULT:SSH-LEGACY

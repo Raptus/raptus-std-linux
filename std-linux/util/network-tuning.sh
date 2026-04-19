@@ -7,11 +7,6 @@ function tuneDevice
     # For bigger transfers
     ip link set $device txqueuelen 10000 > /dev/null 2>&1
 
-    # Turn off offloading & co which is built for LANs
-    ethtool -K $device tso off > /dev/null 2>&1
-    ethtool -K $device gso off > /dev/null 2>&1
-    ethtool -K $device gro off > /dev/null 2>&1
-
     # Increase RX ring buffer
     ethtool -G $device rx 1024 > /dev/null 2>&1
 }
@@ -19,7 +14,7 @@ function tuneDevice
 ###
 
 # find all ethernet devices
-for dev in "`ifconfig -s -a | egrep -v '(Iface|lo)' | cut -d' ' -f1`"
+for dev in "`ip -o link show | awk -F': ' '{print $2}' | grep -v lo`"
 do
     tuneDevice $dev
 done

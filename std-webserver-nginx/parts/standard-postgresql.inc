@@ -1,7 +1,10 @@
 echo "### Setting up postgresql (disabled per default)"
-dnf -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm >> $LOGFILE 2>&1
-# Disable the built-in PostgreSQL module
-dnf -y module disable postgresql >> $LOGFILE 2>&1
+dnf -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-$ROCKY_MAJOR-x86_64/pgdg-redhat-repo-latest.noarch.rpm >> $LOGFILE 2>&1
+# Disable the built-in PostgreSQL module (not needed on Rocky 10, modularity removed)
+if test "$ROCKY_MAJOR" = "9"
+then
+    dnf -y module disable postgresql >> $LOGFILE 2>&1
+fi
 dnf -y install postgresql14-server postgresql14 postgresql14-libs postgresql14-contrib \
                postgis32_14 python3-psycopg2 perl-DBD-Pg >> $LOGFILE 2>&1
 

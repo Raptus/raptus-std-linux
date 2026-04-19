@@ -21,6 +21,7 @@ then
 fi
 
 sudo su -c "ssh-keygen -q -t ed25519 -f ~/.ssh/id_ed25519 -N ''" -s /bin/sh $1
-touch ~/.ssh/authorized_keys
+touch $UHOME/.ssh/authorized_keys
+chown $1 $UHOME/.ssh/authorized_keys
 
 # eof

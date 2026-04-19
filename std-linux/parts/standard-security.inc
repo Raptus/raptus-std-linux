@@ -1,9 +1,5 @@
 echo "### Setting up security"
 
-dnf -y install haveged >> $LOGFILE 2>&1
-systemctl enable haveged >> $LOGFILE 2>&1
-systemctl start haveged >> $LOGFILE 2>&1
-
 mv /etc/security/limits.conf /etc/security/limits.conf.ORIG
 cp $STD_PATH/configs/etc-security/limits.conf /etc/security/limits.conf
 

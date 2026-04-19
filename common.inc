@@ -10,13 +10,15 @@ PRX_PATH=/root/scripts/rsl/std-upstream-proxy-nginx
 
 # Detect distribution
 DISTRO=""
+ROCKY_MAJOR=""
 if ! test -z "`grep 'ID.*rocky' /etc/os-release`"
 then
     DISTRO="rocky"
+    ROCKY_MAJOR="`sed -r -n 's/^VERSION_ID=\"([0-9]+)\..*/\1/p' /etc/os-release`"
     HNFULL="`hostnamectl status | sed -r -n 's/^.*Static hostname: (.*)$/\1/p'`"
 fi
 
-DISTRO_NAME="`sed -r -n 's/PRETTY_NAME=\"(.*)\"/\1/p' /etc/os-release`"
+DISTRO_NAME="`sed -r -n 's/^PRETTY_NAME=\"(.*)\"/\1/p' /etc/os-release`"
 
 OUR_IPS=
 OUR_IPS_SPACED=
@@ -65,11 +67,11 @@ function checkInstall
 {
     if test "$DISTRO" = "rocky"
     then
-         if test -z "`cat /etc/os-release | grep 'VERSION_ID=\"9.[0-9]\"'`"
+         if test "$ROCKY_MAJOR" != "9" && test "$ROCKY_MAJOR" != "10"
         then
             echo "This Rocky Linux Version is not yet supported. Aborting ..."
             exit 1
-        fi   
+        fi
     else
         echo "This Linux distribution is not supported. Aborting ..."
         exit 1
