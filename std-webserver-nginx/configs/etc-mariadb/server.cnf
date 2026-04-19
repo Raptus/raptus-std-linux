@@ -36,7 +36,7 @@ symbolic-links=0
 # single machine, use
 skip-networking
 # instead. Sockets are faster than TCP connections.
-bind-address            = 0.0.0.0
+bind-address            = 127.0.0.1
 # There's no reason to waste time resolving domain names. If the ip
 # changes, we'll know.
 skip-name-resolve

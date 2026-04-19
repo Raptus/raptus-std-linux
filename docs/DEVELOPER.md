@@ -196,7 +196,7 @@ The variable `$ROCKY_MAJOR` (set in `common.inc`) contains the major OS version 
 | `$DISTRO`         | Detected           | `rocky`                          |
 | `$ROCKY_MAJOR`    | Detected           | `9` or `10`                      |
 | `$HNFULL`         | System hostname    | `web01.example.com`              |
-| `$ADMIN_EMAIL`    | `/root/.rslcfg`    | `report@raptus.com`              |
+| `$ADMIN_EMAIL`    | `/root/.rslcfg`    | `admin@example.com`              |
 | `$OUR_IPS`        | `/root/.rslcfg`    | `1.2.3.4,5.6.7.8`               |
 | `$OUR_IPS_SPACED` | Derived            | `1.2.3.4 5.6.7.8`               |
 | `$LOGFILE`        | Generated          | `/var/rsl/log/bootstrap-*.log`   |

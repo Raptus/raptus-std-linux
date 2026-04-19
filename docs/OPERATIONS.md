@@ -45,12 +45,12 @@ hostnamectl set-hostname hostname.domain.tld
 
 Create configuration file:
 ```shell
-echo "ADMIN_EMAIL=report.hosting-info@raptus.com" >> /root/.rslcfg
+echo "ADMIN_EMAIL=admin@example.com" >> /root/.rslcfg
 ```
 
 Optional settings in `/root/.rslcfg`:
 ```
-OUR_IPS=1.2.3.4,5.6.7.8      # Raptus public IPs (comma-separated)
+OUR_IPS=1.2.3.4,5.6.7.8      # Management IPs (comma-separated, used for admin site ACLs)
 ENABLE_FIREWALL=1              # Enable Shorewall firewall
 ```
 

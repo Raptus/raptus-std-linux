@@ -11,7 +11,7 @@ See [docs/OPERATIONS.md](docs/OPERATIONS.md) for the full setup guide. The short
 ```shell
 # 1. Set hostname and config
 hostnamectl set-hostname hostname.domain.tld
-echo "ADMIN_EMAIL=report.hosting-info@raptus.com" >> /root/.rslcfg
+echo "ADMIN_EMAIL=admin@example.com" >> /root/.rslcfg
 
 # 2. Bootstrap
 bash <(curl -s https://raw.githubusercontent.com/Raptus/raptus-std-linux/master/kickstart-standard-linux.sh)

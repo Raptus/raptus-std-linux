@@ -68,8 +68,14 @@ function updateConfig()
 
         if ! test -f $CONFDIR/nginx.conf
         then
+            ALLOW_LINES=""
+            for oip in $OUR_IPS_SPACED
+            do
+                ALLOW_LINES="$ALLOW_LINES        allow                   $oip;\n"
+            done
             sed "s/SITE_NAME/$site/g" $NGINX_TEMPL > $CONFDIR/nginx.conf.IN.1
-            sed "s/PHPFPM_PORT/$PORT/g" $CONFDIR/nginx.conf.IN.1 > $CONFDIR/nginx.conf
+            sed "s/PHPFPM_PORT/$PORT/g" $CONFDIR/nginx.conf.IN.1 > $CONFDIR/nginx.conf.IN.2
+            sed "s|OUR_ALLOW_IPS|$ALLOW_LINES|g" $CONFDIR/nginx.conf.IN.2 > $CONFDIR/nginx.conf
             rm -f $CONFDIR/nginx.conf.IN.*
         fi
 

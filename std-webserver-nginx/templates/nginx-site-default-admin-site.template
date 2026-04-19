@@ -33,7 +33,7 @@ server {
     ### Primary location, matches probably last
     location / {
         return                  301 https://SITE_NAME$request_uri;
-        allow                   213.221.220.86/32;
+OUR_ALLOW_IPS
         deny                    all;
     }
 }
@@ -57,7 +57,7 @@ server {
     }
 
     location /admin {
-        allow                   213.221.220.86/32;
+OUR_ALLOW_IPS
         deny                    all;
         auth_basic              "Restricted Admin Area";
         auth_basic_user_file    /home/sites/SITE_NAME/auth/htpasswd;
@@ -110,8 +110,8 @@ server {
 #    }
 
     ### These error pages must have properly set http headers!
-    error_page                  500 501 504 https://temp.raptus.com/overload/;
-    error_page                  502 503 https://temp.raptus.com/maintenance/;
+    error_page                  500 501 504 https://status.example.com/overload/;
+    error_page                  502 503 https://status.example.com/maintenance/;
 
     ### Uncomment next lines to enable maintenance mode
 #    if ($not-our-ips) {
