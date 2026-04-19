@@ -27,7 +27,7 @@ echo "### Checking out from GIT"
 test -d "/root/scripts" || mkdir -p /root/scripts
 if ! test -d /root/scripts/rsl/.git
 then
-    git clone --depth 1 https://bitbucket.org/raptus-it/raptus-std-linux.git /root/scripts/rsl
+    git clone --depth 1 https://github.com/Raptus/raptus-std-linux.git /root/scripts/rsl
 fi
 
 if test -f "/root/scripts/rsl/std-linux/bootstrap.sh"

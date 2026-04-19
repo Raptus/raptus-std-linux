@@ -1,3 +1,12 @@
+# DEPRECATED - This repository has moved!
+
+## This project is now maintained on GitHub:
+## https://github.com/Raptus/raptus-std-linux
+
+This Bitbucket repository is archived and will no longer receive updates.
+
+---
+
 # README #
 
 ### What is this for? ###
@@ -48,7 +57,7 @@ echo "ADMIN_EMAIL=myname@domain.tld" >> /root/.rslcfg
 ### Install Step 3: ###
 Kickstart the installation
 ```shell
-bash <(curl -s https://bitbucket.org/raptus-it/raptus-std-linux/raw/master/kickstart-standard-linux.sh)
+bash <(curl -s https://raw.githubusercontent.com/Raptus/raptus-std-linux/master/kickstart-standard-linux.sh)
 ```
 
 ### Install Step 4: ###
