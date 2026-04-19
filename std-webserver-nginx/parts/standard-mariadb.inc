@@ -39,3 +39,5 @@ passwordInfo "MySQL" "dbadmin" "$MPASS" "localhost:3306"
 echo >> /etc/crontab
 echo "00    4    * * *   root    /root/scripts/rsl/std-webserver-nginx/util/mariadb-maintenance.sh" >> /etc/crontab
 echo "00    */1  * * *   root    /root/scripts/rsl/std-webserver-nginx/util/mariadb-dumps.sh" >> /etc/crontab
+
+# eof

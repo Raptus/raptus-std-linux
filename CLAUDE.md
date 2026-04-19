@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**raptus-std-linux** is a server bootstrapping and automation framework for Rocky Linux 9, maintained by Raptus IT. It automates the installation and configuration of standardized web hosting infrastructure: Nginx, PHP (FPM), MariaDB, PostgreSQL, Memcached, and supporting services.
+**raptus-std-linux** is a server bootstrapping and automation framework maintained by Raptus IT. It automates the installation and configuration of standardized web hosting infrastructure: Nginx, PHP (FPM), MariaDB, PostgreSQL, Memcached, and supporting services.
 
 The repo is deployed to `/root/scripts/rsl` on target servers via `kickstart-standard-linux.sh`. All scripts run as root.
 
@@ -14,7 +14,7 @@ The repo is deployed to `/root/scripts/rsl` on target servers via `kickstart-sta
 
 1. **Base system** (`std-linux/bootstrap.sh` → `bootstrap-rocky.sh`): Installs packages, configures security (SSH, Fail2Ban, Shorewall), mail (Postfix), monitoring (SNMP), and system tuning. Requires a reboot after completion.
 2. **Application layer** (choose one):
-   - `std-webserver-nginx/standard-webserver.sh` — full LEMP stack (Nginx + PHP 8.3 + MariaDB + PostgreSQL + Memcached)
+   - `std-webserver-nginx/standard-webserver.sh` — full LEMP stack (Nginx + PHP + MariaDB + PostgreSQL + Memcached)
    - `std-upstream-proxy-nginx/standard-webproxy.sh` — reverse proxy only (Nginx + Memcached, no PHP/DB)
 3. **Optional addons** (`std-linux-addons/`): Pure-FTPd, Certbot/Let's Encrypt
 

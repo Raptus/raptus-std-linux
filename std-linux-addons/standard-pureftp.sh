@@ -19,3 +19,5 @@ chmod -x /usr/lib/systemd/system/pure-ftpd.service
 
 systemctl disable pure-ftpd
 echo "### run `systemctl enable pure-ftpd` to enable the service"
+
+# eof

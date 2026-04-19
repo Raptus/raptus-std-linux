@@ -2,30 +2,29 @@
 
 source /root/scripts/rsl/common.inc
 
-if test -z "$1" || test -z "$2"
+if test -z "$1"
 then
-    echo "Usage: $0 <domain.tld> <acme_account_email>"
-    echo 
+    echo "Usage: $0 <domain.tld>"
+    echo
     exit 1
 fi
 
 SITE="$1"
-ACMEACCOUNT="$2"
 if ! test -d "/home/sites/$SITE"
 then
     echo "Cannot find site $SITE"
     exit 2
 fi
 
-if test -z "`yum list installed | grep certbot-nginx`"
+if test -z "`dnf list installed 2>/dev/null | grep certbot`"
 then
-    echo "FATAL: Missing package 'certbot-nginx'" >>/dev/stderr
+    echo "FATAL: Certbot is not installed. Run std-linux-addons/standard-certbot.sh first." >>/dev/stderr
     exit 3
 fi
 
-certbot --nginx certonly --agree-tos -n -m "$ACMEACCOUNT" -d "$SITE" >> $LOGFILE 2>&1
+certbot --nginx certonly --agree-tos -n -m "$ADMIN_EMAIL" -d "$SITE" >> $LOGFILE 2>&1
 
-if ! test -f /etc/letsencrypt/live/$SITE/fullchain.pem &&
+if ! test -f /etc/letsencrypt/live/$SITE/fullchain.pem ||
    ! test -f /etc/letsencrypt/live/$SITE/privkey.pem
 then
     echo "Cannot find valid certificate. Aborting." >>/dev/stderr
@@ -46,10 +45,9 @@ systemctl reload nginx
 
 if test -z "`grep 'certbot renew --post-hook' /etc/crontab`"
 then
+    echo "" >> /etc/crontab
     echo "### Certbot" >> /etc/crontab
     echo "00    23   * * *   root    certbot renew --post-hook \"systemctl reload nginx\" >> /var/log/certbot.log 2>&1" >> /etc/crontab
-    echo . >> /etc/crontab
-    echo "# eof" >> /etc/crontab
 fi
 
 # eof

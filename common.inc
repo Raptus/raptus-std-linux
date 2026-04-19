@@ -137,7 +137,7 @@ function passwordInfo
 
     echo "$1  Username: $2  Password: $3     Address: $4" >> $PWDFILE
     echo ""
-    echo "    ATTENTON"
+    echo "    ATTENTION"
     echo "    A Password has been generated for $1, please see in $PWDFILE"
     echo
 }

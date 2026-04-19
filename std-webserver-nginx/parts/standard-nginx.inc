@@ -41,3 +41,5 @@ openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 4096 >> $LOGFILE 2>&1
 
 systemctl enable nginx.service >> $LOGFILE 2>&1
 systemctl start nginx.service >> $LOGFILE 2>&1
+
+# eof

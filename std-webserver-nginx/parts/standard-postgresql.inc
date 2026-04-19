@@ -38,3 +38,5 @@ echo >> /etc/crontab
 echo "#30    */1  * * *   root    /root/scripts/rsl/std-webserver-nginx/util/pgsql-dumps.sh" >> /etc/crontab
 
 systemctl disable postgresql-14 >> $LOGFILE 2>&1
+
+# eof

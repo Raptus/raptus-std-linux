@@ -1,5 +1,5 @@
 #!/bin/bash
-#UNTESTED!
+
 source /root/scripts/rsl/common.inc
 
 if test -z "$1"
@@ -16,9 +16,15 @@ then
     exit 2
 fi
 
-certbot certonly --nginx --register-unsafely-without-email --agree-tos -d $SITE
+if test -z "`dnf list installed 2>/dev/null | grep certbot`"
+then
+    echo "FATAL: Certbot is not installed. Run std-linux-addons/standard-certbot.sh first." >>/dev/stderr
+    exit 3
+fi
 
-if ! test -f /etc/letsencrypt/live/$SITE/fullchain.pem &&
+certbot certonly --nginx --agree-tos -n -m "$ADMIN_EMAIL" -d "$SITE" >> $LOGFILE 2>&1
+
+if ! test -f /etc/letsencrypt/live/$SITE/fullchain.pem ||
    ! test -f /etc/letsencrypt/live/$SITE/privkey.pem
 then
     echo "Cannot find valid certificate. Aborting." >>/dev/stderr
@@ -37,13 +43,11 @@ fi
 
 systemctl reload nginx
 
-if test -z "`grep 'certbot renew' /etc/crontab`"
+if test -z "`grep 'certbot renew --post-hook' /etc/crontab`"
 then
     echo "" >> /etc/crontab
     echo "### Certbot" >> /etc/crontab
-    echo "00    23   * * *   root    certbot renew --post-hook "systemctl reload nginx" >> /var/log/certbot.log 2>&1" >> /etc/crontab
-    echo . >> /etc/crontab
-    echo "# eof" >> /etc/crontab
+    echo "00    23   * * *   root    certbot renew --post-hook \"systemctl reload nginx\" >> /var/log/certbot.log 2>&1" >> /etc/crontab
 fi
 
 # eof

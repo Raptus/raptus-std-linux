@@ -17,3 +17,5 @@ SUBJECT="This is a test mail. Please ignore it"
   echo
 ) 2>&1 | /usr/lib/sendmail -f $MAILFROM -t
 exit 0
+
+# eof

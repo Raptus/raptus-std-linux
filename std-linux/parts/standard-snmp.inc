@@ -6,3 +6,5 @@ cp $STD_PATH/configs/etc-snmp/snmpd.conf /etc/snmp/snmpd.conf
 sed -r -i "s/(HOSTMASTER).*$/\1$ADMIN_EMAIL/g" /etc/snmp/snmpd.conf
 
 systemctl enable snmpd.service >> $LOGFILE 2>&1
+
+# eof
