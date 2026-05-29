@@ -103,9 +103,9 @@ Enables and starts the PHP-FPM systemd service `php-fpm_<domain>.service`.
 
 Stops and disables the PHP-FPM service.
 
-#### php-set-php82 / php-set-php83
+#### php-set &lt;version&gt;
 
-Switches the site to a different PHP version:
+Switches the site to a different PHP version (e.g. `php-set php84`):
 - Installs the PHP version if not already present
 - Updates the version symlinks in `conf/php-cli/php` and `conf/php-fpm/php`
 - Updates the `composer.sh` wrapper
@@ -136,6 +136,14 @@ Adds a second PHP-FPM pool running as the `nginx` user (instead of the site owne
 Admin access: `mysql` (uses credentials from `/root/.my.cnf`)
 
 ### Create a PostgreSQL Database
+
+PostgreSQL is not installed by the standard webserver setup. Install it on request first:
+
+```shell
+/root/scripts/rsl/std-webserver-nginx/util/install-postgresql.sh
+```
+
+Then create databases:
 
 ```shell
 /root/scripts/rsl/std-webserver-nginx/scripts/create-pgsql-db.sh <db_name> <db_user>

@@ -4,8 +4,6 @@ source /root/scripts/rsl/common.inc
 TEMPLPATH="$WEB_PATH/templates"
 ADMINTMPL="default-admin-site"
 
-DEFPHPMAJ="8"
-DEFPHPMAJ8="php83"
 PORTBASE="10010"
 PORTSIZE="9"
 PORTFILE="/var/rsl/state/last-port-offset"
@@ -105,8 +103,8 @@ function updateConfig()
             cp $TEMPLPATH/nginx-rewrites.conf $CONFDIR/
         fi
 
-        ln -s /opt/$DEFPHPMAJ8 $CONFDIR/php-cli/php
-        ln -s /opt/$DEFPHPMAJ8 $CONFDIR/php-fpm/php
+        ln -s /opt/$DEFAULT_PHP $CONFDIR/php-cli/php
+        ln -s /opt/$DEFAULT_PHP $CONFDIR/php-fpm/php
         
         ### PHP Compose
         
@@ -119,7 +117,7 @@ function updateConfig()
         touch $cfile
 
         echo '#!/bin/bash' >> $cfile
-        echo '/opt/'"$DEFPHPMAJ8"'/bin/php /opt/'"$DEFPHPMAJ8"'/opt/composer/bin/composer.phar $@' >> $cfile
+        echo '/opt/'"$DEFAULT_PHP"'/bin/php /opt/'"$DEFAULT_PHP"'/opt/composer/bin/composer.phar $@' >> $cfile
         echo '# eof' >> $cfile
         
         chmod +x $cfile

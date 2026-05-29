@@ -2,7 +2,7 @@
 
 Standard Linux server bootstrapper and automation framework by Raptus IT.
 
-Automates the installation and configuration of standardized web hosting infrastructure: Nginx, PHP, MariaDB, PostgreSQL, and supporting services.
+Automates the installation and configuration of standardized web hosting infrastructure: Nginx, PHP, MariaDB, and supporting services (PostgreSQL optional, on request).
 
 ## Quick Start
 
@@ -29,7 +29,7 @@ bash <(curl -s https://raw.githubusercontent.com/Raptus/raptus-std-linux/master/
 | Module | Purpose |
 |--------|---------|
 | `std-linux` | Base system: security, SSH, mail, monitoring, tuning |
-| `std-webserver-nginx` | Nginx + PHP-FPM + MariaDB + PostgreSQL + Memcached |
+| `std-webserver-nginx` | Nginx + PHP-FPM + MariaDB + Memcached (PostgreSQL optional, on request) |
 | `std-upstream-proxy-nginx` | Nginx reverse proxy + Memcached |
 | `std-linux-addons` | Optional: Pure-FTPd, Certbot/Let's Encrypt |
 

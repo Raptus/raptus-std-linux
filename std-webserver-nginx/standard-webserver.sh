@@ -37,7 +37,6 @@ mkdir -p /home/restricted/{scripts,logs,temp}
 # ATTENTION: Dependencies!!!
 source $WEB_PATH/parts/standard-webserver.inc
 source $WEB_PATH/parts/standard-memcached.inc
-source $WEB_PATH/parts/standard-postgresql.inc
 source $WEB_PATH/parts/standard-mariadb.inc
 source $WEB_PATH/parts/standard-nginx.inc
 source $WEB_PATH/parts/standard-php.inc

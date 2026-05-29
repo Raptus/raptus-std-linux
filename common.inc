@@ -39,6 +39,16 @@ else
 fi
 
 PWGENOPTS="-B -c -N1 -n 15"
+
+# Default PHP version (remi package name) used for the base install and for
+# newly created sites. Single source of truth - install-php.sh accepts any
+# version, this only sets the default.
+DEFAULT_PHP="php84"
+
+# Default PostgreSQL major version installed by install-postgresql.sh.
+# The dump/create scripts auto-detect whatever is installed, so this only
+# pins the version used for a fresh install.
+DEFAULT_PGSQL="17"
 TEMPDIR="/var/rsl/tmp"
 LOCKDIR="/var/rsl/lock"
 LOGDIR="/var/rsl/log"

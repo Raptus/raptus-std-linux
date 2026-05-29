@@ -133,7 +133,8 @@ std-linux (STAGE 1, required)
      │
      ├──► std-webserver-nginx (STAGE 2, option A)
      │        uses: $WEB_PATH, $ROCKY_MAJOR, $HNFULL, $ADMIN_EMAIL
-     │        adds: Nginx, PHP-FPM, MariaDB, PostgreSQL, Memcached
+     │        adds: Nginx, PHP-FPM, MariaDB, Memcached
+     │        optional (on request): PostgreSQL via util/install-postgresql.sh
      │
      ├──► std-upstream-proxy-nginx (STAGE 2, option B)
      │        uses: $PRX_PATH, $ROCKY_MAJOR, $HNFULL, $ADMIN_EMAIL

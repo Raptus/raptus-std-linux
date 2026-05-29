@@ -73,7 +73,7 @@ Apply Raptus security standards:
 
 Choose one:
 
-**Webserver** (Nginx + PHP + MariaDB + PostgreSQL + Memcached):
+**Webserver** (Nginx + PHP + MariaDB + Memcached):
 ```shell
 /root/scripts/rsl/std-webserver-nginx/standard-webserver.sh
 ```
@@ -82,6 +82,12 @@ Choose one:
 ```shell
 /root/scripts/rsl/std-upstream-proxy-nginx/standard-webproxy.sh
 ```
+
+**Optional: PostgreSQL** — not installed by the webserver setup. Install on request:
+```shell
+/root/scripts/rsl/std-webserver-nginx/util/install-postgresql.sh
+```
+This installs PostgreSQL (service disabled by default) and enables the hourly dump cron. The major version is set via `DEFAULT_PGSQL` in `common.inc`. PostGIS is not installed by default.
 
 ### Optional Addons
 
@@ -122,7 +128,7 @@ After creation, enable the site and PHP:
 /root/scripts/rsl/std-webserver-nginx/scripts/create-mariadb-db.sh mydb mydbuser
 ```
 
-**PostgreSQL:**
+**PostgreSQL:** (requires `util/install-postgresql.sh` to have been run first)
 ```shell
 /root/scripts/rsl/std-webserver-nginx/scripts/create-pgsql-db.sh mydb mydbuser
 ```
@@ -163,8 +169,7 @@ $MANAGE example.com site-archive         # Archive to tarball, then delete
 
 $MANAGE example.com php-enable           # Start PHP-FPM pool
 $MANAGE example.com php-disable          # Stop PHP-FPM pool
-$MANAGE example.com php-set-php82        # Switch to PHP 8.2
-$MANAGE example.com php-set-php83        # Switch to PHP 8.3
+$MANAGE example.com php-set php84        # Switch to a given PHP version
 $MANAGE example.com php-enable-nginx-pool  # Add separate FPM pool as nginx user
 ```
 
@@ -177,7 +182,7 @@ systemctl start php-fpm_example.com.service
 ### Installing Additional PHP Versions
 
 ```shell
-/root/scripts/rsl/std-webserver-nginx/util/install-php.sh php82
+/root/scripts/rsl/std-webserver-nginx/util/install-php.sh php83
 ```
 
 Then switch individual sites using `manage-site.sh`.
@@ -202,7 +207,7 @@ Automated hourly dumps via cron to `/home/backups/mariadb/`. Each database gets 
 
 ### PostgreSQL
 
-Automated dumps via cron to `/home/backups/pgsql/` (disabled by default — uncomment the cron line in `/etc/crontab`).
+Automated hourly dumps via cron to `/home/backups/pgsql/`. The cron entry is added by `util/install-postgresql.sh`, so dumps only exist once PostgreSQL has been installed. The dump script auto-detects the installed PostgreSQL version and no-ops while its service is inactive.
 
 ### Database Maintenance
 

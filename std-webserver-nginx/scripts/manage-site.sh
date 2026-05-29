@@ -226,9 +226,13 @@ then
         ;;
         php-disable)     disablePHP $1
         ;;
-        php-set-php82)  setPHPVer php82 $1
-        ;;
-        php-set-php83)  setPHPVer php83 $1
+        php-set)
+            if test -z "$3"
+            then
+                echo "Usage: $0 <domain.tld> php-set <php-version>   (e.g. php84)" >>/dev/stderr
+                exit 1
+            fi
+            setPHPVer "$3" $1
         ;;
         php-enable-nginx-pool)  enablePHPNginxPool $1
         ;;
@@ -249,8 +253,7 @@ else
     echo "                       site-archive           archives and then deletes the site"
     echo "                       php-enable             enables the PHP backend"
     echo "                       php-disable            enables the PHP backend"
-    echo "                       php-set-php82          switch to PHP v8.2 for cli and fpm"
-    echo "                       php-set-php83          switch to PHP v8.3 for cli and fpm"
+    echo "                       php-set <version>     switch to the given PHP version for cli and fpm (e.g. php84)"
     echo "                       php-enable-nginx-pool  enable separate PHP-FPM Pool running as nginx user rather than host owner"
 fi
 echo

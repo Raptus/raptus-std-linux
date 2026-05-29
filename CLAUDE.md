@@ -14,7 +14,7 @@ The repo is deployed to `/root/scripts/rsl` on target servers via `kickstart-sta
 
 1. **Base system** (`std-linux/bootstrap.sh` → `bootstrap-rocky.sh`): Installs packages, configures security (SSH, Fail2Ban, Shorewall), mail (Postfix), monitoring (SNMP), and system tuning. Requires a reboot after completion.
 2. **Application layer** (choose one):
-   - `std-webserver-nginx/standard-webserver.sh` — full LEMP stack (Nginx + PHP + MariaDB + PostgreSQL + Memcached)
+   - `std-webserver-nginx/standard-webserver.sh` — LEMP stack (Nginx + PHP + MariaDB + Memcached). PostgreSQL is **not** installed here; install it on request via `std-webserver-nginx/util/install-postgresql.sh`.
    - `std-upstream-proxy-nginx/standard-webproxy.sh` — reverse proxy only (Nginx + Memcached, no PHP/DB)
 3. **Optional addons** (`std-linux-addons/`): Pure-FTPd, Certbot/Let's Encrypt
 
