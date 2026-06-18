@@ -200,6 +200,7 @@ The variable `$ROCKY_MAJOR` (set in `common.inc`) contains the major OS version 
 | `$ADMIN_EMAIL`    | `/root/.rslcfg`    | `admin@example.com`              |
 | `$OUR_IPS`        | `/root/.rslcfg`    | `1.2.3.4,5.6.7.8`               |
 | `$OUR_IPS_SPACED` | Derived            | `1.2.3.4 5.6.7.8`               |
+| `$ABUSEIPDB_KEY`  | `/root/.rslcfg` or env | AbuseIPDB API key (optional, traffic analysis `--enrich`) |
 | `$LOGFILE`        | Generated          | `/var/rsl/log/bootstrap-*.log`   |
 | `$LOCKFILE`       | Generated          | `/var/rsl/lock/bootstrap.done`   |
 | `$STD_PATH`       | Constant           | `/root/scripts/rsl/std-linux`    |

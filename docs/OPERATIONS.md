@@ -52,6 +52,7 @@ Optional settings in `/root/.rslcfg`:
 ```
 OUR_IPS=1.2.3.4,5.6.7.8      # Management IPs (comma-separated, used for admin site ACLs)
 ENABLE_FIREWALL=1              # Enable Shorewall firewall
+ABUSEIPDB_KEY=...             # AbuseIPDB API key (optional; used by nginx-traffic-analysis.sh --enrich)
 ```
 
 ### Step 3: Bootstrap
@@ -198,6 +199,39 @@ For all sites (interactive confirmation):
 ```shell
 /root/scripts/rsl/std-webserver-nginx/scripts/reset-access-rights.sh
 ```
+
+### Traffic Analysis (Overload Diagnosis)
+
+When a site overloads the server because unwanted traffic (bots, scrapers,
+brute-forcers) reaches the backend, `nginx-traffic-analysis.sh` produces a
+readable report from the site's access log:
+
+```shell
+/root/scripts/rsl/std-webserver-nginx/util/nginx-traffic-analysis.sh example.com
+```
+
+Requires the per-site `access_log` (cache_log format) to be enabled — by
+default it is commented out in the site config. The report classifies every
+request into **CACHE** (HIT), **STATIC** (served by nginx from disk) or
+**BACKEND** (MISS/BYPASS/EXPIRED/… plus uncached dynamic requests), and ranks
+IPs, URLs and bots by **backend load** — the traffic that actually stresses
+PHP-FPM / the proxy. Static assets are excluded so the backend figure is realistic.
+
+Options:
+- `--no-dns` — skip reverse-DNS of the top IPs (faster)
+- `--enrich` — enrich the top offender IPs with **Geo** (country/city), **ASN /
+  network operator** and **AbuseIPDB reputation**. Geo/ASN come from
+  ip-api.com (HTTP) with a Team Cymru DNS fallback; abuse reputation requires
+  an `ABUSEIPDB_KEY` (env var or `/root/.rslcfg`). These lookups query external
+  services and send the offender IPs there, hence opt-in.
+
+```shell
+# Full report including geo/ASN/abuse for the worst offenders
+/root/scripts/rsl/std-webserver-nginx/util/nginx-traffic-analysis.sh example.com --enrich
+```
+
+The report ends with ready-to-paste mitigations (nginx `deny`, Shorewall
+reject, rate-limiting). Runtime is typically 1-2 minutes on large logs.
 
 ## Backups
 
